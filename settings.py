@@ -177,12 +177,6 @@ LOGGING = {
     }
 }
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-        'LOCATION': '127.0.0.1:11211',
-    }
-}
 
 
 EMAIL_HOST = 'smtp.bizmail.yahoo.com'
