@@ -1,0 +1,5 @@
+-e git+https://github.com/aviars/django-registration.git#egg=django-registration
+-e git+https://github.com/sunlightlabs/django-mediasync.git#egg=django-mediasync
+twilio==2.0.10
+Django
+
