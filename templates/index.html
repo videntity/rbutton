@@ -1,3 +1,5 @@
+<link href="file:///Macintosh HD/Users/mark/Sites/Rainbow/rbutton/mainstatic/boilerplate/css/style.css" rel="stylesheet" type="text/css" />
+
 {% extends "base.html" %}
 {% block extra_head %}
 
@@ -9,8 +11,12 @@
 <h2>Meet Green, Red and White Buttons!</h2>
     
 <img src="{{ STATIC_URL }}/img/RainbowButtonLogo.gif" width="300" align="Center" /><br>
-<p>Hello <em><strong>{{first_name}}</strong></em>. </p>
-<br>
-<form action="" method="post">Upload Your BlueButton File: <input name="BlueButton_Upload" type="file" size="40" /></form>
-
+<p class="Body_Text">Hello <em><strong>{{first_name}}</strong></em>. </p>
+<span class="Body_Text"><br>
+</span>
+<form action="" method="post">
+  <span class="Body_Text">Upload Your BlueButton File: 
+  <input name="BlueButton_Upload" type="file" size="40" />
+  </span>
+</form>
 {% endblock %}
