@@ -11,13 +11,13 @@
 
 <p class="Narrative">Your Green Button File is ready. You can download it as a text file, An Excel Worksheet, or choose to donate directly to one of our Research Partners.</p> 
 
-<<p><br />
+<p>
 <Table><tr style="vertical-align:middle"><td>
-<a href="My_Green_Button_File.txt" target="_blank"><img drc="{{STATIC_URL}}/img/GreenButton100_1.png" /> Download Green Button Text File</a>  
+<a href="My_Green_Button_File.txt" target="_blank"><img src="{{STATIC_URL}}/img/GreenButton100_1.png" /> Download Green Button Text File</a>  
 </td>
 </tr>
 <tr style="vertical-align:middle"><td>
-<a href="My_Green_Button_File.xls" target="_blank"><img drc="{{STATIC_URL}}/img/GreenButton100_2.png" /> Download Green Button Excel Sheet</a>  
+<a href="My_Green_Button_File.xls" target="_blank"><img src="{{STATIC_URL}}/img/GreenButton100_2.png" /> Download Green Button Excel Sheet</a>  
 </td>
 </tr>
 </Table>
@@ -25,17 +25,11 @@
 Donate your health data to one of our research partners.
 </p>
 
-
-
 <form action="." method="POST" enctype="multipart/form-data" class="Narrative">
+<select name="ResearchOrgs" size="30" multiple></select>
 
-
-<br />
-  {{ form.as_p }}
-  
-  {% csrf_token %}
   <br>
-<input type="image" name="CreateGreen" src="{{STATIC_URL}}/img/PrepareGreenFile.png" border="0" height="60" />       
+<input type="image" name="Donate" src="{{STATIC_URL}}/img/DonateGreenFile.png" border="0" height="60" />       
 </form>
 
 {% endblock %}
