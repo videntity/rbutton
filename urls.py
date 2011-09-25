@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
                 {'document_root': settings.STATIC_ROOT}),
     url(r'^$', direct_to_template, {'template': 'index.html'}),
-    url(r'^upload$', 'rbutton.uploadblue.views.home', name='upload'),
+    url(r'^upload$', 'rbutton.uploadblue.views.upload', name='upload'),
     url(r'^upload-success/(?P<filename>\S+)$',
         'rbutton.uploadblue.views.upload_success', name='upload_success'),
    
