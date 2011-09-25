@@ -1,27 +1,51 @@
+<!--<link href="file:///Macintosh HD/Users/mark/Sites/Rainbow/rbutton/mainstatic/boilerplate/css/style.css" rel="stylesheet" type="text/css" /> 
+ -->
+
 {% extends "base.html" %}
 {% block extra_head %}
 
-
+<script type="text/javascript">
+cc=1;
+function changeimage(ImageName)
+{
+if (cc==0) 
+{
+cc=1;
+ImageNameAggregated = ImageName + '_' + cc + '.png' ;
+document.getElementById(ImageName).src='{{STATIC_URL}}/img/' + ImageNameAggregated ;
+}
+else
+{
+cc=0;
+ImageNameAggregated = ImageName + '_' + cc + '.png' ;
+document.getElementById(ImageName).src= '{{STATIC_URL}}/img/' + ImageNameAggregated ;
+}
+}
+</script>
 {% endblock %}
-
-<H1>Thanks for Sharing!</H1>
 
 {% block featureBox %}
 
-<p>Thanks {{first_name}} {{last_name}} for uploading your Blue Button
-information. We hope you choose to pay it forward and share your information.
-Doing so can help make the world a better place.  Don't worry, you can
-remove personal information such as your name.  Select a level of the
-data filtering that works for you.</p>
+<p class="Narrative">Thanks <span class="The_Person">{{first_name}} {{last_name}}</span>.</p> 
+<p class="Narrative">Your Blue Button file is ready to be analyzed. In this step you choose how much information you want to keep private.
+</p>
+<p><br />
+  
+</p>
+<form action="." method="POST" enctype="multipart/form-data" class="Narrative">
 
-    
-<form enctype="multipart/form-data" action="." method="POST">
-
-{{ form.as_p }}
-
-{% csrf_token %}
-<br>
-<input type="submit" value="Filter and Share My Blue Button Information" />        
+<p>How much of your information do you want to keep private?</p>
+<table><tr><td style="vertical-align:middle">0.</td><td width="100" align="center">   <img id="RedButton100" onclick="changeimage('RedButton100')" border="0" src="{{STATIC_URL}}/img/RedButton100_0.png"  /></td><td style="vertical-align:middle">Send All information (not recommended)</td></tr>
+		<tr><td style="vertical-align:middle">1.</td><td width="100" align="center"><img id="RedButton101" onclick="changeimage('RedButton101')" border="0" src="{{STATIC_URL}}/img/RedButton101_0.png"  /></td><td style="vertical-align:middle">Remove name and contact information</td></tr>
+		<tr><td style="vertical-align:middle">2.</td><td width="100" align="center"><img id="RedButton102" onclick="changeimage('RedButton102')" border="0" src="{{STATIC_URL}}/img/RedButton102_0.png" /></td><td style="vertical-align:middle">Also remove family history and military service</td></tr>
+ 		<tr><td style="vertical-align:middle">3.</td><td width="100" align="center"><img id="RedButton103" onclick="changeimage('RedButton103')" border="0" src="{{STATIC_URL}}/img/RedButton103_0.png"/></td><td style="vertical-align:middle">Also remove medications</td></tr>
+</table>  
+<br />
+  {{ form.as_p }}
+  
+  {% csrf_token %}
+  <br>
+<input type="image" name="CreateGreen" src="{{STATIC_URL}}/img/PrepareGreenFile.png" border="0" height="60" />       
 </form>
 
 {% endblock %}
