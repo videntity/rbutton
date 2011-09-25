@@ -1,0 +1,33 @@
+<!--<link href="file:///Macintosh HD/Users/mark/Sites/Rainbow/rbutton/mainstatic/boilerplate/css/style.css" rel="stylesheet" type="text/css" /> 
+ -->
+
+{% extends "base.html" %}
+{% block extra_head %}
+
+
+{% endblock %}
+
+{% block featureBox %}
+
+<p class="Narrative">We have detected you are using GLEVIC.  Clinical trials
+reported {{vomiting}} percent of people using Glevic experienced vomiting.
+Anecdotal evidece sugggest this side effect may be more pervasive than
+origionally thought. 
+
+<p>
+ </p class="Narrative">
+Please answer the question below to help Novartis
+research the full extent of the side effect. You information will
+remain anonymous. 
+</p>
+<form action="/novartis-question/{{ filename }}" method="POST" enctype="multipart/form-data" class="Narrative">
+  <p>
+    
+    {{ form.as_p }}
+  
+  {% csrf_token %}
+    <input type="submit" value="Share your report with Novartis" />
+  </p>
+</form>
+
+{% endblock %}

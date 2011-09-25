@@ -39,4 +39,4 @@ class DonateForm(forms.Form):
 class NovartisForm(forms.Form):
     vomiting  = forms.TypedChoiceField(choices= VOMITING_CHOICES,
                                     widget=forms.RadioSelect(),
-                                    label="Is this drug making you vomit?")
+                                    label="How much, if at all, does this drug making you vomit?")
