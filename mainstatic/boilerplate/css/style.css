@@ -260,3 +260,12 @@ a:hover { color: #036; }
   h2, h3{ page-break-after: avoid; }
 }
 
+.Body_Text input {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: small;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	color: #03C;
+}
