@@ -6,7 +6,10 @@ from datetime import datetime, timedelta, date
 import json
 import xlwt
 
-def convert2excel(l):
+def convert2excel(l, outfile):
+    
+    l=json.dumps(l)
+    l=json.loads(l)
     font0 = xlwt.Font()
     font0.name = 'Times New Roman'
     font0.colour_index = 2
@@ -19,7 +22,7 @@ def convert2excel(l):
     style1.num_format_str = 'D-MMM-YY'
     
     wb = xlwt.Workbook()
-    cdcsheet= wb.add_sheet('CDCSheet')
+    cdcsheet= wb.add_sheet('Medications')
     keys= l[0].keys()
     cdc_list=l
     j=0
@@ -36,7 +39,7 @@ def convert2excel(l):
             column+=1
        column=0 
        row+=1
-    excelfilename ="%s.xls"   
+    excelfilename ="%s.xls" % (outfile)   
     excelpath = os.path.join(settings.MEDIA_ROOT, excelfilename)
     wb.save(excelpath)
     return excelfilename

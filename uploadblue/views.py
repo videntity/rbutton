@@ -61,14 +61,14 @@ def download_reformat(request, filename, sec_level=1):
     items = simple_parse(filepath, "outfile")
     meds = build_mds_readings(items)
     """ generate the information as excel in media"""
-    excelfilename = convert2excel(meds)
+    excelfilename = convert2excel(meds, filename)
     print "excel is", excelfilename
 
     return render_to_response('select-Donation.html',
 				{
 				'filename': filename,
 				 'sanitizedfile': sanitized_file,
-				 'exceldownload': excelfilename},
+				 'excelfilename': excelfilename},
                               RequestContext(request))
     
 def donate_my_data(request, filename):
@@ -87,6 +87,13 @@ def donate_my_data(request, filename):
                               RequestContext(request))
 
 def novartis_question(request, filename):
+    
+    if request.method == 'POST':
+        form = NovartisForm(request.POST)
+        if form.is_valid():  
+            return HttpResponseRedirect(reverse('novartis_thanks',
+						args=(filename, )))
+
 
     response = urllib2.urlopen('http://spl.anzonow.com/query?uri=http%3A//spl-ld.anzonow.com/data/document1')
     myresponse = response.read()
@@ -98,14 +105,6 @@ def novartis_question(request, filename):
     mysummary= myresponse['Adverse_Reaction_Section']['specifics'][3]['reportedAdverseReaction'][2]['summary']
     mylabel = myresponse['Adverse_Reaction_Section']['specifics'][3]['reportedAdverseReaction'][2]['label']
     
-
-    
-    
-    if request.method == 'POST':
-        form = NovartisForm(request.POST)
-        if form.is_valid():  
-            return HttpResponseRedirect(reverse('novartis_thanks',
-						args=(filename, )))
 
     return render_to_response('novartis-question.html',
 				{
