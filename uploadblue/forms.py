@@ -12,7 +12,7 @@ LEVEL_CHOICES=(
 
 
 
-VOMITING_CHOICES=(
+FATIUGE_CHOICES=(
             ('0','Not at all'),
             ('1','A little'),
             ('2','Somewhate'),
@@ -37,6 +37,6 @@ class DonateForm(forms.Form):
     center_for_disease_control  = forms.BooleanField(initial=True)
     
 class NovartisForm(forms.Form):
-    vomiting  = forms.TypedChoiceField(choices= VOMITING_CHOICES,
+    fatiuge  = forms.TypedChoiceField(choices= FATIUGE_CHOICES,
                                     widget=forms.RadioSelect(),
-                                    label="How much, if at all, does this drug making you vomit?")
+                                    label="How much, if at all, does this drug making you fatigued?")

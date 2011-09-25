@@ -9,6 +9,8 @@ from django.core.urlresolvers import reverse
 from utils import handle_uploaded_file
 from bluebutton.parse import *
 from djangomodels2xls import convert2excel
+import urllib2
+import json
 
 
 def upload(request):
@@ -85,8 +87,18 @@ def donate_my_data(request, filename):
                               RequestContext(request))
 
 def novartis_question(request, filename):
+
+    response = urllib2.urlopen('http://spl.anzonow.com/query?uri=http%3A//spl-ld.anzonow.com/data/document1')
+    myresponse = response.read()
+    myresponse = json.loads(myresponse)
     
-    vomiting_rate="50%"
+    #print myresponse['Adverse_Reaction_Section']['specifics']['3']['reportedAdverseReaction']['2']['summary']
+    
+    
+    mysummary= myresponse['Adverse_Reaction_Section']['specifics'][3]['reportedAdverseReaction'][2]['summary']
+    mylabel = myresponse['Adverse_Reaction_Section']['specifics'][3]['reportedAdverseReaction'][2]['label']
+    
+
     
     
     if request.method == 'POST':
@@ -99,7 +111,8 @@ def novartis_question(request, filename):
 				{
 				    'form':NovartisForm,
 				    'filename': filename,
-				    'vomiting_rate': vomiting_rate,
+				    'mysummary': mysummary,
+				    'mylabel': mylabel
 				},
                               RequestContext(request))
     
