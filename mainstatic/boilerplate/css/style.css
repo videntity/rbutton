@@ -269,3 +269,16 @@ a:hover { color: #036; }
 	text-transform: none;
 	color: #03C;
 }
+.Narrative {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: medium;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	color: #03C;
+}
+.The_Person {
+	font-size: large;
+	font-weight: bold;
+}
