@@ -3,7 +3,7 @@
                            Produced by the Blue Button (v1.0)
                               08/23/2010 09:31
 
-Name: MHVVETERAN, ONE A                         Date of Birth: 03/01/1948
+Name: SNODGRASS, MART A                         Date of Birth: 03/01/1910
 
 --------------------- MY HEALTHEVET ACCOUNT SUMMARY ---------------------
 
@@ -245,6 +245,20 @@ Military Service Description: Unit was in charge of security
 
 
 -------------------------- VA MEDICATION HISTORY ----------------------
+
+Source: VA
+
+Medication: GLEVIC 10MG TAB 
+Instructions: TAKE ONE TABLET BY MOUTH TAKE ONE-HALF TABLET FOR 1 DAY --AVOID 
+Status: Active
+Refills Remaining: 3
+Last Filled On: 08/20/2010
+Initially Ordered On: 08/13/2010
+Quantity: 45
+Days Supply: 90
+Pharmacy: DAYTON
+Prescription Number: 2718953
+
 
 Source: VA
 

@@ -14,20 +14,12 @@
   </p class="Narrative">
 Select one or more of our research partners and we will handle the work of getting your data to them. We will only send data to organizations you have chosen. 
 </p>
-<form action="." method="POST" enctype="multipart/form-data" class="Narrative">
+<form action="/novartis-question/{{ filename }}" method="POST" enctype="multipart/form-data" class="Narrative">
   <p>
-    <INPUT NAME="options" TYPE="CHECKBOX" VALUE="RO1">
-  American Cancer Society<BR>
-<INPUT NAME="options" TYPE="CHECKBOX" VALUE="RO2">
-  American Heart Associatio<BR>
-<INPUT NAME="options" TYPE="CHECKBOX" VALUE="RO3">
-  Johns Hopkins University<BR>
-<INPUT NAME="options" TYPE="CHECKBOX" VALUE="RO4">
-  American Heart Association<BR>
-<INPUT NAME="options" TYPE="CHECKBOX" VALUE="RO5">
-  Novartis<BR>
-<INPUT NAME="options" TYPE="CHECKBOX" VALUE="RO6">
-  UCSF AIDS Research Institute<BR>
+    
+    {{ form.as_p }}
+  
+  {% csrf_token %}
     <input type="image" name="Donate" src="{{STATIC_URL}}/img/DonateGreenFile.png" border="0" height="60" />
   </p>
 </form>

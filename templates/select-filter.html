@@ -5,25 +5,21 @@
 {% block extra_head %}
 
 <script type="text/javascript">
-
+cc=1;
 function changeimage(ImageName)
 {
-	var current_id_level = document.getElementById('id_level').value;
-	var new_id_level = ImageName.substring(ImageName.length-1,ImageName.length);
-	var ImageNameBase = ImageName.substring(0,ImageName.length-1);
-
-	for(var i = 0; i < 4; i++){
-		cc = 0;
-		if(i == new_id_level){
-			cc = 1;
-			document.getElementById('id_level').value = i;
-
-		}
-		ImageNameAggregated = ImageNameBase + i + '_' + cc + '.png' ;
-
-		document.getElementById(ImageNameBase + i).src='{{STATIC_URL}}/img/' + ImageNameAggregated ;
-	}
-
+if (cc==0) 
+{
+cc=1;
+ImageNameAggregated = ImageName + '_' + cc + '.png' ;
+document.getElementById(ImageName).src='{{STATIC_URL}}/img/' + ImageNameAggregated ;
+}
+else
+{
+cc=0;
+ImageNameAggregated = ImageName + '_' + cc + '.png' ;
+document.getElementById(ImageName).src= '{{STATIC_URL}}/img/' + ImageNameAggregated ;
+}
 }
 </script>
 {% endblock %}
@@ -36,8 +32,8 @@ function changeimage(ImageName)
 <p><br />
   
 </p>
-<form action="." method="POST" enctype="multipart/form-data" class="Narrative">
-<input type="hidden" id="id_level" value="0" name="id_level" />
+<form action="/download-reformat/{{filename}}" method="POST" enctype="multipart/form-data" class="Narrative">
+
 <p>How much of your information do you want to keep private?</p>
 <table><tr><td style="vertical-align:middle">0.</td><td width="100" align="center">   <img id="RedButton100" onclick="changeimage('RedButton100')" border="0" src="{{STATIC_URL}}/img/RedButton100_0.png"  /></td><td style="vertical-align:middle">Send All information (not recommended)</td></tr>
 		<tr><td style="vertical-align:middle">1.</td><td width="100" align="center"><img id="RedButton101" onclick="changeimage('RedButton101')" border="0" src="{{STATIC_URL}}/img/RedButton101_0.png"  /></td><td style="vertical-align:middle">Remove name and contact information</td></tr>
@@ -45,7 +41,6 @@ function changeimage(ImageName)
  		<tr><td style="vertical-align:middle">3.</td><td width="100" align="center"><img id="RedButton103" onclick="changeimage('RedButton103')" border="0" src="{{STATIC_URL}}/img/RedButton103_0.png"/></td><td style="vertical-align:middle">Also remove medications</td></tr>
 </table>  
 <br />
-  {{ form.as_p }}
   
   {% csrf_token %}
   <br>
