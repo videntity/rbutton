@@ -1,6 +1,7 @@
 -e git+https://github.com/aviars/django-registration.git#egg=django-registration
 -e git+https://github.com/sunlightlabs/django-mediasync.git#egg=django-mediasync
+-e git+https://github.com/aviars/python-bluebutton.git#egg=python-bluebutton
 twilio==2.0.10
 Django
-pylibmc
+
 
