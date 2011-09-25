@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block extra_head %}
+
+
+{% endblock %}
+
+<H1>Thanks for Sharing!</H1>
+
+{% block featureBox %}
+
+<p>Thanks {{first_name}} {{last_name}} for uploading your Blue Button
+information. We hope you choose to pay it forward and share your information.
+Doing so can help make the world a better place.  Don't worry, you can
+remove personal information such as your name.  Select a level of the
+data filtering that works for you.</p>
+
+    
+<form enctype="multipart/form-data" action="." method="POST">
+
+{{ form.as_p }}
+
+{% csrf_token %}
+<br>
+<input type="submit" value="Filter and Share My Blue Button Information" />        
+</form>
+
+{% endblock %}

@@ -15,6 +15,9 @@ urlpatterns = patterns('',
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
                 {'document_root': settings.STATIC_ROOT}),
     url(r'^$', 'rbutton.uploadblue.views.home', name='home'),
+    url(r'^upload$', 'rbutton.uploadblue.views.home', name='upload'),
+    url(r'^upload-success/(?P<filename>\S+)$',
+        'rbutton.uploadblue.views.upload_success', name='upload_success'),
    
 
     # Uncomment the next line to enable the admin:

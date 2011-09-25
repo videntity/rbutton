@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block extra_head %}
+
+
+{% endblock %}
+<H1>Hello Blue Button!</H1>
+<h2>Meet Green, Red and White Button!</h2>
+
+{% block featureBox %}
+    
+<form enctype="multipart/form-data" action="." method="POST">
+{{ form.as_p }}
+{% csrf_token %}
+<br>
+<input type="submit" value="Upload My Blue Button" />        
+</form>
+
+{% endblock %}
