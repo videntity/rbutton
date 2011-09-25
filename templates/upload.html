@@ -8,7 +8,7 @@
 
 {% block featureBox %}
     
-<form enctype="multipart/form-data" action="." method="POST">
+<form enctype="multipart/form-data" action="/upload" method="POST">
 {{ form.as_p }}
 {% csrf_token %}
 <br>
