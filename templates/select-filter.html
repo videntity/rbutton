@@ -36,6 +36,7 @@ function changeimage(ImageName)
 
 </p>
 <form action="/download-reformat/{{filename}}" method="POST" enctype="multipart/form-data" class="Narrative">
+<input type="hidden" id="id_level" name="id_level" value="0" />
 
 <p>How much of your information do you want to keep private?</p>
 <table><tr><td style="vertical-align:middle">0.</td><td width="100" align="center">   <img id="RedButton100" onclick="changeimage('RedButton100')" border="0" src="{{STATIC_URL}}/img/RedButton100_0.png"  /></td><td style="vertical-align:middle">Send All information (not recommended)</td></tr>
