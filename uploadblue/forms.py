@@ -12,6 +12,12 @@ LEVEL_CHOICES=(
 
 
 
+VOMITING_CHOICES=(
+            ('0','Not at all'),
+            ('1','A little n'),
+            ('2','Somewhate'),
+            ('3','All the times'),)
+
 
 class UploadForm(forms.Form):
     file  = forms.FileField()
@@ -22,8 +28,15 @@ class SelectFilterForm(forms.Form):
                                     widget=forms.RadioSelect(),
                                     label="Select your filter level",
                                     initial="1",)
+
+
+class DonateForm(forms.Form):        
     national_cancer_institute   = forms.BooleanField(initial=True)
     novartis                    = forms.BooleanField(initial=True)
     world_health_organization   = forms.BooleanField(initial=True)
     center_for_disease_control  = forms.BooleanField(initial=True)
     
+class NovartisForm(forms.Form):
+    vomiting  = forms.TypedChoiceField(choices= VOMITING_CHOICES,
+                                    widget=forms.RadioSelect(),
+                                    label="Is this drug making you vomit?")

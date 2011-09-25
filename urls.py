@@ -19,7 +19,15 @@ urlpatterns = patterns('',
     url(r'^upload-success/(?P<filename>\S+)$',
         'rbutton.uploadblue.views.upload_success', name='upload_success'),
    
-
+    url(r'^download-reformat/(?P<filename>\S+)$',
+        'rbutton.uploadblue.views.download_reformat', name='download_reformat'),
+   
+   url(r'^donate-my-data/(?P<filename>\S+)$',
+        'rbutton.uploadblue.views.donate_my_data', name='donate_my_data'),
+   
+   url(r'^novartis-question/(?P<filename>\S+)$',
+        'rbutton.uploadblue.views.novartis_question', name='novartis_question'),
+   
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 )
