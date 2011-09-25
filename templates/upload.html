@@ -1,18 +1,17 @@
-{% extends "base.html" %}
-{% block extra_head %}
-
-
-{% endblock %}
-<H1>Hello Blue Button!</H1>
-<h2>Meet Green, Red and White Button!</h2>
-
-{% block featureBox %}
-    
+<link href="file:///Macintosh HD/Users/mark/Sites/Rainbow/rbutton/mainstatic/boilerplate/css/style.css" rel="stylesheet" type="text/css" />
+<p>{% extends "base.html" %}
+  {% block extra_head %}
+  
+  
+  {% endblock %}
+  
+  {% block featureBox %}</p>
+<p>The Medical Record Converter makes it simple to remove personal information from your Blue Button file so that you can anonymously donate your data for research purposes. We hope you choose to pay it forward and share your information. Doing so can help make the world a better place.</p>
 <form enctype="multipart/form-data" action="/upload" method="POST">
-{{ form.as_p }}
-{% csrf_token %}
+<div class="Body_Text">{{ form.as_p }}
+{% csrf_token %}</div>
 <br>
-<input type="submit" value="Upload My Blue Button" />        
+<input type="submit" value="Upload My Blue Button File" />        
 </form>
 
 {% endblock %}
