@@ -11,7 +11,7 @@ from bluebutton.parse import *
 
 
 
-def home(request):
+def upload(request):
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
         if form.is_valid():  
