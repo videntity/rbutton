@@ -28,6 +28,11 @@ urlpatterns = patterns('',
    url(r'^novartis-question/(?P<filename>\S+)$',
         'rbutton.uploadblue.views.novartis_question', name='novartis_question'),
    
+   url(r'^novartis-thanks/(?P<filename>\S+)$',
+        'rbutton.uploadblue.views.novartis_thanks', name='novartis_thanks'),
+   
+   
+   
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 )

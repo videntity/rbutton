@@ -14,7 +14,7 @@ LEVEL_CHOICES=(
 
 VOMITING_CHOICES=(
             ('0','Not at all'),
-            ('1','A little n'),
+            ('1','A little'),
             ('2','Somewhate'),
             ('3','All the times'),)
 

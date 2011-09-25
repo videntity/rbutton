@@ -90,14 +90,21 @@ def novartis_question(request, filename):
     
     
     if request.method == 'POST':
-        form = DonaterForm(request.POST)
+        form = NovartisForm(request.POST)
         if form.is_valid():  
-            return HttpResponseRedirect(reverse('novartis_question',
+            return HttpResponseRedirect(reverse('novartis_thanks',
 						args=(filename, )))
 
     return render_to_response('novartis-question.html',
 				{
 				    'form':NovartisForm,
+				    'filename': filename,
 				    'vomiting_rate': vomiting_rate,
 				},
+                              RequestContext(request))
+    
+    
+def novartis_thanks(request, filename):
+    return render_to_response('novartis-thanks.html',
+				{'filename':filename},
                               RequestContext(request))
