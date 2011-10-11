@@ -3,10 +3,20 @@
 
 {% extends "base.html" %}
 {% block extra_head %}
+<STYLE type="text/css">
+   body {background:url('{{STATIC_URL}}/img/RainbowChameleon.jpg'); align:middle; background-repeat:no-repeat;
+   }
+   width: 80%; /* for IE 6 */
+	}
+   
+ </STYLE>
 
 
 {% endblock %}
 
+{%block high_breadcrumbs %}
+<h1>Green Button File Created</h1>
+<{% endblock %}
 {% block featureBox %}
 
 <p class="Narrative">Your Green Button File is ready. You can download it as a text file, An Excel Worksheet, or choose to donate directly to one of our Research Partners.</p> 
@@ -21,7 +31,7 @@
 </td>
 </tr>
 </Table>
-</p class="Narrative">
+<p class="Narrative">
 Donate your health data to one of our research partners.
 </p>
 
