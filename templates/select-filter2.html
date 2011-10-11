@@ -1,54 +1,51 @@
-<!--<link href="file:///Macintosh HD/Users/mark/Sites/Rainbow/rbutton/mainstatic/boilerplate/css/style.css" rel="stylesheet" type="text/css" />
+<!--<link href="file:///Macintosh HD/Users/mark/Sites/Rainbow/rbutton/mainstatic/boilerplate/css/style.css" rel="stylesheet" type="text/css" /> 
  -->
 
 {% extends "base.html" %}
 {% block extra_head %}
 
 <script type="text/javascript">
+cc = typeof(cc) == 'undefined' ? 0 : cc;
 function changeimage(ImageName)
 {
-    var current_id_level = document.getElementById('id_level').value;
-    var new_id_level = ImageName.substring(ImageName.length-1,ImageName.length);
-    var ImageNameBase = ImageName.substring(0,ImageName.length-1);
-
-    for(var i = 0; i < 4; i++){
-        cc = 0;
-        if(i == new_id_level){
-            cc = 1;
-            document.getElementById('id_level').value = i;
-
-        }
-        ImageNameAggregated = ImageNameBase + i + '_' + cc + '.gif' ;
-
-        document.getElementById(ImageNameBase + i).src='{{STATIC_URL}}/img/' + ImageNameAggregated ;
-    }
-
+if (cc==0) 
+{
+cc=1;
+ImageNameAggregated = ImageName + '_' + cc + '.gif' ;
+document.getElementById(ImageName).src='{{STATIC_URL}}/img/' + ImageNameAggregated ;
+}
+else
+{
+cc=0;
+ImageNameAggregated = ImageName + '_' + cc + '.gif' ;
+document.getElementById(ImageName).src= '{{STATIC_URL}}/img/' + ImageNameAggregated ;
+}
 }
 </script>
 {% endblock %}
 
 {% block featureBox %}
 
-<p class="Narrative">Thanks <span class="The_Person">{{first_name}} {{last_name}}</span>.</p>
+<p class="Narrative">Thanks <span class="The_Person">{{first_name}} {{last_name}}</span>.</p> 
 <p class="Narrative">Your Blue Button file is ready to be analyzed. In this step you choose how much information you want to keep private.
 </p>
 <p><br />
-
+  
 </p>
-<form action="/download-reformat/{{filename}}" method="POST" enctype="multipart/form-data" class="Narrative">
-<input type="hidden" id="id_level" name="id_level" value="0" />
+<form action="/select-Donation" method="POST" enctype="multipart/form-data" class="Narrative">
 
 <p>How much of your information do you want to keep private?</p>
 <table><tr><td style="vertical-align:middle">0.</td><td width="100" align="center">   <img id="RedButton100" onclick="changeimage('RedButton100')" border="0" src="{{STATIC_URL}}/img/RedButton100_0.gif"  /></td><td style="vertical-align:middle">Send All information (not recommended)</td></tr>
 		<tr><td style="vertical-align:middle">1.</td><td width="100" align="center"><img id="RedButton101" onclick="changeimage('RedButton101')" border="0" src="{{STATIC_URL}}/img/RedButton101_0.gif"  /></td><td style="vertical-align:middle">Remove name and contact information</td></tr>
 		<tr><td style="vertical-align:middle">2.</td><td width="100" align="center"><img id="RedButton102" onclick="changeimage('RedButton102')" border="0" src="{{STATIC_URL}}/img/RedButton102_0.gif" /></td><td style="vertical-align:middle">Also remove family history and military service</td></tr>
  		<tr><td style="vertical-align:middle">3.</td><td width="100" align="center"><img id="RedButton103" onclick="changeimage('RedButton103')" border="0" src="{{STATIC_URL}}/img/RedButton103_0.gif"/></td><td style="vertical-align:middle">Also remove medications</td></tr>
-</table>
+</table>  
 <br />
-
+  {{ form.as_p }}
+  
   {% csrf_token %}
   <br>
-<input type="image" name="CreateGreen" src="{{STATIC_URL}}/img/PrepareGreenFile.gif" border="0" height="60" />
+<input type="image" name="CreateGreen" src="{{STATIC_URL}}/img/PrepareGreenFile.gif" border="0" />       
 </form>
 
 {% endblock %}

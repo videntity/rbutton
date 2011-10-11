@@ -1,13 +1,17 @@
 
 {% extends "base.html" %}
 {% block extra_head %}
-
+<STYLE type="text/css">
+   body {background:url({{STATIC_URL}}/img/RainbowChameleon.jpg); align:middle; no-repeat }
+ </STYLE>
 
 {% endblock %}
 
 {% block featureBox %}
 
-<a href="/upload"><img src="{{STATIC_URL}}/img/RainbowChameleon.png" width="600" align="middle" /></a>
+<h1>Welcome to the Blue Button Converter</h1>
+
+<a href="/upload">Click to Upload your Blue Button file</a>
 
 
 {% endblock %}
