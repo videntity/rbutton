@@ -1,18 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- <link href="file:///Macintosh HD/Users/mark/Sites/Rainbow/rbutton/mainstatic/boilerplate/css/style.css" rel="stylesheet" type="text/css" />
+-->
+{% extends "base.html" %}
+{% block extra_head %}
 <title>Support the Rainbow Button Initiative</title>
-</head>
+<STYLE type="text/css">
+   body {background:url({{STATIC_URL}}/img/RainbowChameleon.jpg); align:middle; no-repeat }
+ </STYLE>
 
-<body>
+{% endblock %}
+
+{% block featureBox %}
+
+
 <h1>Support the Rainbow Button Initiative
 </h1>
 
-<a Href="/">Home</a>
+<a href="javascript:history.go(-1)" class="Narrative">[Go Back]</a>
 
+<span class="Narrative">
 <p>Help us by donating to support this free service.</p>
 
-<img src="{{STATIC_URL}}img/RainbowButtonLogo.gif" border=no width="600" Align="Center" />
-</body>
-</html>
+<img src="{{STATIC_URL}}img/RainbowButtonLogo.gif" border=no width="200" Align="Center" />
+
+</span>
+
+{% endblock %}

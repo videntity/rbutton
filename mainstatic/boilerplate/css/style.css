@@ -277,6 +277,9 @@ a:hover { color: #036; }
 	font-variant: normal;
 	text-transform: none;
 	color: #03C;
+	background-image:'{{STATIC_URL}}/img/RainbowChameleon.jpg';
+	background-repeat:no-repeat;
+	
 }
 .The_Person {
 	font-size: large;

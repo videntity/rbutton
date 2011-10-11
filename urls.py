@@ -30,8 +30,14 @@ urlpatterns = patterns('',
    
    url(r'^novartis-thanks/(?P<filename>\S+)$',
         'rbutton.uploadblue.views.novartis_thanks', name='novartis_thanks'),
+	
+    url(r'^Intro.html$', direct_to_template, {'template' : 'Intro.html'}),
+   		
+	url(r'^Privacy.html$', direct_to_template, {'template' : 'Privacy.html'}),	
    
+   url(r'^SupportUs.html$', direct_to_template, {'template' : 'SupportUs.html'}),
    
+   url(r'^JoinRegistry.html$', direct_to_template, {'template' : 'JoinRegistry.html'}),
    
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),

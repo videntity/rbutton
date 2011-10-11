@@ -1,17 +1,38 @@
-
+<!-- <link href="file:///Macintosh HD/Users/mark/Sites/Rainbow/rbutton/mainstatic/boilerplate/css/style.css" rel="stylesheet" type="text/css" />
+-->
 {% extends "base.html" %}
 {% block extra_head %}
 <STYLE type="text/css">
-   body {background:url({{STATIC_URL}}/img/RainbowChameleon.jpg); align:middle; no-repeat }
+   body {background:url('{{STATIC_URL}}/img/RainbowChameleon.jpg'); align:middle; background-repeat:no-repeat;
+   }
+   width: 80%; /* for IE 6 */
+	}
+   
  </STYLE>
 
 {% endblock %}
 
+{% block high_breadcrumbs %}
+<h1 style="position: relative; width: 100%;">Welcome to the Blue Button Converter</h1>
+{% endblock %} 
+
 {% block featureBox %}
 
-<h1>Welcome to the Blue Button Converter</h1>
+<Div class="Narrative">
 
-<a href="/upload">Click to Upload your Blue Button file</a>
+<table><tr><td width="30%"><img src='{{STATIC_URL}}/img/RainbowChameleon.jpg' width="100%" align="middle" /></td>
+<td>
+<p>Quickly and easily upload your Blue Button file and choose how much of your personal information you want to remove to create a Green Button file that you can use to donate your health data to organizations of your choice.</p>
+<p>&nbsp;</p>
+<p>You do not even need to create an account. You can upload, convert and download your Green Button file anonymously.</p>
+<p>&nbsp;</p>
+<p>If you want to easily offer your health data to organizations you can create a private secure account with us and we will deal with getting the data to the organizations you choose to share with.</p>
+<p>&nbsp;</p>
+<p>Take the first step by uploading and converting your Blue Button file.</p>
+<p>&nbsp;</p>
+</td></tr></table>
 
 
+</Div>
+<a href="/upload">Click here to Upload your Blue Button file</a>
 {% endblock %}
