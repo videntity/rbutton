@@ -4,17 +4,27 @@
 {% extends "base.html" %}
 {% block extra_head %}
 
+<STYLE type="text/css">
+   body {background:url('{{STATIC_URL}}/img/RainbowChameleon.jpg'); align:middle; background-repeat:no-repeat;
+   }
+   width: 80%; /* for IE 6 */
+	}
+   
+ </STYLE>
 
+{% endblock %}
+{% block high_breadcrumbs %}
+<h1>Donate Your Data</h1>
 {% endblock %}
 
 {% block featureBox %}
 
-<p class="Narrative">Thanks for Creating an Account with us. We have a network of Research partner which makes it easy for you to anonymously donate your data. We  keep a history of who you donated to.</p>
-<p>
-  </p class="Narrative">
-Select one or more of our research partners and we will handle the work of getting your data to them. We will only send data to organizations you have chosen. 
+<p class="Narrative">Thanks for Creating an Account with us. We have a network of Research partner which makes it easy for you to anonymously donate your data. We  keep a history of who you donated to. You can revoke access at anytime.</p>
+<p>&nbsp;</p>
+<p class="Narrative">Select one or more of our research partners and we will handle the work of getting your data to them. We will only send data to organizations you have chosen. 
 </p>
-<form action="/novartis-question/{{ filename }}" method="POST" enctype="multipart/form-data" class="Narrative">
+<p>
+<form action="/novartis-question/{{ filename }}" method="POST" enctype="multipart/form-data" >
   <p>
     
     {{ form.as_p }}

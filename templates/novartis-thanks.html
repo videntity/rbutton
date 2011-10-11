@@ -1,14 +1,29 @@
 
 {% extends "base.html" %}
 {% block extra_head %}
+<STYLE type="text/css">
+   body {background:url('{{STATIC_URL}}/img/RainbowChameleon.jpg'); align:middle; background-repeat:no-repeat;
+   }
+   width: 80%; /* for IE 6 */
+	}
+   
+ </STYLE>
 
 
 {% endblock %}
 
+{% block high_breadcrumbs %}
+<h1>Thank You for helping!</h1>
+{% endblock %}
 {% block featureBox %}
+<p class="Narrative">Providing feedback on medications you take provides invaluable information to help improve drug safety. </p>
+<p class="Narrative">&nbsp;</p>
+<p class="Narrative">Your personal information has not been shared, only your responses to the medication questions posed on the previous page.
+</p>
+<p class="Narrative">&nbsp;</p>
 <p class="Narrative">
-Thank You!
-<br>
-Your reciept id is {{filename}}
+Thank You!</p>
+<p class="Narrative">&nbsp;</p>
+<p class="Narrative">Your reciept id is: {{filename}}
 </p>
 {% endblock %}

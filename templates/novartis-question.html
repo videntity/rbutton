@@ -3,32 +3,44 @@
 
 {% extends "base.html" %}
 {% block extra_head %}
+<STYLE type="text/css">
+   body {background:url('{{STATIC_URL}}/img/RainbowChameleon.jpg'); align:middle; background-repeat:no-repeat;
+   }
+   width: 80%; /* for IE 6 */
+	}
+   
+ </STYLE>
 
 
 {% endblock %}
 
+{% block high_breadcrumbs %}
+<h1 style="color:#F00">Medication Alert</h1>
+{% endblock %}
+
 {% block featureBox %}
 
-<p class="Narrative">We have detected you are using GLEVIC.  Clinical trials
-reported:</p>
-<p>Adverse Reaction: {{mysummary}} <br><br>
-Frequency: {{mylabel}}<br>
+<p class="Narrative">We have detected that you are using a medication from one of our research partners - NOVARTIS. We have not shared your information with them but we thought you might want to know more about your medication: <strong>GLEVIC</strong></p>
+<p class="Narrative">&nbsp;</p>
+<p class="Narrative">Clinical trials reported:</p>
+<p class="Narrative">Adverse Reaction: <strong>{{mysummary}}</strong><br /><br />
+  <em>Frequency: {{mylabel}}</em><br />
 </p>
 
 <p class="Narrative">
-What is your personal experience?
-Please answer the question below to help Novartis
-research the full extent of the side effect.
+What is your personal experience?<br />
+Please answer the question below to help Novartis research the full extent of the side effect.
 Your information will remain anonymous. 
 </p>
 <form action="/novartis-question/{{ filename }}" method="POST" enctype="multipart/form-data" class="Narrative">
-  <p>
+  <p class="Narrative">
     
     {{ form.as_p }}
   
   {% csrf_token %}
-    <input type="submit" value="Share your report with Novartis" />
   </p>
+    <input type="submit" value="Share your report with Novartis" />
+ 
 </form>
 
 {% endblock %}
