@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-
+from models import BlueButtonFileUpload
 
 LEVEL_CHOICES=(
             ('0','Send All information (not recommended)'),
@@ -19,8 +19,9 @@ FATIUGE_CHOICES=(
             ('3','All the times'),)
 
 
-class UploadForm(forms.Form):
-    file  = forms.FileField()
+class BlueButtonFileUploadForm(forms.ModelForm):
+    class Meta:
+        model = BlueButtonFileUpload
 
 
 class SelectFilterForm(forms.Form):

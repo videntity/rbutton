@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404, get_list_or_
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.conf import settings
-from forms import UploadForm, SelectFilterForm, NovartisForm, DonateForm
+from forms import BlueButtonFileUploadForm, SelectFilterForm, NovartisForm, DonateForm
 from django.core.urlresolvers import reverse
 from utils import handle_uploaded_file
 from bluebutton.parse import *
@@ -15,13 +15,15 @@ import json
 
 def upload(request):
     if request.method == 'POST':
-        form = UploadForm(request.POST, request.FILES)
+        form = BlueButtonFileUploadForm(request.POST, request.FILES)
         if form.is_valid():  
             filename=handle_uploaded_file(request.FILES['file'])
             return HttpResponseRedirect(reverse('upload_success',
 						args=(filename, )))
-
-    return render_to_response('upload.html', {'form':UploadForm},
+	else:
+	    return render_to_response('upload.html', {'form':form},
+                              RequestContext(request))
+    return render_to_response('upload.html', {'form':BlueButtonFileUploadForm},
                               RequestContext(request))
 
 
@@ -29,8 +31,9 @@ def upload_success(request, filename):
     
     
     outfile="%s.json" % (filename)
+    outfilepath=os.path.join(settings.MEDIA_ROOT,outfile)
     filepath=os.path.join(settings.MEDIA_ROOT,filename)
-    items = simple_parse(filepath, outfile)
+    items = simple_parse(filepath, outfilepath)
     
     demodict = build_simple_demographics_readings(items)
     
