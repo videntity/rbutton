@@ -59,9 +59,9 @@ def download_reformat(request, filename, sec_level=1):
     sanitized_file = "%s.sanitized" % (filename)
     sanitized_path =  os.path.join(settings.MEDIA_ROOT, sanitized_file)
     green_parse(filepath, sanitized_path, sec_level)
-    
+    medsfilefilepath = "%s.meds" % (filepath)
     """ generate meds information as json in media"""
-    items = simple_parse(filepath, "outfile")
+    items = simple_parse(filepath, medsfilefilepath)
     meds = build_mds_readings(items)
     """ generate the information as excel in media"""
     excelfilename = convert2excel(meds, filename)
