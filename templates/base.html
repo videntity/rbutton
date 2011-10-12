@@ -20,7 +20,7 @@
   
   <link rel="stylesheet" href="{{ STATIC_URL }}boilerplate/css/style.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/hive-custom.css">
-  <link rel="stylesheet" href="{{STATIC_URL}}signature-pad/jquery.signaturepad.css">
+  <link rel="stylesheet" href="{{STATIC_URL}}css/signature-pad/jquery.signaturepad.css">
   <link type="text/css" href="{{STATIC_URL}}css/jquery-ui-1.8.13.custom.css" rel="Stylesheet" />
   <style type="text/css">
     body { font: normal 200.01%/1.375 "Helvetica Neue",Helvetica,Arial,sans-serif; }
@@ -64,13 +64,12 @@
 		</p>
     </header>
     <div id="main" role="main">
-    <div class="breadcrumbs high">{%block high_breadcrumbs %} {% endblock %}</div>
+    <div class="breadcrumbs high">{%block high_breadcrumbs %}{% endblock %}</div>
 		{%block featureBox %}{% endblock %}
 		{%block extra_body %}{% endblock%}
 		<div class="breadcrumbs low">{%block low_breadcrumbs %}{% endblock %}</div>
     </div>
     <footer>
-		<p><a href="/Privacy.html">Privacy Statement</a> | <a href="/Intro.html">About Us</a> | <a href="/SupportUs.html">Support Us</a> | <a href="/JoinRegistry.html">Apply to Join Registry</a></p>
 		<p>&copy; 2011 &ndash; Developed By Alan Viars, Mark Scrimshire &amp; Ethan Fry.</p>
     </footer>
   </div> <!--! end of #container -->
