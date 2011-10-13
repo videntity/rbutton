@@ -1,5 +1,3 @@
-<!--<link href="file:///Macintosh HD/Users/mark/Sites/Rainbow/rbutton/mainstatic/boilerplate/css/style.css" rel="stylesheet" type="text/css" /> 
- -->
 
 {% extends "base.html" %}
 {% block extra_head %}
@@ -12,13 +10,13 @@ if (cc==0)
 {
 cc=1;
 ImageNameAggregated = ImageName + '_' + cc + '.gif' ;
-document.getElementById(ImageName).src='{{STATIC_URL}}/img/' + ImageNameAggregated ;
+document.getElementById(ImageName).src='{{STATIC_URL}}img/' + ImageNameAggregated ;
 }
 else
 {
 cc=0;
 ImageNameAggregated = ImageName + '_' + cc + '.gif' ;
-document.getElementById(ImageName).src= '{{STATIC_URL}}/img/' + ImageNameAggregated ;
+document.getElementById(ImageName).src= '{{STATIC_URL}}img/' + ImageNameAggregated ;
 }
 }
 </script>
@@ -35,17 +33,17 @@ document.getElementById(ImageName).src= '{{STATIC_URL}}/img/' + ImageNameAggrega
 <form action="/select-Donation" method="POST" enctype="multipart/form-data" class="Narrative">
 
 <p>How much of your information do you want to keep private?</p>
-<table><tr><td style="vertical-align:middle">0.</td><td width="100" align="center">   <img id="RedButton100" onclick="changeimage('RedButton100')" border="0" src="{{STATIC_URL}}/img/RedButton100_0.gif"  /></td><td style="vertical-align:middle">Send All information (not recommended)</td></tr>
-		<tr><td style="vertical-align:middle">1.</td><td width="100" align="center"><img id="RedButton101" onclick="changeimage('RedButton101')" border="0" src="{{STATIC_URL}}/img/RedButton101_0.gif"  /></td><td style="vertical-align:middle">Remove name and contact information</td></tr>
-		<tr><td style="vertical-align:middle">2.</td><td width="100" align="center"><img id="RedButton102" onclick="changeimage('RedButton102')" border="0" src="{{STATIC_URL}}/img/RedButton102_0.gif" /></td><td style="vertical-align:middle">Also remove family history and military service</td></tr>
- 		<tr><td style="vertical-align:middle">3.</td><td width="100" align="center"><img id="RedButton103" onclick="changeimage('RedButton103')" border="0" src="{{STATIC_URL}}/img/RedButton103_0.gif"/></td><td style="vertical-align:middle">Also remove medications</td></tr>
+<table><tr><td style="vertical-align:middle">0.</td><td width="100" align="center">   <img id="RedButton100" onclick="changeimage('RedButton100')" border="0" src="{{STATIC_URL}}img/RedButton100_0.gif"  /></td><td style="vertical-align:middle">Send All information (not recommended)</td></tr>
+		<tr><td style="vertical-align:middle">1.</td><td width="100" align="center"><img id="RedButton101" onclick="changeimage('RedButton101')" border="0" src="{{STATIC_URL}}img/RedButton101_0.gif"  /></td><td style="vertical-align:middle">Remove name and contact information</td></tr>
+		<tr><td style="vertical-align:middle">2.</td><td width="100" align="center"><img id="RedButton102" onclick="changeimage('RedButton102')" border="0" src="{{STATIC_URL}}img/RedButton102_0.gif" /></td><td style="vertical-align:middle">Also remove family history and military service</td></tr>
+ 		<tr><td style="vertical-align:middle">3.</td><td width="100" align="center"><img id="RedButton103" onclick="changeimage('RedButton103')" border="0" src="{{STATIC_URL}}img/RedButton103_0.gif"/></td><td style="vertical-align:middle">Also remove medications</td></tr>
 </table>  
 <br />
   {{ form.as_p }}
   
   {% csrf_token %}
   <br>
-<input type="image" name="CreateGreen" src="{{STATIC_URL}}/img/PrepareGreenFile.gif" border="0" />       
+<input type="image" name="CreateGreen" src="{{STATIC_URL}}img/PrepareGreenFile.gif" border="0" />       
 </form>
 
 {% endblock %}

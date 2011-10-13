@@ -2,13 +2,7 @@
 
 {% extends "base.html" %}
 {% block extra_head %}
-<STYLE type="text/css">
-   body {background:url('{{STATIC_URL}}/img/RainbowChameleon.jpg'); align:middle; background-repeat:no-repeat;
-   }
-   width: 80%; /* for IE 6 */
-	}
-   
- </STYLE>
+
 
 
 {% endblock %}
@@ -22,11 +16,11 @@
 
 <p>
 <Table><tr style="vertical-align:middle"><td>
-<a href="{{MEDIA_URL}}{{ sanitizedfile }}" target="_blank"><img src="{{STATIC_URL}}/img/GreenButton100_1.gif" /> Download Green Button Text File</a>  
+<a href="{{MEDIA_URL}}{{ sanitizedfile }}" target="_blank"><img src="{{STATIC_URL}}img/GreenButton100_1.gif" /> Download Green Button Text File</a>  
 </td>
 </tr>
 <tr style="vertical-align:middle"><td>
-<a href="{{MEDIA_URL}}{{ excelfilename }}" target="_blank"><img src="{{STATIC_URL}}/img/GreenButton100_2.gif" /> Download Green Button Excel Sheet</a>  
+<a href="{{MEDIA_URL}}{{ excelfilename }}" target="_blank"><img src="{{STATIC_URL}}img/GreenButton100_2.gif" /> Download Green Button Excel Sheet</a>  
 </td>
 </tr>
 </Table>
@@ -38,7 +32,7 @@ Donate your health data to one of our research partners.
   <p>
     
   {% csrf_token %}
-    <input type="image" name="Donate" src="{{STATIC_URL}}/img/DonateGreenFile.gif" border="0" height="60" />
+    <input type="image" name="Donate" src="{{STATIC_URL}}img/DonateGreenFile.gif" border="0" height="60" />
   </p>
 </form>
 

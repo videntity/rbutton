@@ -4,13 +4,6 @@
 {% extends "base.html" %}
 {% block extra_head %}
 
-<STYLE type="text/css">
-   body {background:url('{{STATIC_URL}}/img/RainbowChameleon.jpg'); align:middle; background-repeat:no-repeat;
-   }
-   width: 80%; /* for IE 6 */
-	}
-   
- </STYLE>
 
 {% endblock %}
 {% block high_breadcrumbs %}
@@ -30,7 +23,7 @@
     {{ form.as_p }}
   
   {% csrf_token %}
-    <input type="image" name="Donate" src="{{STATIC_URL}}/img/DonateGreenFile.gif" border="0" height="60" />
+    <input type="image" name="Donate" src="{{STATIC_URL}}img/DonateGreenFile.gif" border="0" height="60" />
   </p>
 </form>
 

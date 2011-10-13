@@ -1,10 +1,18 @@
-<!-- <link href="file:///Macintosh HD/Users/mark/Sites/Rainbow/rbutton/mainstatic/boilerplate/css/style.css" rel="stylesheet" type="text/css" />
--->
+
 {% extends "base.html" %}
 {% block extra_head %}
-<STYLE type="text/css">
-   body {background:url({{STATIC_URL}}/img/RainbowChameleon.jpg); align:middle; no-repeat }
- </STYLE>
+
+<style type="text/css">
+
+.dot {
+	list-style-position: outside;
+	list-style-image: none;
+	list-style-type: square;
+	margin-left: 15px;
+    padding-left: 15px;
+}
+
+</style>
 
 {% endblock %}
 
@@ -17,10 +25,11 @@
 
 <p class="Narrative">The Rainbow Button provides a set of tools to enable consumers to manage their health data.</p>
 <span class="Narrative">
-<ul>Blue Button:  Download your health data</ul>
-<ul>Green Button: Allow your anonymous data to be donated to organizations of your choosing</ul>
-<ul>White Button: Send your data to another person or entity, e.g. A specialist you will be seeing</ul>
-<ul>Red Button:   Lock part of your Health Record. </ul>
+<ul class="dot"><li>Blue Button:  Download your health data</li>
+<li>Green Button: Allow your anonymous data to be donated to organizations of your choosing</li>
+<li>White Button: Send your data to another person or entity, e.g. A specialist you will be seeing</li>
+<li>Red Button:   Lock part of your Health Record. </li>
+</ul>
 </span>
 <img src="{{STATIC_URL}}img/RainbowButtonLogo.gif" border=no width="200" Align="Center" />
 
