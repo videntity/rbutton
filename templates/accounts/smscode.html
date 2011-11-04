@@ -1,0 +1,28 @@
+{% extends "layouts/login.html" %}
+
+{% block featureBox %}
+<div class="login-box">
+
+    <h1>
+        Welcome To
+    </h1>
+    <h2>
+        HIVE: Health Management System
+    </h2>
+
+    {% if form.errors %}
+        <p class="error">Sorry, that's not a valid SMS Code.</p>
+    {% endif %}
+
+    <form action='.' method='POST'>
+        <p>
+            <label for="smscode">Username:</label><br/>
+            <input type="text" name="username" value="" id="username" class="text">
+        </p>
+        <input type="submit" class="button" value="Send Access Code"/>
+        <input type="hidden" name="next" value="{{ next|escape }}" />
+        {% csrf_token %}
+    </form>
+
+</div>
+{% endblock %}

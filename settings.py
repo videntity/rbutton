@@ -34,9 +34,9 @@ MEDIASYNC['SERVE_REMOTE'] = True
 
 
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
-
-AUTHENTICATION_BACKENDS = ('hive.accounts.auth.HTTPAuthBackend',
-                           'hive.accounts.auth.EmailBackend',
+LOGIN_URL='/accounts/login'
+AUTHENTICATION_BACKENDS = ('rbutton.apps.accounts.auth.HTTPAuthBackend',
+                           'rbutton.apps.accounts.auth.EmailBackend',
                            'django.contrib.auth.backends.ModelBackend',
                            )
 #logout after 10 minutes of inactivity
@@ -149,7 +149,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'mediasync',
     #'south',
-   'rbutton.uploadblue',
+   'rbutton.apps.uploadblue',
+   'rbutton.apps.accounts',
 
 
 )
@@ -177,6 +178,13 @@ LOGGING = {
     }
 }
 
+# Twilio SMS Login Settings ---------------------------------------------------
+TWILIO_DEFAULT_FROM="+12024992459"
+TWILIO_API_BASE="https://api.twilio.com/2010-04-01"
+TWILIO_SID= "AC4d3f4dcee199445c45faa797c5c97898"
+TWILIO_AUTH_TOKEN="d623565a60e77bb5902e1971948c6f17"
+TWILIO_API_VERSION='2010-04-01'
+SMS_LOGIN_TIMEOUT_MIN=10
 
 
 EMAIL_HOST = 'smtp.bizmail.yahoo.com'

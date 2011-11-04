@@ -1,0 +1,40 @@
+{% extends "layouts/login.html" %}
+
+{% block featureBox %}
+<div class="login-box">
+
+    <h1>
+        Welcome To
+    </h1>
+    <h2>
+        HIVE: Health Management System
+    </h2>
+
+    {% if message %}
+        <p class="message">{{message}}</p>
+    {% endif %}
+
+    {% if form.errors %}
+        <p class="error">Sorry, that's not a valid username or password</p>
+    {% endif %}
+
+    <form action='.' method='POST' class="hive-form">
+        <p>
+            <label for="username">User name:</label>
+            <input type="text" name="username" value="" id="username"  class="text">
+        </p>
+
+        <p>
+            <label for="password">Password:</label>
+            <input type="password" name="password" value="" id="password"  class="text">
+            <br/>
+            <a href="/accounts/password-reset-request/" class="foot-note">Forgot Password?</a>
+
+        </p>
+        <input type="submit" value="Login" class="button"/>
+        <input type="hidden" name="next" value="{{ next|escape }}" />
+        {% csrf_token %}
+    </form>
+
+</div>
+{% endblock %}
