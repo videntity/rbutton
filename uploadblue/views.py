@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404, get_list_or_
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.conf import settings
-from forms import BlueButtonFileUploadForm, SelectFilterForm, NovartisForm, DonateForm
+from forms import BlueButtonFileUploadForm, SelectFilterForm, NovartisForm, DonateForm, SubmitDataRecipientRequestForm
 from django.core.urlresolvers import reverse
 from utils import handle_uploaded_file
 from bluebutton.parse import *
@@ -123,3 +123,13 @@ def novartis_thanks(request, filename):
     return render_to_response('novartis-thanks.html',
 				{'filename':filename},
                               RequestContext(request))
+
+def apply_as_data_recipient(request):
+    return render_to_response('apply-as-data-recipient.html',
+                              {
+                              'form':SubmitDataRecipientRequestForm
+                              
+                              },
+                              RequestContext(request))
+
+

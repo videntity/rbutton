@@ -38,7 +38,9 @@ urlpatterns = patterns('',
    url(r'^SupportUs.html$', direct_to_template, {'template' : 'SupportUs.html'}),
    
    url(r'^JoinRegistry.html$', direct_to_template, {'template' : 'JoinRegistry.html'}),
-   
+    url(r'^DataRecipient$',
+        'rbutton.uploadblue.views.apply_as_data_recipient', name='apply_as_data_recipient'),
+                       
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 )

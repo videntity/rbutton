@@ -12,7 +12,7 @@ LEVEL_CHOICES=(
 
 
 
-FATIUGE_CHOICES=(
+FATIGUE_CHOICES=(
             ('0','Not at all'),
             ('1','A little'),
             ('2','Somewhate'),
@@ -38,6 +38,13 @@ class DonateForm(forms.Form):
     center_for_disease_control  = forms.BooleanField(initial=True)
     
 class NovartisForm(forms.Form):
-    fatiuge  = forms.TypedChoiceField(choices= FATIUGE_CHOICES,
+    fatigue  = forms.TypedChoiceField(choices= FATIGUE_CHOICES,
                                     widget=forms.RadioSelect(),
-                                    label="How much, if at all, does this drug making you fatigued?")
+                                    label="How much, if at all, does this drug make you fatigued?")
+
+class SubmitDataRecipientRequestForm(forms.Form):
+    organization_name           = forms.CharField(max_length=100)
+    organization_representative = forms.CharField(max_length=100)
+    organization_email          = forms.EmailField()
+    organization_phone          = forms.CharField(max_length=20)
+

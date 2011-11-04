@@ -150,10 +150,8 @@ button {  width: auto; overflow: visible; }
  */
 
 body, select, input, textarea {
-  /* #444 looks better than black: twitter.com/H_FJ/statuses/11800719859 */
-  color: #444;
-  /* Set your base font here, to apply evenly */
-  /* font-family: Georgia, serif;  */
+	/* #444 looks better than black: twitter.com/H_FJ/statuses/11800719859 */
+  color: #444;  /* Set your base font here, to apply evenly */  /* font-family: Georgia, serif;  */
 }
 
 /* Headers (h1, h2, etc) have no default font-size or margin; define those yourself */
@@ -277,7 +275,7 @@ a:hover { color: #036; }
 	font-variant: normal;
 	text-transform: none;
 	color: #03C;
-	background-image:'{{STATIC_URL}}/img/RainbowChameleon.jpg';
+	background-image:'{{ STATIC_URL }}img/RainbowChameleon.jpg';
 	background-repeat:no-repeat;
 	
 }

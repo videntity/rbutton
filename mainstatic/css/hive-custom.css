@@ -5,7 +5,7 @@ header p.links {
     float: right;
 }
 body {
-    background-image: url('../img/layout/bg-repeat.png');
+    background-image: url('{{ STATIC_URL }}img/layout/bg-repeat.jpg');
     margin: 0;
     padding: 0;
 }
@@ -13,7 +13,7 @@ body div.container-wrap {
     padding: 6px 0;
 }
 body.skinny div.container-wrap {
-    background-image: url('../img/layout/bg-shadow-skinny.png');
+    background-image: url('{{ STATIC_URL }}img/layout/bg-shadow-skinny.png');
     background-repeat: no-repeat;
     background-position: center top;
 }
