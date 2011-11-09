@@ -1,0 +1,15 @@
+CREATE TABLE "userprofile" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "user_id" integer NOT NULL UNIQUE REFERENCES "auth_user" ("id"),
+    "user_type" varchar(10) NOT NULL,
+    "organization_type" varchar(10) NOT NULL,
+    "organization_name" varchar(100) NOT NULL,
+    "organization_contact" varchar(100) NOT NULL,
+    "organization_url" varchar(100) NOT NULL,
+    "security_level" varchar(1) NOT NULL,
+    "approval_status" varchar(10) NOT NULL,
+    "mobile_phone_number" varchar(20) NOT NULL,
+    "twitter" varchar(15) NOT NULL,
+    "notes" varchar(100) NOT NULL,
+    UNIQUE ("user_id", "user_type")
+)

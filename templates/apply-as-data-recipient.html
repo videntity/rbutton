@@ -1,0 +1,38 @@
+<!--<link href="file:///Macintosh HD/Users/mark/Sites/Rainbow/rbutton/mainstatic/boilerplate/css/style.css" rel="stylesheet" type="text/css" /> 
+ -->
+
+{% extends "base.html" %}
+{% block extra_head %}
+
+
+{% endblock %}
+
+{% block high_breadcrumbs %}
+<h1>Enter Your Information</h1>
+{% endblock %}
+
+{% block featureBox %}
+
+<p class="Narrative">To apply to be a data recipient please provide us with the following information</p>
+<p class="Narrative">&nbsp;</p>
+
+
+<form action="/apply-as-data-recipient/" method="POST" enctype="multipart/form-data" class="Narrative">
+  <p class="Narrative">
+    <table>
+    {% for field in form %}
+    	 <tr>
+            <td>{{ field.label }}&nbsp;</td>
+            <td>{{ field }}</td>
+        </tr>
+        
+       
+    {% endfor %}
+  </table>
+  {% csrf_token %}
+  </p>
+    <input type="submit" value="Submit Your Request" />
+ 
+</form>
+
+{% endblock %}

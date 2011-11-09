@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block featureBox %}
+<div class="login-box">
+
+  <h1>
+        Donate Your Health Data To an organization you believe in 
+    </h1>
+
+    {% if message %}
+        <p class="message">{{message}}</p>
+    {% endif %}
+
+    {% if form.errors %}
+        <p class="error">Sorry, that's not a valid username or password</p>
+    {% endif %}
+
+	<h3>Sign Up or <a href="/accounts/login/">Login</a></h3>
+<table>   
+   <form action='.' method='POST' class="user-form">       
+	
+          
+       {{ form.as_table }}  
+           
+                
+        <tr><td><input type="submit" value="Signup" class="button"/> 
+        <input type="hidden" name="next" value="{{ next|escape }}" /> </td></tr>
+        {% csrf_token %} 
+    </form>
+  </table> 
+</div>
+{% endblock %}

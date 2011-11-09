@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block featureBox %}
+<div id="featureBox">
+  {% if updated %}
+  <p class="Warning">Registry settings updated successfully! </p>
+  {% endif %}
+  
+<form action="." method="POST" enctype="multipart/form-data" class="Narrative">
+  <p class="Narrative">
+    <table>
+    {% for field in form %}
+    	 <tr>
+            <td>{{ field.label }}&nbsp;</td>
+            <td>{{ field }}</td>
+        </tr>
+
+
+    {% endfor %}
+  </table>
+  {% csrf_token %}
+  </p>
+    <input type="submit" value="Update Registry" />
+
+</form>
+  <div class="warning">
+   Warning: This system is in Beta and by signing up you
+    are agreeing to the <a HREF="/tos.html">terms of service</a>.
+</div>
+{% endblock %}
+               
