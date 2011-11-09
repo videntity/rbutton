@@ -3,15 +3,14 @@
 {% block featureBox %}
 <div id="featureBox">
   {% if updated %}
-  Account settings updated successfully!
+  <p class="Warning">Account settings updated successfully! </p>
   {% endif %}
   <p><label>User name:</label> <span>{{ user.username }}</span></p>
   <p><label>Email:</label> <span>{{ user.email }}</span></p>
-  <p><label>First Name:</label> <span>{{ user.first_name }}</span></p>
-  <p><label>Last Name:</label> <span>{{ user.last_name }}</span></p>
   <form action="." method="POST">
     {{ form.as_p }}
-    <input type="submit" name="update" />
+    <input type="submit" name="update" value="Update information"/> 
+  {% csrf_token %}       
   </form>
 
   <div class="warning">

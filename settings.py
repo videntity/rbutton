@@ -4,7 +4,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Alan Viars', 'your_email@domain.com'),
+    ('Mark Scrimshire', 'mark@healthca.mp'),
 )
 
 MANAGERS = ADMINS
@@ -146,11 +146,12 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+     'django.contrib.admindocs',
     'mediasync',
     #'south',
    'rbutton.apps.uploadblue',
    'rbutton.apps.accounts',
+   'rbutton.apps.registry',
 
 
 )
@@ -187,14 +188,14 @@ TWILIO_API_VERSION='2010-04-01'
 SMS_LOGIN_TIMEOUT_MIN=10
 
 
-EMAIL_HOST = 'smtp.bizmail.yahoo.com'
+EMAIL_HOST = 'smtp.google.com'
 EMAIL_PORT = 587 #25 by default
-EMAIL_HOST_USER = 'no-reply@videntity.com'
+EMAIL_HOST_USER = 'no-reply@healthca.mp'
 EMAIL_HOST_PASSWORD = 'mypassword'
 
 
 ACCOUNT_ACTIVATION_DAYS = 2
 RESTRICT_REG_DOMAIN_TO = None
-MIN_PASSWORD_LEN=10
+MIN_PASSWORD_LEN=8
 
 

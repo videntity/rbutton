@@ -21,8 +21,7 @@ urlpatterns = patterns('',
     url(r'^upload-success/(?P<filename>\S+)$',
         'rbutton.apps.uploadblue.views.upload_success', name='upload_success'),
     
-    url(r'^accounts/', include('rbutton.apps.accounts.urls')),
-    
+    url(r'^accounts/', include('rbutton.apps.accounts.urls')),    
     
     url(r'^download-reformat/(?P<filename>\S+)$',
         'rbutton.apps.uploadblue.views.download_reformat', name='download_reformat'),
@@ -43,8 +42,12 @@ urlpatterns = patterns('',
    url(r'^SupportUs.html$', direct_to_template, {'template' : 'SupportUs.html'}),
    
    url(r'^JoinRegistry.html$', direct_to_template, {'template' : 'JoinRegistry.html'}),
-    url(r'^DataRecipient$',
-        'rbutton.apps.uploadblue.views.apply_as_data_recipient', name='apply_as_data_recipient'),
+                                                    
+   url(r'^registry/', include('rbutton.apps.registry.urls')),                                                     
+   
+   url(r'^tos.html$', direct_to_template, {'template' : 'tos.html'}),
+   
+   
                        
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),

@@ -157,7 +157,11 @@ body, select, input, textarea {
 /* Headers (h1, h2, etc) have no default font-size or margin; define those yourself */
 h1, h2, h3, h4, h5, h6 { font-weight: bold; }
 
-a, a:active, a:visited { color: #607890; }
+a, a:active, a:visited { 
+
+	color: #607890; 
+	font-size: 0.75em;
+}
 a:hover { color: #036; }
 
 
@@ -166,17 +170,6 @@ a:hover { color: #036; }
  *
  * Author: 
  */
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -259,7 +252,7 @@ a:hover { color: #036; }
 }
 
 .Body_Text input {
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Arial, "Arial", Arial, sans-serif;
 	font-size: small;
 	font-style: normal;
 	font-weight: normal;
@@ -274,7 +267,6 @@ a:hover { color: #036; }
 	font-weight: normal;
 	font-variant: normal;
 	text-transform: none;
-	color: #03C;
 	background-image:'{{ STATIC_URL }}img/RainbowChameleon.jpg';
 	background-repeat:no-repeat;
 	
@@ -283,3 +275,27 @@ a:hover { color: #036; }
 	font-size: large;
 	font-weight: bold;
 }
+
+.info-bar {
+	font-size: 70%;
+	font-style: italic;
+
+}
+
+label{
+	
+	font-size: 0.675em;
+	
+}
+
+div.warning {
+	font-size: 0.60em;
+
+}
+
+ul.errorlist {
+	list-style: none;
+	color: #F03;
+	font-size: 0.70em;
+}
+

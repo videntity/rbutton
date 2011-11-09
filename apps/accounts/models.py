@@ -80,9 +80,9 @@ class UserProfile(models.Model):
                                                choices=USER_TYPE_CHOICES)
     organization_type       = models.CharField(max_length=10,
                                                choices=ORGANIZATION_CHOICES)
-    organization_name       = models.CharField(max_length=100)
+    organization_name       = models.CharField(blank= True, max_length=100)
     organization_contact    = models.CharField(blank = True, max_length=100)
-    organization_url        = models.CharField(blank = True, max_length=100)
+    organization_url        = models.URLField(blank = True)
     security_level          = models.CharField(default='1',
                                                choices=SECURITY_CHOICES,                            
                                                max_length=1)
@@ -90,8 +90,9 @@ class UserProfile(models.Model):
                                                choices=APPROVAL_CHOICES,
                                                default='pending')
     
-    mobile_phone_number     = PhoneNumberField(max_length=15)
-    notes                   = models.CharField(blank = True, max_length=100)
+    mobile_phone_number     = PhoneNumberField(max_length=15) 
+    twitter                 = models.CharField(blank = True, max_length=15)
+    notes                   = models.CharField(blank = True, max_length=250)
     def __unicode__(self):
         return '%s %s is a %s type and the status is %s' % (self.user.first_name,
                                 self.user.last_name,

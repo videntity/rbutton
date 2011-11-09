@@ -1,14 +1,11 @@
-{% extends "layouts/login.html" %}
+{% extends "base.html" %}
 
 {% block featureBox %}
 <div class="login-box">
 
     <h1>
-        Welcome To
+        Donate Your Health Data To an organization you believe in 
     </h1>
-    <h2>
-        HIVE: Health Management System
-    </h2>
 
     {% if message %}
         <p class="message">{{message}}</p>
@@ -17,24 +14,27 @@
     {% if form.errors %}
         <p class="error">Sorry, that's not a valid username or password</p>
     {% endif %}
+<table>
+	<tr><td><h3>Login</h3></td><td> or <a href="/accounts/signup/">Sign Up</a></td></tr>
+    <form action='.' method='POST' class="user-form">
+        <tr><td>
+            <label for="username">User name:</label>&nbsp;</td>
+            <td><input type="text" name="username" value="" id="username"  class="text">
+        </td></tr>
 
-    <form action='.' method='POST' class="hive-form">
-        <p>
-            <label for="username">User name:</label>
-            <input type="text" name="username" value="" id="username"  class="text">
-        </p>
-
-        <p>
-            <label for="password">Password:</label>
-            <input type="password" name="password" value="" id="password"  class="text">
-            <br/>
+        <tr><td>
+            <label for="password">Password:</label>&nbsp;</td>
+            <td><input type="password" name="password" value="" id="password"  class="text">
+            </td></tr>
+        <tr><td> 
             <a href="/accounts/password-reset-request/" class="foot-note">Forgot Password?</a>
 
-        </p>
+        </td></tr>
+        <tr><td>
         <input type="submit" value="Login" class="button"/>
-        <input type="hidden" name="next" value="{{ next|escape }}" />
+        <input type="hidden" name="next" value="{{ next|escape }}" /></td></tr>
         {% csrf_token %}
     </form>
-
+</table>
 </div>
 {% endblock %}

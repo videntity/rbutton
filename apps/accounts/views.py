@@ -11,13 +11,14 @@ from django.views.generic.list_detail import object_list
 from django.db.models import Sum
 from registration.models import RegistrationProfile
 from models import *
-from forms import AccountSettingsForm, LoginForm, SMSCodeForm, PasswordResetRequestForm, PasswordResetForm, SimpleLoginForm
+from forms import AccountSettingsForm, LoginForm, SMSCodeForm, PasswordResetRequestForm, PasswordResetForm, SimpleLoginForm, RegistrationForm
 from emails import send_reply_email
 from django.core.urlresolvers import reverse
 from utils import verify
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from models import ValidSMSCode, ValidPasswordResetKey
+from django.contrib.auth.forms import UserCreationForm
+from models import UserProfile, ValidSMSCode, ValidPasswordResetKey
 from datetime import datetime
 from django.contrib.auth import logout
 
@@ -49,6 +50,24 @@ def simple_login(request):
                               RequestContext(request, {'form': form}))
     return render_to_response('accounts/login.html',
                               context_instance = RequestContext(request)) 
+         
+
+
+def signup(request):
+    if request.method == 'POST':
+       form = UserCreationForm(request.POST)
+       if form.is_valid():
+          new_user = form.save()
+          return HttpResponseRedirect(reverse('home')) 
+    else:  
+       username = 'Username'
+       email = 'sample.name@example.com'
+       first_name = 'firstname'
+       last_name = 'lastname' 
+       form = UserCreationForm()
+       return render_to_response('accounts/signup.html', RequestContext(request, {'form': form}))         
+    result = account_settings(request)
+    return render_to_response('accounts/account_settings.html', context_instance = RequestContext(request)) 
 
 
 def reset_password(request, reset_password_key=None):
@@ -170,20 +189,20 @@ def sms_code(request):
     return render_to_response('accounts/smscode.html',
                               context_instance = RequestContext(request)) 
 
-@login_required
+# @login_required
 def account_settings(request):
     updated = False
-    profile = request.user.get_profile()
+   #  profile = request.user.get_profile()
     if request.method == 'POST':
         form = AccountSettingsForm(request.POST)
         if form.is_valid():
             
             data = form.cleaned_data
-            profile.organization_name = data['organization_name']
-            profile.twitter = data['twitter']
-            profile.mobile_phone_number= data['mobile_phone_number']
+            UserProfile.organization_name = data['organization_name']
+            UserProfile.twitter = data['twitter']
+            UserProfile.mobile_phone_number= data['mobile_phone_number']
             request.user.save()
-            profile.save()
+            # UserProfile.save(data)
             #Add RESTCat Update Here
             
             message='Your account settings have been updated.'
@@ -200,12 +219,10 @@ def account_settings(request):
     else:
         form = AccountSettingsForm({
             'username': request.user.username,
-            'email': request.user.email,
+            
             'first_name': request.user.first_name,
             'last_name': request.user.last_name,
-            'organization_name': profile.organization_name,
-            'twitter': profile.twitter,
-            'mobile_phone_number': profile.mobile_phone_number,
+ 
         })
 
     return render_to_response('accounts/account_settings.html',

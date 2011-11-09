@@ -50,8 +50,10 @@ class RegistrationForm(RegistrationFormUniqueEmail):
     password2 = forms.CharField(widget=forms.PasswordInput, max_length=30, label="Password (again)*")
     email = forms.EmailField(max_length=75, label="Email*")
     first_name = forms.CharField(max_length=30, label="First Name*")
-    last_name = forms.CharField(max_length=30, label="Last Name*")
+    last_name = forms.CharField(max_length=60, label="Last Name*")
     mobile_phone_number = forms.CharField(max_length=15, label="Mobile Phone Number*")
+    twitter = forms.CharField(max_length=15, label="Twitter*")
+    organization_name = forms.CharField(max_length=100, label="Organization Name*")
     
 
     def clean_password2(self):
@@ -82,11 +84,15 @@ class RegistrationForm(RegistrationFormUniqueEmail):
         return new_user
 
 class AccountSettingsForm(forms.Form):
+    first_name = forms.CharField(max_length=30, label="First Name*")
+    last_name = forms.CharField(max_length=60, label="Last Name*")
     mobile_phone_number = forms.CharField(max_length=15, label="Mobile Phone Number*")
+    email = forms.EmailField(max_length=75, label="Email*")
+    organization_name = forms.CharField(max_length=100, label="Organization Name*")  
+    twitter = forms.CharField(max_length=15, label="Twitter")
     password1 = forms.CharField(widget=forms.PasswordInput, max_length=30, label="Password*")
     password2 = forms.CharField(widget=forms.PasswordInput, max_length=30, label="Password (again)*")
-    email = forms.EmailField(max_length=75, label="Email*")
-
+    
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1", "")
         password2 = self.cleaned_data["password2"]
