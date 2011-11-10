@@ -3,29 +3,24 @@
 {% block featureBox %}
 <div id="featureBox">
   {% if updated %}
-  <p class="Warning">Registry settings updated successfully! </p>
+  <p class="warning">Registry settings updated successfully! </p>
   {% endif %}
-  <h1>Add an Organization</h1>
-<form action="." method="POST" enctype="multipart/form-data" class="Narrative">
+  <h1>Organization</h1>
   <p class="Narrative">
     <table>
     {% for field in form %}
-    	 <tr>
-            <td>{{ field.label }}&nbsp;</td>
-            <td>{{ field }}</td>
+    	 <tr class="Narrative">
+            <td class="Narrative">{{ field.label }}&nbsp;</td>
+            <td class="Narrative">{{ field }}</td>
         </tr>
 
 
     {% endfor %}
   </table>
-  {% csrf_token %}
-  </p>
-    <input type="submit" value="Update Registry" />
+</p>
 
-</form>
   <div class="warning">
    Warning: This system is in Beta and by signing up you
     are agreeing to the <a HREF="/tos.html">terms of service</a>.
 </div>
 {% endblock %}
-               

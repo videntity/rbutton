@@ -48,7 +48,8 @@
 <body class="wide">
 {% else %}
 <body class="skinny">
-{% endif %}
+{% endif %}               
+
 <div class='container-wrap'>
   <div id="container">
   
@@ -76,13 +77,20 @@ RainbowButton.com</a>
     </header>
     <div id="main" role="main">
     <div class="breadcrumbs high">{%block high_breadcrumbs %}{% endblock %}</div>
+	{% if messages %}
+	<ul class="messages">
+	    {% for message in messages %}
+	    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	    {% endfor %}
+	</ul>
+	{% endif %}
 		{%block featureBox %}{% endblock %}
 		{%block extra_body %}{% endblock%}
 		<div class="breadcrumbs low">{%block low_breadcrumbs %}{% endblock %}</div>
     </div>
     <footer>
     	<p> <a href="/Privacy.html">Privacy</a> | <a href="/Intro.html">About Us</a> | <a href="/SupportUs.html">Support Us</a> | <a href="/JoinRegistry.html">Join Registry</a> </p>
-		<p>&copy; 2011 &ndash; Developed By Alan Viars, Mark Scrimshire &amp; Ethan Fry.</p>
+		<p>&copy; 2011 &ndash; Developed By Alan Viars and Mark Scrimshire. Original Concept: Mark Scrimshire</p>
     </footer>
   </div> <!--! end of #container -->
 </div>

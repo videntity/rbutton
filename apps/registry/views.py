@@ -4,6 +4,7 @@
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.http import HttpResponseNotAllowed,  HttpResponseForbidden
 from django.views.decorators.http import require_POST
@@ -30,6 +31,7 @@ def signup(request):
 
 @login_required
 def registry_settings(request):
+    message = "default message"
     updated = False
     if request.method == 'POST':
         form = RegistryForm(request.POST)
@@ -40,23 +42,27 @@ def registry_settings(request):
             organization.organization_name = data['organization_name']
             organization.twitter = data['twitter']
             organization.phone_number= data['phone_number']
-            organization.save()
+            o = organization.save(commit=False)
+            o.organization_linked_owner = request.user
+            o.save()
+            messages.info(request, 'Your Registry entry has been updated.')
             
-            message='Your Registry entry has been updated.'
-            request.user.message_set.create(
-                message='Your Registry entry has been updated.')
-            message='Your Registry submission has been updated.'
+            
             return render_to_response('registry/registry_view.html',
                               RequestContext(request,
                                              {'form': form,
-                                              'organization': organization_name,
-                                              'updated' : message
+                                            
                                               }))
-
+        else:
+            print "nearly here"
+            messages.info(request, 'Organization and Organization Type must be unique')
+            print "here" 
+            return render_to_response('registry/registry_view.html', RequestContext(request,{'form': form,}))        
     else:
         form = RegistryForm()
+        message='Organization and Organization Type not unique [ organization.organization_name + organization.organization_type ]'
 
     return render_to_response('registry/registry_settings.html',
                               RequestContext(request,
-                                             {'form': form, }))
+                                             {'form': form, 'updated': message }))
 

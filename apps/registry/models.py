@@ -40,5 +40,7 @@ class Organization(models.Model):
     notes                       = models.CharField(blank = True, max_length=250)
         
     class Meta:
-        unique_together = (("organization_name", "user_type"),)
+        unique_together = (("organization_name", "organization_type"),)
 
+    def __unicode__(self):
+            return '%s is a %s entity' % (self.organization_name, self.organization_type)

@@ -62,7 +62,8 @@ USER_TYPE_CHOICES =          ( ('member',  'Member'),
                              ('organization',  'Organization'),)
 
 ORGANIZATION_CHOICES= ( ('non-profit',  'Non-Profit'),
-                         ('for-profit',  'For Profit'),)
+                         ('for-profit',  'For Profit'),
+                         ('individual',  'Individual'))
 
 APPROVAL_CHOICES =( ('pending',  'Pending'),
                          ('approved',  'Approved'),
@@ -76,12 +77,13 @@ SECURITY_CHOICES = (('1',  '1'),
 
 class UserProfile(models.Model):
     user                    = models.ForeignKey(User, unique=True)
-    user_type               = models.CharField(max_length=10,
+    user_type               = models.CharField(default="member", max_length=10,
                                                choices=USER_TYPE_CHOICES)
-    organization_type       = models.CharField(max_length=10,
-                                               choices=ORGANIZATION_CHOICES)
-    organization_name       = models.CharField(blank= True, max_length=100)
     organization_contact    = models.CharField(blank = True, max_length=100)
+    organization_type       = models.CharField(default="individual", 
+                                               choices=ORGANIZATION_CHOICES, 
+                                               max_length=10)
+
     organization_url        = models.URLField(blank = True)
     security_level          = models.CharField(default='1',
                                                choices=SECURITY_CHOICES,                            

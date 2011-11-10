@@ -88,18 +88,7 @@ class AccountSettingsForm(forms.Form):
     last_name = forms.CharField(max_length=60, label="Last Name*")
     mobile_phone_number = forms.CharField(max_length=15, label="Mobile Phone Number*")
     email = forms.EmailField(max_length=75, label="Email*")
-    organization_name = forms.CharField(max_length=100, label="Organization Name*")  
+ 
     twitter = forms.CharField(max_length=15, label="Twitter")
-    password1 = forms.CharField(widget=forms.PasswordInput, max_length=30, label="Password*")
-    password2 = forms.CharField(widget=forms.PasswordInput, max_length=30, label="Password (again)*")
-    
-    def clean_password2(self):
-        password1 = self.cleaned_data.get("password1", "")
-        password2 = self.cleaned_data["password2"]
-        if password1 != password2:
-            raise forms.ValidationError("The two password fields didn't match.")
-        if len(password1) < settings.MIN_PASSWORD_LEN:
-            msg="Password must be at least %s characters long.  Be tricky!" % (settings.MIN_PASSWORD_LEN)
-            raise forms.ValidationError(msg)
-        return password2
+     
     

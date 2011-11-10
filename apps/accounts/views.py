@@ -4,6 +4,7 @@
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.http import HttpResponseNotAllowed,  HttpResponseForbidden
 from django.views.decorators.http import require_POST
@@ -189,46 +190,74 @@ def sms_code(request):
     return render_to_response('accounts/smscode.html',
                               context_instance = RequestContext(request)) 
 
-# @login_required
+@login_required
 def account_settings(request):
-    updated = False
+   updated = False
+   # up = get_object_or_404(UserProfile, user=request.user)
+   try:
+       up = UserProfile.objects.get(user=request.user)
+       print "update" 
+       create=False
+   except(UserProfile.DoesNotExist):
+       create=True
+   
    #  profile = request.user.get_profile()
-    if request.method == 'POST':
-        form = AccountSettingsForm(request.POST)
-        if form.is_valid():
-            
+   if request.method == 'POST':
+         form = AccountSettingsForm(request.POST)
+         if form.is_valid():
+            print "Valid form"
             data = form.cleaned_data
-            UserProfile.organization_name = data['organization_name']
-            UserProfile.twitter = data['twitter']
-            UserProfile.mobile_phone_number= data['mobile_phone_number']
-            request.user.save()
-            # UserProfile.save(data)
-            #Add RESTCat Update Here
             
-            message='Your account settings have been updated.'
-            request.user.message_set.create(
-                message='Your account settings have been updated.')
-            message='Your account settings have been updated.'
+            request.user.first_name= data['first_name']
+            request.user.last_name= data['last_name'] 
+            request.user.save()
+            
+            if create==True:
+                up=UserProfile.objects.create(user=request.user) 
+                up.twitter = data['twitter']
+                up.mobile_phone_number= data['mobile_phone_number']
+                up.save()
+                messages.info(request,'Your account settings have been created.')  
+            #Add RESTCat Update Here
+            else:
+                up.twitter = data['twitter']
+                up.mobile_phone_number= data['mobile_phone_number']
+                up.save()
+                messages.info(request,'Your account settings have been updated.')
+                
+            return HttpResponseRedirect(reverse('home'),)
+            #request.user.message_set.create(
+            #    message='Your account settings have been updated.')
+            #message='Your account settings have been updated.'
             return render_to_response('accounts/account_settings.html',
                               RequestContext(request,
                                              {'form': form,
                                               'user': request.user,
-                                              'updated' : message
+                                              
                                               }))
-
-    else:
-        form = AccountSettingsForm({
-            'username': request.user.username,
+         else:
+            print "hit the else - we had errors"
+            return render_to_response('accounts/account_settings.html',
+                                        RequestContext(request,
+                                                       {'form': form,
+                                                        'user': request.user,}))    
+             
+   else:
+        print "if GET account_settings_else" 
+        if create==True:
+            return render_to_response('accounts/account_settings.html',
+                                  RequestContext(request,
+                                                 {'form': AccountSettingsForm(),
+                                                  'user': request.user,}))    
+       
+        else:
+            print "GET but create is false"
+            form = AccountSettingsForm(user=request.user)   
             
-            'first_name': request.user.first_name,
-            'last_name': request.user.last_name,
- 
-        })
-
-    return render_to_response('accounts/account_settings.html',
+            return render_to_response('accounts/account_settings.html',
                               RequestContext(request,
                                              {'form': form,
-                                              'user': request.user}))
+                                              'user': request.user,}))
 
 def verify_email(request, verification_key,
                  template_name='accounts/activate.html',
