@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+__author__ = 'mark'
 from django.conf.urls.defaults import patterns, include, url
 from django.views.generic.simple import direct_to_template
 

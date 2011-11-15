@@ -1,7 +1,5 @@
-<!--<link href="file:///Macintosh HD/Users/mark/Sites/Rainbow/rbutton/mainstatic/boilerplate/css/style.css" rel="stylesheet" type="text/css" /> 
- -->
-
 {% extends "base.html" %}
+
 {% block extra_head %}
 
 
@@ -18,13 +16,26 @@
 </p>
 <p>
 <form action="/novartis-question/{{ filename }}" method="POST" enctype="multipart/form-data" >
-  <p>
-    
-    {{ form.as_p }}
-  
-  {% csrf_token %}
-    <input type="image" name="Donate" src="{{STATIC_URL}}img/DonateGreenFile.gif" border="0" height="60" />
-  </p>
-</form>
+  <table class="Narrative">
+	<tr><td width="10%">Select</td>
+        <td width="50%">Organization</td>
+        <td width="15%">Type</td></tr>
+        {% for organization in object_list %}
+            <tr>
+                <td><input type="checkbox" name="select_to_donate" value="{{ id }}"> </td>
+	<td><a href="{{ organization.url}}" target="_blank">{{ organization.name }}</a></td>
+
+	<td>&nbsp;{{ organization.type}}&nbsp;</td>
+	
+
+	</tr>
+        {% endfor %}
+
+    <tr><td>
+        {% csrf_token %}
+        <input type="image" name="Donate" src="{{STATIC_URL}}img/DonateGreenFile.gif" border="0" height="60" />
+    </td></tr>
+</table>
+    </form>
 
 {% endblock %}

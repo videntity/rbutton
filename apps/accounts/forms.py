@@ -49,10 +49,10 @@ class RegistrationForm(RegistrationFormUniqueEmail):
     password1 = forms.CharField(widget=forms.PasswordInput, max_length=30, label="Password*")
     password2 = forms.CharField(widget=forms.PasswordInput, max_length=30, label="Password (again)*")
     email = forms.EmailField(max_length=75, label="Email*")
-    first_name = forms.CharField(max_length=30, label="First Name*")
-    last_name = forms.CharField(max_length=60, label="Last Name*")
-    mobile_phone_number = forms.CharField(max_length=15, label="Mobile Phone Number*")
-    twitter = forms.CharField(max_length=15, label="Twitter*")
+    first_name = forms.CharField(max_length=30, label="First Name")
+    last_name = forms.CharField(max_length=60, label="Last Name")
+    phone_number = forms.CharField(max_length=15, label="Phone Number")
+    twitter = forms.CharField(max_length=15, label="Twitter")
     organization_name = forms.CharField(max_length=100, label="Organization Name*")
     
 
@@ -84,11 +84,10 @@ class RegistrationForm(RegistrationFormUniqueEmail):
         return new_user
 
 class AccountSettingsForm(forms.Form):
-    first_name = forms.CharField(max_length=30, label="First Name*")
-    last_name = forms.CharField(max_length=60, label="Last Name*")
-    mobile_phone_number = forms.CharField(max_length=15, label="Mobile Phone Number*")
+    first_name = forms.CharField(max_length=30, label="First Name")
+    last_name = forms.CharField(max_length=60, label="Last Name")
+    phone_number = forms.CharField(max_length=15, label="Phone Number")
     email = forms.EmailField(max_length=75, label="Email*")
- 
     twitter = forms.CharField(max_length=15, label="Twitter")
      
     

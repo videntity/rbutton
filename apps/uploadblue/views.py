@@ -11,6 +11,7 @@ from bluebutton.parse import *
 from djangomodels2xls import convert2excel
 import urllib2
 import json
+from apps.registry.models import Organization
 
 
 def upload(request):
@@ -76,9 +77,12 @@ def download_reformat(request, filename, sec_level=1):
     
 def donate_my_data(request, filename):
     
-    
+    object_list = Organization.objects.filter(status='approved')
+    print object_list
     if request.method == 'POST':
         form = DonateForm(request.POST)
+        form_selection = request.POST.getlist('select_to_donate')
+        print form_selection
         if form.is_valid():  
             return HttpResponseRedirect(reverse('novartis_question',
 						args=(filename, )))
@@ -86,6 +90,7 @@ def donate_my_data(request, filename):
     return render_to_response('select-research.html',
 				{'form':DonateForm,
 				 'filename': filename,
+                 'object_list': object_list,
 				},
                               RequestContext(request))
 

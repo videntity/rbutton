@@ -1,27 +1,30 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim: ai ts=4 sts=4 et sw=4
+# accounts.views.py
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from rbutton.apps.accounts.models import UserProfile
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.http import HttpResponseNotAllowed,  HttpResponseForbidden
 from django.views.decorators.http import require_POST
 from django.views.generic.list_detail import object_list
 from django.db.models import Sum
-from registration.models import RegistrationProfile
 from models import *
 from forms import AccountSettingsForm, LoginForm, SMSCodeForm, PasswordResetRequestForm, PasswordResetForm, SimpleLoginForm, RegistrationForm
 from emails import send_reply_email
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ObjectDoesNotExist
 from utils import verify
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from models import UserProfile, ValidSMSCode, ValidPasswordResetKey
+from models import ValidSMSCode, ValidPasswordResetKey
 from datetime import datetime
-from django.contrib.auth import logout
+# from registration.models import RegistrationProfile
+
 
 def mylogout(request):
     logout(request)
@@ -213,15 +216,26 @@ def account_settings(request):
             request.user.save()
             
             if create==True:
-                up=UserProfile.objects.create(user=request.user) 
+
+                up=UserProfile.objects.create(user=request.user)
+
                 up.twitter = data['twitter']
-                up.mobile_phone_number= data['mobile_phone_number']
+                up.phone_number= data['phone_number']
                 up.save()
                 messages.info(request,'Your account settings have been created.')  
             #Add RESTCat Update Here
             else:
+               
+                print "what was that email:"
+                user_id = request.user.id
+                user = User.objects.get(pk = user_id)
+                old_email = user.email
+                if (old_email != data['email']):
+                        user.email = data['email']
+                        user.save()
                 up.twitter = data['twitter']
-                up.mobile_phone_number= data['mobile_phone_number']
+                up.phone_number= data['phone_number']
+
                 up.save()
                 messages.info(request,'Your account settings have been updated.')
                 
@@ -236,6 +250,8 @@ def account_settings(request):
                                               
                                               }))
          else:
+            user = User.objects.get(pk = user_id)
+            user.userprofile = get_or_create_profile(user)
             print "hit the else - we had errors"
             return render_to_response('accounts/account_settings.html',
                                         RequestContext(request,
@@ -252,8 +268,32 @@ def account_settings(request):
        
         else:
             print "GET but create is false"
-            form = AccountSettingsForm(user=request.user)   
+            user_id = request.user.id
+            print user_id
+            user = User.objects.get(pk = user_id)
+            user.userprofile = get_or_create_profile(user)
+            print user.userprofile
+
+            print "user follows:"
+            print user
+
+            form = AccountSettingsForm()
+            form.first_name = user.first_name
+            form.last_name = user.last_name
+            form.phone_number = user.userprofile.phone_number
+            form.email = user.email
+            form.twitter = user.userprofile.twitter
+            print form.first_name + "..." + form.last_name + "..." + form.email
+
+            print "twitter:" + form.twitter
             
+            form = AccountSettingsForm({'last_name':form.last_name,
+                                        'first_name': form.first_name,
+                                        'email': form.email,
+                                        'phone_number': form.phone_number,
+                                        'twitter': form.twitter,
+                                        })
+            print form
             return render_to_response('accounts/account_settings.html',
                               RequestContext(request,
                                              {'form': form,
@@ -272,4 +312,14 @@ def verify_email(request, verification_key,
         context[key] = callable(value) and value() or value
     return render_to_response(template_name,
                               { 'account': account},
-                              context_instance=context)
+                                context_instance=context)
+
+
+def get_or_create_profile(user):
+    try:
+        profile = user.get_profile()
+    except ObjectDoesNotExist:
+        #create profile - CUSTOMIZE THIS LINE TO OYUR MODEL:
+        profile = UserProfile(user=user)
+        profile.save()
+    return profile

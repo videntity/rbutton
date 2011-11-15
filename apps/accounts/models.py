@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim: ai ts=4 sts=4 et sw=4
+
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
@@ -11,6 +12,8 @@ import string
 import random
 import uuid
 from emails import send_password_reset_url_via_email
+from django.utils.safestring import mark_safe
+
 class ValidSMSCode(models.Model):
     user               = models.ForeignKey(User)
     sms_code           = models.CharField(max_length=4, blank=True)
@@ -70,38 +73,55 @@ APPROVAL_CHOICES =( ('pending',  'Pending'),
                          ('rejected',  'rejected'))
 
 SECURITY_CHOICES = (('1',  '1'),
-                         ('2',  '2'),
-                         ('3',  '3'), 
-                         )
+                    ('2',  '2'),
+                    ('3',  '3'),
+                    ('4',  '4'),
+                    )
+
+# Security Choice   1 = Member      - Standard Account
+#                   2 = Delegate    - Limited rights given by Owner to manage organization account
+#                   3 = Owner       - Organization Account Owner
+#                   4 = Staff       - Site Staff Admin - delegated by Site Super Admin
+#                   5 = SuperAdmin  - Site Super Admin
 
 
 class UserProfile(models.Model):
-    user                    = models.ForeignKey(User, unique=True)
-    user_type               = models.CharField(default="member", max_length=10,
+    user_type       = models.CharField(default="member", max_length=10,
                                                choices=USER_TYPE_CHOICES)
-    organization_contact    = models.CharField(blank = True, max_length=100)
-    organization_type       = models.CharField(default="individual", 
-                                               choices=ORGANIZATION_CHOICES, 
-                                               max_length=10)
+    url             = models.URLField(blank = True)
+    security_level  = models.CharField(default='1',
+                                       choices=SECURITY_CHOICES,
+                                       max_length=1)
+    approval_status = models.CharField(max_length=10,
+                                       choices=APPROVAL_CHOICES,
+                                       default='pending')
+    phone_number     = PhoneNumberField(blank = True, max_length=15)
+    twitter          = models.CharField(blank = True, max_length=15)
+    notes            = models.CharField(blank = True, max_length=250)
+    user = models.ForeignKey(User, unique=True,)
 
-    organization_url        = models.URLField(blank = True)
-    security_level          = models.CharField(default='1',
-                                               choices=SECURITY_CHOICES,                            
-                                               max_length=1)
-    approval_status          = models.CharField(max_length=10,
-                                               choices=APPROVAL_CHOICES,
-                                               default='pending')
-    
-    mobile_phone_number     = PhoneNumberField(max_length=15) 
-    twitter                 = models.CharField(blank = True, max_length=15)
-    notes                   = models.CharField(blank = True, max_length=250)
+    # user = models.ForeignKey(User, unique=True, edit_inline=models.TABULAR, num_in_admin=1,
+    #                           min_num_in_admin=1, max_num_in_admin=1,num_extra_on_change=0)
+
     def __unicode__(self):
-        return '%s %s is a %s type and the status is %s' % (self.user.first_name,
+        return '%s %s is a %s and their status is %s' % (self.user.first_name,
                                 self.user.last_name,
                                self.user_type, self.approval_status )
         
     class Meta:
         unique_together = (("user", "user_type"),)
+
+# Now, in views.py, to access a user's profile, you only need two lines:
+# user = User.objects.get(pk = user_id)
+# user.userprofile = get_or_create_profile(user)
+#
+# And, say if you wanted to change a value:
+# user.userprofile.security_level = '1'
+# user.userprofile.save()
+
+
+
+
 
 
 permission_choices=(    ('provider',  'provider'),

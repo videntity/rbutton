@@ -3,7 +3,7 @@
 {% block featureBox %}
 <div id="featureBox">
   {% if updated %}
-  <p class="Warning">Registry settings updated successfully! </p>
+  <p class="Warning">{{  error }}</p>
   {% endif %}
   <h1>Add an Organization</h1>
 <form action="." method="POST" enctype="multipart/form-data" class="Narrative">
@@ -14,7 +14,6 @@
             <td>{{ field.label }}&nbsp;</td>
             <td>{{ field }}</td>
         </tr>
-
 
     {% endfor %}
   </table>

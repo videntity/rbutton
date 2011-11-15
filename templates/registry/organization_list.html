@@ -3,15 +3,15 @@
 {% block featureBox %}
     <h1>Organization Registry</h1>
    <table class="Narrative">          
-	<tr><td width="40%">Organization</td><td width="20%">Phone</td><td width="15%">Type</td>
+	<tr><td width="50%">Organization</td><td width="15%">Phone</td><td width="15%">Type</td>
 		<td width="15%">Status</td><td>Owner</td></tr>
         {% for organization in object_list %}
             <tr>
-	<td><a href="{{ organization.organization_url}}" target="_blank">{{ organization.organization_name }}</a></td>
+	<td><a href="{{ organization.url}}" target="_blank">{{ organization.name }}</a></td>
 	<td>{{ organization.phone_number }}</td>
-	<td>&nbsp;{{ organization.organization_type}}&nbsp;</td>
-	<td style="font-style: italic;">{{ organization.approval_status }}</td>
-	<td stype="font-style: italic;">{{ organization.organization_linked_owner }}</td>
+	<td>&nbsp;{{ organization.type}}&nbsp;</td>
+	<td style="font-style: italic;">{{ organization.status }}</td>
+	<td stype="font-style: italic;">{{ organization.linked_owner }}</td>
 	</tr>
         {% endfor %}
     <tr><td>
