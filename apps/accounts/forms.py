@@ -3,11 +3,49 @@ from django import forms
 from  models import *
 #from django.contrib.admin import widgets
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm
 from django.forms.util import ErrorList
 from django.contrib.localflavor.us.forms import *
 from registration.forms import RegistrationFormUniqueEmail
 from registration.models import RegistrationProfile
 from django.conf import settings
+
+
+# ==================
+class UserCreationFormExtended(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserCreationFormExtended, self).__init__(*args, **kwargs)
+        self.fields['first_name'].required = False
+        self.fields['last_name'].required = False
+        self.fields['email'].required = True
+        self.fields['email'].label = 'email*:'
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'first_name', 'last_name')
+# ==================
+
+
+class UserProfileDisplay(ModelForm):
+    first_name              = forms.CharField(required=False, max_length=30)
+    last_name               = forms.CharField(required=False, max_length=40)
+    email                   = forms.CharField(required=False, max_length=75)
+
+    class Meta:
+        model = UserProfile
+        exclude = ('user', 'security_level','user_type','approval_status')
+
+
+        def save(self, ):
+            nup = UserProfile.objects.create(
+                username=User,
+                first_name=self.cleaned_data['first_name'],last_name=self.cleaned_data['last_name'],
+                email=self.cleaned_data['email_address'],
+            )
+
+            return username
+
+
 
 
 class PasswordResetRequestForm(forms.Form):
@@ -84,10 +122,10 @@ class RegistrationForm(RegistrationFormUniqueEmail):
         return new_user
 
 class AccountSettingsForm(forms.Form):
-    first_name = forms.CharField(max_length=30, label="First Name")
-    last_name = forms.CharField(max_length=60, label="Last Name")
-    phone_number = forms.CharField(max_length=15, label="Phone Number")
-    email = forms.EmailField(max_length=75, label="Email*")
-    twitter = forms.CharField(max_length=15, label="Twitter")
+    first_name      = forms.CharField(max_length=30, required=False, label="First Name")
+    last_name       = forms.CharField(max_length=60, required=False, label="Last Name")
+    phone_number    = forms.CharField(max_length=15, required=False, label="Phone Number")
+    email           = forms.EmailField(max_length=75, required=True, label="Email*")
+    twitter         = forms.CharField(max_length=15, required=False, label="Twitter")
      
     

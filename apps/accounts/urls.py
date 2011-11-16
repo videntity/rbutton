@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from django.conf.urls.defaults import patterns, include, url
-from views import sms_code, sms_login, mylogout, password_reset_request, reset_password, simple_login, signup, account_settings
+from rbutton.apps.accounts.views import *
+
+#    sms_code, sms_login, mylogout, password_reset_request, reset_password, simple_login, signup, account_settings
 
 
 urlpatterns = patterns('',

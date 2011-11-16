@@ -95,7 +95,8 @@ class UserProfile(models.Model):
     approval_status = models.CharField(max_length=10,
                                        choices=APPROVAL_CHOICES,
                                        default='pending')
-    phone_number     = PhoneNumberField(blank = True, max_length=15)
+    phone_number     = models.CharField(blank = True, max_length=15)
+    home_address     = models.CharField(blank=True, max_length=250)
     twitter          = models.CharField(blank = True, max_length=15)
     notes            = models.CharField(blank = True, max_length=250)
     user = models.ForeignKey(User, unique=True,)
@@ -104,9 +105,12 @@ class UserProfile(models.Model):
     #                           min_num_in_admin=1, max_num_in_admin=1,num_extra_on_change=0)
 
     def __unicode__(self):
-        return '%s %s is a %s and their status is %s' % (self.user.first_name,
-                                self.user.last_name,
-                               self.user_type, self.approval_status )
+        return '%s %s is a %s and their status is %s [%s / %s]' % (self.user.first_name,
+                                                                    self.user.last_name,
+                                                                    self.user_type,
+                                                                    self.approval_status,
+                                                                    self.user, self.user.email,
+                                                                    )
         
     class Meta:
         unique_together = (("user", "user_type"),)
@@ -119,6 +123,7 @@ class UserProfile(models.Model):
 # user.userprofile.security_level = '1'
 # user.userprofile.save()
 
+User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 
 
 

@@ -262,7 +262,7 @@ a:hover { color: #036; }
 }
 .Narrative {
 	font-family: Tahoma, Geneva, sans-serif;
-	font-size: medium;
+	font-size: 0.55em;
 	font-style: normal;
 	font-weight: normal;
 	font-variant: normal;
@@ -299,3 +299,49 @@ ul.errorlist {
 	font-size: 0.70em;
 }
 
+.featureBox {
+    font-size: 0.65em;
+}
+
+.featureBox.Body_Text {
+    font-size: 0.60em;
+
+}
+
+.featureBox.p.label {
+    font-size: 0.55em;
+    color: #254f7a;
+}
+
+.featureBox.a {
+    font-size: 0.60em;
+
+}
+.featureBox.p.span {
+    font-size: 0.45em;
+    color: #3366ff;
+
+}
+span {
+    font-size: 0.65em;
+    color: #3366ff;
+
+}
+
+label {
+    font-size: 0.55em;
+    color: #254f7a;
+    
+}
+
+.edit_mode_label {
+    font-size: 0.60em;
+    color: #00516e;
+
+}
+
+.edit_mode_data {
+    font-size: 0.55em;
+    color: #006600;
+
+}

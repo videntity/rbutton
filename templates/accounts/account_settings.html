@@ -7,13 +7,32 @@
   {% endif %}
   <p><label>User name:</label> <span>{{ user.username }}</span></p>
   <p><label>Email:</label> <span>{{ user.email }}</span></p>
-  <form action="." method="POST">
-    {{ form.as_p }}
-    <input type="submit" name="update" value="Update information"/> 
-  {% csrf_token %}       
-  </form>
+    <form action="." method="POST">
 
-  <div class="warning">
+         <table><tr><td></td></tr>
+            {%  for field in form %}
+                <tr><td class="edit_mode_label"> {{ field.label }}&nbsp;</td>
+                    <td class="edit_mode_data"> {{ field }}<br>
+                    <span class="edit_mode_error">{{ field.errors }}</span>
+                    </td></tr>
+
+            {% endfor %}
+        <tr><td><input type="submit" name="update" value="Update information"/>
+        {% csrf_token %}
+         </td></tr>
+    </table>
+    </form>
+    {% for field in form %}
+        <div>
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <p style="color: red">Oh no! {{ error }} in {{ field.label }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+
+        <div class="warning">
    Warning: This system is in Beta and by signing up you
     are agreeing to the <a HREF="/tos.html">terms of service</a>.
 </div>
