@@ -3,31 +3,120 @@
 # vim: ai ts=4 sts=4 et sw=4
 # accounts.views.py
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
-from django.template import RequestContext
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+from django.db.models import Sum
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.http import HttpResponseNotAllowed,  HttpResponseForbidden
 from django.views.decorators.http import require_POST
 from django.views.generic.list_detail import object_list
-from django.db.models import Sum
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext, Template, Context
-from django.shortcuts import render_to_response
 from datetime import datetime
 from models import *
 from forms import *
 from emails import send_reply_email
 from utils import verify
 from rbutton.apps.accounts.models import UserProfile
+from django_rpx_plus.models import RpxData
+from django_rpx_plus.forms import RegisterForm
+import django_rpx_plus.signals as signals
+
+
+
+@login_required
+def socialprofile(request):
+    '''
+    Displays page where user can update their profile.
+
+    @param request: Django request object.
+    @return: Rendered profile.html.
+    '''
+    print "in socialprofile function"
+    if request.method == 'POST':
+        form = SocialProfileForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            print data
+
+            #Update user with form data
+            request.user.first_name = data['first_name']
+            request.user.last_name = data['last_name']
+            request.user.email = data['email']
+            request.user.save()
+
+            messages.success(request, 'Successfully updated profile!')
+    else:
+        #Try to pre-populate the form with user data.
+        form = SocialProfileForm(initial = {
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+            'email': request.user.email,
+        })
+
+    return render_to_response('accounts/profile.html', {
+                                'form': form,
+                                'user': request.user,
+                              },
+                              context_instance = RequestContext(request))
+
+
+
+#Profile
+#@login_required
+def profile(request):
+    '''
+    Displays page where user can update their profile.
+
+    @param request: Django request object.
+    @return: Rendered profile.html.
+    '''
+    current_user = request.user
+    print "here in profile"
+    if not current_user.is_authenticated():
+        print "not authenticated"
+        # So we need to login
+        current_user = login(request)
+
+
+    print current_user
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            print data
+            print "in profile section"
+
+            #Update user with form data
+            request.user.first_name = data['first_name']
+            request.user.last_name = data['last_name']
+            request.user.email = data['email']
+            request.user.save()
+
+            messages.success(request, 'Successfully updated profile!')
+    else:
+        #Try to pre-populate the form with user data.
+        form = ProfileForm(initial = {
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+            'email': request.user.email,
+        })
+
+    return render_to_response('accounts/profile.html', {
+                                'form': form,
+                                'user': request.user,
+                              },
+                              context_instance = RequestContext(request))
+
+
 
 # from registration.models import RegistrationProfile
-
-
 def mylogout(request):
     logout(request)
     return render_to_response('accounts/logout.html',
@@ -35,30 +124,83 @@ def mylogout(request):
 
     
 def simple_login(request):
+    first_time = True
     form = SimpleLoginForm(request.POST)
+    errors = ''
+    next = request.GET.get('next', settings.LOGIN_REDIRECT_URL)
+    extra = {'next': next}
+    print "attempting login"
     if request.method == 'POST':
-        
+        # we got username and password so let's check it
         if form.is_valid():
+            # form is valid so we need to check against the database
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']    
             user=authenticate(username=username, password=password)
-            
+
+            print "valid form"
             if user is not None:
+                # Username was good
+                print "user is known"
                 if user.is_active:
+                    print "user is active"
+                    # finish the login and send back to home page
                     login(request,user)
                     return HttpResponseRedirect(reverse('home'))
                 else:
-                   return HttpResponse("Inactive Account")
+                    print "inactive account"
+                    # username is valid but disabled
+                    errors = "Inactive Account"
+                    # return HttpResponse("Inactive Account")
             else:
-                return HttpResponse("Invalid Username or Password")
-            return HttpResponse("Authenticate, send SMS, & redirect to SMSCode")
+                # User not logged in
+                if first_time:
+                    # First time through this routine
+                    errors = ''
+                    print "first time in need username and password"
+                    errors = "Enter a Username and Password"
+                
+                    first_time = False
+                    # Need to call django_rpx_plus.login
+                    print "trying social login"
+                    social_login = socialprofile(request)
+
+                else:
+                    print "bad user/password"
+                    # must have had a bad username or password
+                    errors = "Invalid Username or Password"
+                    # return HttpResponse("Invalid Username or Password")
+
+            # return HttpResponse("Authenticate, send SMS, & redirect to SMSCode")
         else:
-         return render_to_response('accounts/login.html',
-                              RequestContext(request, {'form': form}))
+            # It was a bad post so redisplay
+            print "redisplay form"
+            return render_to_response('accounts/login.html',
+                              RequestContext(request, {'form': form,
+                                                       'errors': errors,
+                                                       'extra': extra,
+                                                       }))
+    # it wasn't a post so present the page to prompt a login
+    print "not a post"
+    print request.user
+    if request.user.is_anonymous():
+
+        print "attempt social login"
+        next = request.GET.get('next', settings.LOGIN_REDIRECT_URL)
+        extra = {'next': next}
+
+        # return render_to_response('accounts/login.html', {'form': form,
+        #                                                 'errors': errors,
+        #                                                 'extra': extra,
+        #                                                 }, context_instance = RequestContext(request))
+        # social_access = socialprofile(request)
+        print "post socialprofile"
     return render_to_response('accounts/login.html',
                               context_instance = RequestContext(request,{'form': form,
                                                                  'page_heading': 'Login',
                                                                  'editmode': True,
+                                                                 'errors': errors,
+                                                                 'extra': extra,
                                                                  },))
          
 
@@ -221,6 +363,9 @@ def sms_code(request):
 
 @login_required
 def account_settings(request):
+    next = request.GET.get('next', settings.LOGIN_REDIRECT_URL)
+    extra = {'next': next}
+    user_rpxdatas = RpxData.objects.filter(user = request.user)
     user_id = request.user.id
     user = User.objects.get(pk = user_id)
     user.userprofile = get_or_create_profile(user)
@@ -229,6 +374,7 @@ def account_settings(request):
     form = request.user.get_profile()
     old_email = request.user.email
     print old_email
+    
     form = UserProfileDisplay(request.POST, initial={'username': request.user,
                                        'first_name': request.user.first_name,
                                        'last_name': request.user.last_name,
@@ -238,6 +384,9 @@ def account_settings(request):
                                        'phone_number': form.phone_number,
                                        'url': form.url,
                                        'notes': form.notes,
+                                       'rpxdatas': user_rpxdatas,
+                                       'extra': {'next': reverse('auth_associate'),},
+                                        'rpx_response_path': reverse('associate_rpx_response')
                                        },)
 
     updated = False
@@ -311,6 +460,9 @@ def account_settings(request):
                                               'user': request.user,
                                               'page_heading': 'Edit Profile',
                                               'editmode': True,
+                                              'rpxdatas': user_rpxdatas,
+                                              'extra': {'next': reverse('auth_associate')},
+                                              'rpx_response_path': reverse('associate_rpx_response')
                                               },))
          else:
             # The form was not valid so we need to re-display the form
@@ -325,7 +477,10 @@ def account_settings(request):
                                            'home_address': form.home_address,
                                            'phone_number': form.phone_number,
                                            'url': form.url,
-                                           'notes': form.notes,})
+                                           'notes': form.notes,
+                                           'rpxdatas': user_rpxdatas,
+                                           'extra': {'next': reverse('auth_associate')},
+                                           'rpx_response_path': reverse('associate_rpx_response')})
             print "hit the else - we had errors"
             return render_to_response('accounts/account_settings.html',
                                         RequestContext(request,
@@ -333,6 +488,9 @@ def account_settings(request):
                                                         'user': request.user,
                                                         'editmode': True,
                                                         'page_heading': "Re-Edit Profile",
+                                                        'rpxdatas': user_rpxdatas,
+                                                         'extra': {'next': reverse('auth_associate')},
+                                                         'rpx_response_path': reverse('associate_rpx_response')
                                                         },))
              
     else:
@@ -365,6 +523,9 @@ def account_settings(request):
                                            'phone_number': form.phone_number,
                                            'url': form.url,
                                            'notes': form.notes,
+                                           'rpxdatas': user_rpxdatas,
+                                           'extra': {'next': reverse('auth_associate')},
+                                           'rpx_response_path': reverse('associate_rpx_response')
                                            },)
 
 
@@ -409,7 +570,9 @@ def account_settings(request):
                                            'phone_number': form.phone_number,
                                            'url': form.url,
                                            'notes': form.notes,
-                                           },)
+                                           'rpxdatas': user_rpxdatas,
+                                           'extra': {'next': reverse('auth_associate')},
+                                           'rpx_response_path': reverse('associate_rpx_response')},)
         #{'last_name':form.last_name,
         #                            'first_name': form.first_name,
         #                            'email': form.email,
@@ -424,6 +587,9 @@ def account_settings(request):
                                                   'user': request.user,
                                                  'page_heading': 'Edit Profile',
                                                  'editmode': True,
+                                                 'rpxdatas': user_rpxdatas,
+                                                 'extra': {'next': reverse('auth_associate')},
+                                                 'rpx_response_path': reverse('associate_rpx_response')
                                                  },))
 
 
@@ -453,3 +619,5 @@ def get_or_create_profile(user):
         profile = UserProfile(user=user)
         profile.save()
     return profile
+
+

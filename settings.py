@@ -31,11 +31,28 @@ MEDIASYNC = {
 }
 MEDIASYNC['SERVE_REMOTE'] = True
 
-
+TEMPLATE_CONTEXT_PROCESSORS = ( 'django.core.context_processors.auth',
+                                #for user template var
+                                'django.core.context_processors.debug',
+                                'django.core.context_processors.i18n',
+                                'django.core.context_processors.media',
+                                'django.core.context_processors.static',
+                                #for MEDIA_URL template var
+                                'django.core.context_processors.request',
+                                # #includes request in RequestContext
+                               )
 
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
-LOGIN_URL='/accounts/login'
-AUTHENTICATION_BACKENDS = ('rbutton.apps.accounts.auth.HTTPAuthBackend',
+
+#django_rpx_plus static/default values
+LOGIN_URL = '/accounts/login/'
+LOGOUT_URL = '/accounts/logout/'
+LOGIN_REDIRECT_URL = '/accounts/profile/'
+
+AUTHENTICATION_BACKENDS = (
+# Add django_rpx_plus backend before default ModelBackend
+                           'django_rpx_plus.backends.RpxBackend',
+                           'rbutton.apps.accounts.auth.HTTPAuthBackend',
                            'rbutton.apps.accounts.auth.EmailBackend',
                            'django.contrib.auth.backends.ModelBackend',
                            )
@@ -70,7 +87,7 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -85,7 +102,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
+
 STATIC_URL = '/static/'
+# STATIC_URL = '/mainstatic/'
+
 #STATIC_URL="https://statichive.s3.amazonaws.com/"
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
@@ -99,6 +119,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     MAIN_STATIC_ROOT,
+    '~/pycharmprojects/rbutton/mainstatic/'
     )
 
 # List of finder classes that know how to find static files in
@@ -146,12 +167,13 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-     'django.contrib.admindocs',
+    'django.contrib.admindocs',
     'mediasync',
     #'south',
-   'rbutton.apps.uploadblue',
-   'rbutton.apps.accounts',
-   'rbutton.apps.registry',
+    'django_rpx_plus',
+    'rbutton.apps.uploadblue',
+    'rbutton.apps.accounts',
+    'rbutton.apps.registry',
 
 
 )
@@ -196,6 +218,41 @@ EMAIL_HOST_PASSWORD = 'mypassword'
 
 ACCOUNT_ACTIVATION_DAYS = 2
 RESTRICT_REG_DOMAIN_TO = None
-MIN_PASSWORD_LEN=8
+# MIN_PASSWORD_LEN=8
+MIN_PASSWORD_LEN=1
+# fixed for simple quick testing
+############################
+# #django_rpx_plus settings:
+#
+#
+# ############################
+RPXNOW_API_KEY = '1a7aa6d61d31f5126f791338d481d75e8bf6bc9e'
 
+# not requested but added here as record
+# http://rpxnow.com/relying_parties/vlink2me
+RPXNOW_APP_ID = 'gcpbgjlehcfgfdelhjkj'
 
+# The realm is the subdomain of rpxnow.com that you signed up under. It handles
+# your HTTP callback. (eg. http://mysite.rpxnow.com implies that RPXNOW_REALM  is
+# 'mysite'.
+RPXNOW_REALM = 'vlink2me'
+
+# (Optional)
+#RPX_TRUSTED_PROVIDERS = ''
+
+# (Optional)
+# Sets the language of the sign-in interface for *ONLY* the popup and the embedded
+# widget. For the valid language options, see the 'Sign-In Interface Localization'
+# section of https://rpxnow.com/docs. If not specified, defaults to
+# settings.LANGUAGE_CODE (which is usually 'en-us').
+# NOTE: This setting will be overridden if request.LANGUAGE_CODE (set by django's
+#       LocaleMiddleware) is set. django-rpx-plus does a best attempt at mapping
+#       django's LANGUAGE_CODE to RPX's language_preference (using
+#       helpers.django_lang_code_to_rpx_lang_preference).
+#RPX_LANGUAGE_PREFERENCE = 'en'
+
+# If it is the first time a user logs into your site through RPX, we will send
+# them to a page so that they can register on your site. The purpose is to
+# let the user choose a username (the one that RPX returns isn't always suitable)
+# and confirm their email address (RPX doesn't always return the user's email).
+REGISTER_URL = '/accounts/register/'

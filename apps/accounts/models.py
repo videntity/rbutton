@@ -150,6 +150,9 @@ class Permission(models.Model):
         
     class Meta:
         unique_together = (("user", "permission_name"),)
-        
+
+
+
+
 
         

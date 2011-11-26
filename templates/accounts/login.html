@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load rpx %}
 {% block featureBox %}
 <div class="login-box">
 
@@ -11,8 +11,8 @@
         <p class="message">{{message}}</p>
     {% endif %}
 
-    {% if form.errors %}
-        <p class="error">Sorry, that's not a valid username or password</p>
+    {% if errors %}
+        <p class="error">{{ errors }}</p>
     {% endif %}
 <table>
 	<tr><td><h3>Login</h3></td><td> or <a href="/accounts/signup/">Sign Up</a></td></tr>
@@ -30,11 +30,34 @@
             <a href="/accounts/password-reset-request/" class="foot-note">Forgot Password?</a>
 
         </td></tr>
+        <tr><td></td>
+            <td>
+            <div id="login_box"><!-- extra wrapper for centering -->
+
+                {% if messages %}
+                <div id="messages">
+                    <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% rpx_embed extra %}
+
+            </div>
+        </td></tr>
+
         <tr><td>
         <input type="submit" value="Login" class="button"/>
         <input type="hidden" name="next" value="{{ next|escape }}" /></td></tr>
         {% csrf_token %}
     </form>
 </table>
+
 </div>
+
+
+
 {% endblock %}

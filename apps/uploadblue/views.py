@@ -1,5 +1,6 @@
 # Create your views here.
 import os
+from django.contrib import messages
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse, Http404
@@ -12,9 +13,13 @@ from djangomodels2xls import convert2excel
 import urllib2
 import json
 from apps.registry.models import Organization
-
+from django_rpx_plus import *
 
 def upload(request):
+    print settings.STATIC_URL
+    print settings.STATIC_ROOT
+    print settings.STATICFILES_DIRS
+    
     if request.method == 'POST':
         form = BlueButtonFileUploadForm(request.POST, request.FILES)
         if form.is_valid():  

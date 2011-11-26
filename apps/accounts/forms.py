@@ -11,6 +11,14 @@ from registration.forms import RegistrationFormUniqueEmail
 from registration.models import RegistrationProfile
 from django.conf import settings
 
+from django import forms
+
+class SocialProfileForm(forms.Form):
+    first_name = forms.CharField(max_length = 30, label = 'First Name')
+    last_name = forms.CharField(max_length = 30, label = 'Last Name')
+    #(Optional) Make email unique.
+    email = forms.EmailField(label = 'Email Address')
+
 
 # ==================
 class UserCreationFormExtended(UserCreationForm):
@@ -127,5 +135,11 @@ class AccountSettingsForm(forms.Form):
     phone_number    = forms.CharField(max_length=15, required=False, label="Phone Number")
     email           = forms.EmailField(max_length=75, required=True, label="Email*")
     twitter         = forms.CharField(max_length=15, required=False, label="Twitter")
-     
+
+class ProfileForm(forms.Form):
+    first_name = forms.CharField(max_length = 30, label = 'First Name')
+    last_name = forms.CharField(max_length = 30, label = 'Last Name')
+    #(Optional) Make email unique.
+    email = forms.EmailField(label = 'Email Address')
     
+
