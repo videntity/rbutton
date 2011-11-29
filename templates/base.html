@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}css/signature-pad/jquery.signaturepad.css">
   <link type="text/css" href="{{ STATIC_URL }}css/jquery-ui-1.8.13.custom.css" rel="Stylesheet" />
   <style type="text/css">
-    body { font: normal 200.01%/1.300 "Helvetica Neue",Helvetica,Arial,sans-serif; }
+    body { font: normal 150.00%/1.300 "Helvetica Neue",Helvetica,Arial,sans-serif; }
   </style>
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
   <script src="{{ STATIC_URL }}boilerplate/js/libs/modernizr-1.7.min.js"></script>
@@ -36,6 +36,36 @@
    <STYLE type="text/css">
    body {background:#9F9; url({{ STATIC_URL }}img/RainbowChameleon.jpg); align:middle; no-repeat }
  </STYLE>
+
+
+<script type="text/javascript">
+(function() {
+    if (typeof window.janrain !== 'object') window.janrain = {};
+    window.janrain.settings = {};
+
+    janrain.settings.tokenUrl = 'http://127.0.0.1:8000/janrain/login/';
+
+    function isReady() { janrain.ready = true; };
+    if (document.addEventListener) {
+      document.addEventListener("DOMContentLoaded", isReady, false);
+    } else {
+      window.attachEvent('onload', isReady);
+    }
+
+    var e = document.createElement('script');
+    e.type = 'text/javascript';
+    e.id = 'janrainAuthWidget';
+
+    if (document.location.protocol === 'https:') {
+      e.src = 'https://rpxnow.com/js/lib/vlink2me/engage.js';
+    } else {
+      e.src = 'http://widget-cdn.rpxnow.com/js/lib/vlink2me/engage.js';
+    }
+
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(e, s);
+})();
+</script>
 
     {% block javascript %}{% endblock %}
 
@@ -65,18 +95,36 @@ RainbowButton.com</a>
 		     
 			<a href="/">home</a> | 
 	    	 {% if not user.is_authenticated %}
-
-				<a href="/accounts/login/">login</a>
-				{% endif %}
+                <a class="janrainEngage" href="#">Sign-In</a>
+             {% endif %}
 	       
 	
 			{% if user.is_authenticated %}
-			<a href="/accounts/profile/">{{ user.username }}</a>  
+			<a href="/accounts/profile/">Hi, {{ display }}</a>
 			|
-			<a href="/accounts/logout/">logout</a>
+			<a href="/janrain/logout/">logout</a>
 			{% endif %}
-		</p>
+        
+        </p>
     </header>
+      <!-- Start of Janrain RPX Social Sharing Code - needed to go with invoke code
+      -->
+      <script type="text/javascript">
+        var rpxJsHost = (("https:" == document.location.protocol) ? "https://" : "http://static.");
+        document.write(unescape("%3Cscript src='" + rpxJsHost + "rpxnow.com/js/lib/rpx.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+
+      <script type="text/javascript">
+        RPXNOW.init({appId: 'gcpbgjlehcfgfdelhjkj',
+          xdReceiver: '/rpx_xdcomm.html'});
+      </script>
+      <script type="text/javascript">
+          function scriptreplace(divID,setText){
+            document.getElementById(divID).innerHTML =  setText ; return true;}
+
+      </script>
+      <!-- End of Janrain RPX Social Sharing Code -->
+
     <div id="main" role="main">
     <div class="breadcrumbs high">{%block high_breadcrumbs %}{% endblock %}</div>
 	{% if messages %}
@@ -94,7 +142,10 @@ RainbowButton.com</a>
 		<div class="breadcrumbs low">{%block low_breadcrumbs %}{% endblock %}</div>
     </div>
     <footer>
-    	<p> <a href="/Privacy.html">Privacy</a> | <a href="/Intro.html">About Us</a> | <a href="/SupportUs.html">Support Us</a> | <a href="/JoinRegistry.html">Join Registry</a> </p>
+    	<p> <a href="/Privacy.html">Privacy</a> | <a href="/Intro.html">About Us</a> |
+            <a href="/SupportUs.html">Support Us</a> |
+            <a href="/JoinRegistry.html">Join Registry</a> |
+            <a href="/background.html">Background</a></p>
 		<p>&copy; 2011 &ndash; Developed By Alan Viars and Mark Scrimshire. Original Concept: Mark Scrimshire</p>
     </footer>
   </div> <!--! end of #container -->

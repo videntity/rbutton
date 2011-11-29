@@ -24,6 +24,9 @@ urlpatterns = patterns('',
     url(r'rpx_register', 'django_rpx_plus.views.register'),
     url(r'rpx_associate', 'django_rpx_plus.views.associate'),
 
-    url(r'^accounts/', include('django_rpx_plus.urls')),
+#    url(r'^accounts/', include('django_rpx_plus.urls')),
+
+    url(r'registration/', registration, name='registration'),
+
 
     )

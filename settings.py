@@ -3,6 +3,9 @@ import os, sys
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+
+SITE_URL = 'http://127.0.0.1:8000'
+
 ADMINS = (
     ('Mark Scrimshire', 'mark@healthca.mp'),
 )
@@ -40,6 +43,7 @@ TEMPLATE_CONTEXT_PROCESSORS = ( 'django.core.context_processors.auth',
                                 #for MEDIA_URL template var
                                 'django.core.context_processors.request',
                                 # #includes request in RequestContext
+                                'rbutton.apps.accounts.processors.display',
                                )
 
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
@@ -47,13 +51,13 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 #django_rpx_plus static/default values
 LOGIN_URL = '/accounts/login/'
 LOGOUT_URL = '/accounts/logout/'
-LOGIN_REDIRECT_URL = '/accounts/profile/'
+# LOGIN_REDIRECT_URL = '/accounts/profile/'
+LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = (
 # Add django_rpx_plus backend before default ModelBackend
-                           'django_rpx_plus.backends.RpxBackend',
-                           'rbutton.apps.accounts.auth.HTTPAuthBackend',
-                           'rbutton.apps.accounts.auth.EmailBackend',
+#                           'django_rpx_plus.backends.RpxBackend',
+                            'rbutton.apps.janrain.backends.JanrainBackend',
                            'django.contrib.auth.backends.ModelBackend',
                            )
 #logout after 10 minutes of inactivity
@@ -170,11 +174,12 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'mediasync',
     #'south',
-    'django_rpx_plus',
     'rbutton.apps.uploadblue',
     'rbutton.apps.accounts',
     'rbutton.apps.registry',
+    'rbutton.apps.janrain',
 
+#    'django_rpx_plus',
 
 )
 
@@ -226,6 +231,7 @@ MIN_PASSWORD_LEN=1
 #
 #
 # ############################
+JANRAIN_RPX_API_KEY = '1a7aa6d61d31f5126f791338d481d75e8bf6bc9e'
 RPXNOW_API_KEY = '1a7aa6d61d31f5126f791338d481d75e8bf6bc9e'
 
 # not requested but added here as record
@@ -255,4 +261,22 @@ RPXNOW_REALM = 'vlink2me'
 # them to a page so that they can register on your site. The purpose is to
 # let the user choose a username (the one that RPX returns isn't always suitable)
 # and confirm their email address (RPX doesn't always return the user's email).
-REGISTER_URL = '/accounts/register/'
+REGISTER_URL = '/accounts/rpx_register/'
+
+
+# fixed for simple quick testing
+############################
+# #janrain settings:
+#
+#
+#############################
+JANRAIN_RPX_API_KEY = '1a7aa6d61d31f5126f791338d481d75e8bf6bc9e'
+
+USERID_PRIORITY = 'UID'
+
+# Choose primary User_Id. default is UID, alternatives are 'preferredUsername' or 'email'
+# Note email is not always available
+# If email is chosen as USERID_PRIORITY and
+# email is not available switch to preferredUsername as alternative
+# this is to end up with friendlier user names than
+# the 20+ character random UID sequence

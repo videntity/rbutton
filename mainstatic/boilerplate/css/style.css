@@ -29,7 +29,7 @@ time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
+  font-size: 80%;
   font: inherit;
   vertical-align: baseline;
 }
@@ -62,9 +62,10 @@ input, select { vertical-align: middle; }
 
 /**
  * Font normalization inspired by YUI Library's fonts.css: developer.yahoo.com/yui/
+ * attempt scale font down was 13px/1.231
  */
 
-body { font:13px/1.231 sans-serif; *font-size:small; } /* Hack retained to preserve specificity */
+body { font:12px/0.9 sans-serif; *font-size:small; } /* Hack retained to preserve specificity */
 select, input, textarea, button { font:99% sans-serif; }
 
 /* Normalize monospace sizing:
@@ -343,5 +344,12 @@ label {
 .edit_mode_data {
     font-size: 0.55em;
     color: #006600;
+
+}
+
+.success.li {
+    font-size: 0.60em;
+    color: #F03;
+
 
 }

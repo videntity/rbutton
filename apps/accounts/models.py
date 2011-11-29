@@ -94,22 +94,29 @@ class UserProfile(models.Model):
                                        max_length=1)
     approval_status = models.CharField(max_length=10,
                                        choices=APPROVAL_CHOICES,
-                                       default='pending')
+                                       default='approved')
     phone_number     = models.CharField(blank = True, max_length=15)
     home_address     = models.CharField(blank=True, max_length=250)
     twitter          = models.CharField(blank = True, max_length=15)
+    socialprofile    = models.URLField(blank=True)
+    socialsite       = models.CharField(blank=True, max_length=50)
+    display          = models.CharField(blank=True, max_length=75)
     notes            = models.CharField(blank = True, max_length=250)
     user = models.ForeignKey(User, unique=True,)
+
 
     # user = models.ForeignKey(User, unique=True, edit_inline=models.TABULAR, num_in_admin=1,
     #                           min_num_in_admin=1, max_num_in_admin=1,num_extra_on_change=0)
 
     def __unicode__(self):
-        return '%s %s is a %s and their status is %s [%s / %s]' % (self.user.first_name,
+        return '%s %s is a %s via %s. Status:%s [%s / %s / %s]' % (self.user.first_name,
                                                                     self.user.last_name,
                                                                     self.user_type,
+                                                                    self.socialsite,
                                                                     self.approval_status,
-                                                                    self.user, self.user.email,
+                                                                    self.display,
+                                                                    self.user,
+                                                                    self.user.email
                                                                     )
         
     class Meta:

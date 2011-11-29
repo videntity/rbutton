@@ -25,7 +25,30 @@
 <p>&nbsp;</p>
 </td></tr></table>
 
-
 </Div class="Link-Step">
-<a href="/upload">Click here to Upload your Blue Button file</a>
+<p><a href="/upload">Click here to Upload your Blue Button file</a></p>
+
+<script type="text/javascript">
+  function SocialShare()
+  {
+
+    RPXNOW.loadAndRun(['Social'], function () {
+        var activity = new RPXNOW.Social.Activity(
+            "Tell your friends about RainbowButton.com",
+            "Why don\'t you join me and anonymously donate your health data to a worthy cause on rainbowbutton.com",
+            "http://www.rainbowbutton.com/");
+        activity.setDescription ( 'www.RainbowButton.com - Donate your data');
+        activity.setTitle ( 'De-personalize and donate your BlueButton data ');
+        RPXNOW.Social.publishActivity(activity);
+    });
+
+    return false;
+  }
+
+</script>
+
+    <a href="." onClick="SocialShare();return false;" >Tell your friends to join you!</a>
+
+    <div id="insert_js_code"></div>
+
 {% endblock %}

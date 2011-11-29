@@ -23,9 +23,9 @@ from forms import *
 from emails import send_reply_email
 from utils import verify
 from rbutton.apps.accounts.models import UserProfile
-from django_rpx_plus.models import RpxData
-from django_rpx_plus.forms import RegisterForm
-import django_rpx_plus.signals as signals
+# from django_rpx_plus.models import RpxData
+# from django_rpx_plus.forms import RegisterForm
+# import django_rpx_plus.signals as signals
 
 
 
@@ -81,7 +81,7 @@ def profile(request):
     if not current_user.is_authenticated():
         print "not authenticated"
         # So we need to login
-        current_user = login(request)
+        current_user = login(request,current_user)
 
 
     print current_user
@@ -220,14 +220,9 @@ def signup(request):
     else:
        # in the get
        print "In the GET"
-       form = UserCreationFormExtended()
-       form.username = 'Username'
-       form.email = 'sample.name@example.com'
-       form.first_name = 'firstname'
-       form.last_name = 'lastname'
-       form = UserCreationFormExtended(request.POST)
+       
        return render_to_response('accounts/signup.html',
-                                 RequestContext(request, {'form': form,
+                                 RequestContext(request, {'form': UserCreationFormExtended(),
                                                           'page_heading':'Create Your Account',
                                                           'editmode': True,
                                                 }),
@@ -365,9 +360,9 @@ def sms_code(request):
 def account_settings(request):
     next = request.GET.get('next', settings.LOGIN_REDIRECT_URL)
     extra = {'next': next}
-    user_rpxdatas = RpxData.objects.filter(user = request.user)
     user_id = request.user.id
-    user = User.objects.get(pk = user_id)
+    #user = User.objects.get(pk = user_id)
+    user = get_object_or_404(User, pk = user_id)
     user.userprofile = get_or_create_profile(user)
     print user
     print user.userprofile
@@ -383,10 +378,11 @@ def account_settings(request):
                                        'home_address': form.home_address,
                                        'phone_number': form.phone_number,
                                        'url': form.url,
+                                       'socialprofile': form.socialprofile,
+                                       'socialsite': form.socialsite,
+                                       'display': form.display,
                                        'notes': form.notes,
-                                       'rpxdatas': user_rpxdatas,
-                                       'extra': {'next': reverse('auth_associate'),},
-                                        'rpx_response_path': reverse('associate_rpx_response')
+                                       'extra': {'next': reverse('home')},
                                        },)
 
     updated = False
@@ -424,6 +420,9 @@ def account_settings(request):
                 up.notes = data['notes']
                 up.home_address = data['home_address']
                 up.url = data['url']
+                up.socialsite = data['socialsite']
+                up.socialprofile = data['socialprofile']
+                up.display = data['display']
                 up.save()
                 messages.info(request,'Your account settings have been created.')  
                 #Add RESTCat Update Here
@@ -445,6 +444,9 @@ def account_settings(request):
                 up.home_address= data['home_address']
                 up.notes = data['notes']
                 up.url = data['url']
+                up.socialprofile = data['socialprofile']
+                up.socialsite = data['socialsite']
+                up.display = data['display']
                 up.save()
                 messages.info(request,'Your account settings have been updated.')
 
@@ -460,10 +462,8 @@ def account_settings(request):
                                               'user': request.user,
                                               'page_heading': 'Edit Profile',
                                               'editmode': True,
-                                              'rpxdatas': user_rpxdatas,
-                                              'extra': {'next': reverse('auth_associate')},
-                                              'rpx_response_path': reverse('associate_rpx_response')
-                                              },))
+                                              'extra': {'next': reverse('home')},
+                                               },))
          else:
             # The form was not valid so we need to re-display the form
             user = User.objects.get(pk = user_id)
@@ -477,10 +477,12 @@ def account_settings(request):
                                            'home_address': form.home_address,
                                            'phone_number': form.phone_number,
                                            'url': form.url,
+                                           'socialsite': form.socialsite,
+                                           'socialprofile': form.socialprofile,
+                                           'display': form.display,
                                            'notes': form.notes,
-                                           'rpxdatas': user_rpxdatas,
-                                           'extra': {'next': reverse('auth_associate')},
-                                           'rpx_response_path': reverse('associate_rpx_response')})
+                                           'extra': {'next': reverse('home')},
+                                           })
             print "hit the else - we had errors"
             return render_to_response('accounts/account_settings.html',
                                         RequestContext(request,
@@ -488,9 +490,7 @@ def account_settings(request):
                                                         'user': request.user,
                                                         'editmode': True,
                                                         'page_heading': "Re-Edit Profile",
-                                                        'rpxdatas': user_rpxdatas,
-                                                         'extra': {'next': reverse('auth_associate')},
-                                                         'rpx_response_path': reverse('associate_rpx_response')
+                                                         'extra': {'next': reverse('home')},
                                                         },))
              
     else:
@@ -512,6 +512,9 @@ def account_settings(request):
         form.home_address = user.userprofile.home_address
         form.phone_number = user.userprofile.phone_number
         form.url = user.userprofile.url
+        form.socialsite = user.userprofile.socialsite
+        form.socialprofile = user.userprofile.socialprofile
+        form.display = user.userprofile.display
         form.notes = user.userprofile.notes
         
         form = UserProfileDisplay(request.POST, initial={'username': request.user,
@@ -522,10 +525,11 @@ def account_settings(request):
                                            'home_address': form.home_address,
                                            'phone_number': form.phone_number,
                                            'url': form.url,
+                                           'socialsite': form.socialsite,
+                                           'socialprofile': form.socialprofile,
+                                           'display': form.display,
                                            'notes': form.notes,
-                                           'rpxdatas': user_rpxdatas,
-                                           'extra': {'next': reverse('auth_associate')},
-                                           'rpx_response_path': reverse('associate_rpx_response')
+                                           'extra': {'next': reverse('home')},
                                            },)
 
 
@@ -557,6 +561,9 @@ def account_settings(request):
         form.home_address = user.userprofile.home_address
         form.phone_number = user.userprofile.phone_number
         form.url = user.userprofile.url
+        form.socialsite = user.userprofile.socialsite
+        form.socialprofile = user.userprofile.socialprofile
+        form.display = user.userprofile.display
         form.notes = user.userprofile.notes
         print form.email
         print form.notes
@@ -569,10 +576,12 @@ def account_settings(request):
                                            'home_address': form.home_address,
                                            'phone_number': form.phone_number,
                                            'url': form.url,
+                                           'socialsite': form.socialsite,
+                                           'socialprofile': form.socialprofile,
+                                           'display': form.display,
                                            'notes': form.notes,
-                                           'rpxdatas': user_rpxdatas,
-                                           'extra': {'next': reverse('auth_associate')},
-                                           'rpx_response_path': reverse('associate_rpx_response')},)
+                                           'extra': {'next': reverse('home')},
+                                           },)
         #{'last_name':form.last_name,
         #                            'first_name': form.first_name,
         #                            'email': form.email,
@@ -587,9 +596,7 @@ def account_settings(request):
                                                   'user': request.user,
                                                  'page_heading': 'Edit Profile',
                                                  'editmode': True,
-                                                 'rpxdatas': user_rpxdatas,
-                                                 'extra': {'next': reverse('auth_associate')},
-                                                 'rpx_response_path': reverse('associate_rpx_response')
+                                                 'extra': {'next': reverse('home')},
                                                  },))
 
 
@@ -620,4 +627,43 @@ def get_or_create_profile(user):
         profile.save()
     return profile
 
+
+def registration(request):
+
+    if request.method == 'POST':
+       print "in the POST"
+       form = SocialProfileForm(request.POST)
+       print form
+       if form.is_valid():
+          print "here we go - in the POST and Valid"
+          form.first_name = form.cleaned_data['first_name']
+          form.last_name = form.cleaned_data['last_name']
+          form.email = form.cleaned_data['email']
+          form.username = form.cleaned_data['username']
+          u = form.save()
+          u = authenticate(username=u.username)
+          login(request,u)
+          user_rpxdatas = RpxData.objects.filter(user = u)
+          return HttpResponseRedirect(reverse('home'))
+       else:
+           print "form errors"
+
+           return render_to_response('accounts/complete_registration.html',
+                    RequestContext(request, {'form': form,
+                                             'page_heading':'Create Your Account',
+                                             'editmode': True,
+                                                }),
+                                    )
+
+    else:
+       # in the get
+       print "In the GET"
+       # user_rpxdatas = RpxData.objects.filter(user = request.user)
+       return render_to_response('accounts/complete_registration.html',
+                                 RequestContext(request, {'form': SocialProfileForm(),
+                                                          'page_heading':'Create Your Account',
+                                                          'editmode': True,
+                                                          
+                                                }),
+                                )
 

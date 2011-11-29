@@ -12,8 +12,11 @@ from bluebutton.parse import *
 from djangomodels2xls import convert2excel
 import urllib2
 import json
-from apps.registry.models import Organization
+import re
+
+from apps.registry.models import Organization, Trigger
 from django_rpx_plus import *
+
 
 def upload(request):
     print settings.STATIC_URL
@@ -42,7 +45,46 @@ def upload_success(request, filename):
     items = simple_parse(filepath, outfilepath)
     
     demodict = build_simple_demographics_readings(items)
+    # Let's look at the contents of items
+    file_review = open(filepath, 'r').read()
+    u_file_review = file_review.upper()
+
+    print u_file_review
+    # try adding code to search file for active triggers
+
+    print "--- TRIGGER"
+    trigger_action = Trigger.objects.filter(active='active').values()
+    print trigger_action
+    for trigger in trigger_action:
+        # print trigger.organization
+        u_trigger = trigger['trigger'].upper()
+        test_compare = re.search(u_trigger, u_file_review)
+        print test_compare
+        if test_compare !='':
+            print "Match"
+            org_info = Organization.objects.get(id=trigger['organization_id'])
+            organization_name = org_info.name
+            alert_msg = "Alert for " + trigger['trigger'] + " from "+ organization_name
+            alert_msg = alert_msg +"\n " + trigger['Question']
+            messages.success(request, alert_msg)
+
+#        print u_trigger['trigger']
+#        print u_trigger['organization_id']
+ #       for item in items:
+ #           if u_trigger['trigger'] in item['key']:
+  #              print item['key']
+
+   #         print "v matches"
+    #        if trigger['trigger'] in item['value']:
+     #           print item['value']
+
+        
+
+    print "--- END TRIGGER"
     
+
+    # end of trigger search
+
     if request.method == 'POST':
         form = SelectFilterForm(request.POST)
         if form.is_valid():  

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{%  load rpx %}
+
 {% block javascript %}
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
     <script type="text/javascript">
@@ -18,7 +18,7 @@
   {% if updated %}
   <p class="warning">Account settings updated successfully! </p>
   {% endif %}
-  <p><label>User name:</label> <span>{{ user.username }}</span></p>
+  <p><label>Account id:</label> <span>{{ user.username }} [{{ form.displayname.value }}]</span></p>
   <p><label>Email:</label> <span>{{ user.email }}</span></p>
     <form action="." method="POST">
 
@@ -55,27 +55,7 @@
     {% endif %}
 </div>
 
-<div id="associated_logins">
-    <p class="Narrative">
-        Here are the logins you have associated with your account:
-    </p>
-    <table>
-    {% for rpxdata in rpxdatas %}
-    <tr><td class="Narrative">{{ rpxdata.provider }}:&nbsp;</td>
-        <td class="Narrative">{{ rpxdata.identifier }} </td>
-            {# Logically, checking != is bad. Should be > 1. But we don't have that tag #}
-            <td>
-            {% ifnotequal rpxdatas|length 1 %}
-            <a href="{% url auth_delete_associated rpxdata.id %}" class="Narrative" style="color: red">(delete)</a>
-            {% endifnotequal %}
-            </td>
-    </tr>
-    {% endfor %}
-    </table>
-</div>
-<div id="add_login">
-    <p>{% rpx_link "Click here to add <em>another</em> login to your account." extra rpx_response_path %}</p>
-</div>
+
 <div class="warning">
    Warning: This system is in Beta and by signing up you
     are agreeing to the <a HREF="/tos.html">terms of service</a>.
@@ -83,6 +63,4 @@
 {% endblock %}
 
 {% block bodyend %}
-    {# We set the 'show_provider_list' flag so that user doesn't have to click (This isn't me) #}
-    {% rpx_script extra rpx_response_path 'show_provider_list' %}
 {% endblock %}
