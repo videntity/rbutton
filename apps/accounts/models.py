@@ -98,7 +98,7 @@ class UserProfile(models.Model):
     phone_number     = models.CharField(blank = True, max_length=15)
     home_address     = models.CharField(blank=True, max_length=250)
     twitter          = models.CharField(blank = True, max_length=15)
-    socialprofile    = models.URLField(blank=True)
+    socialprofile    = models.URLField(verify_exists=False,blank=True)
     socialsite       = models.CharField(blank=True, max_length=50)
     display          = models.CharField(blank=True, max_length=75, default="new_user")
     notes            = models.CharField(blank = True, max_length=250)

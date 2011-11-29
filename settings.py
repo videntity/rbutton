@@ -282,3 +282,5 @@ USERID_PRIORITY = 'UID'
 # email is not available switch to preferredUsername as alternative
 # this is to end up with friendlier user names than
 # the 20+ character random UID sequence
+
+CLEAN_USERNAME_CHARS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_@,.-'
