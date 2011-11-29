@@ -18,7 +18,7 @@
   {% if updated %}
   <p class="warning">Account settings updated successfully! </p>
   {% endif %}
-  <p><label>Account id:</label> <span>{{ user.username }} [{{ form.displayname.value }}]</span></p>
+  <p><label>Account id:</label> <span>{{ user.username }} [{{ form.display.value }}]</span></p>
   <p><label>Email:</label> <span>{{ user.email }}</span></p>
     <form action="." method="POST">
 

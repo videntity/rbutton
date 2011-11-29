@@ -100,7 +100,7 @@ class UserProfile(models.Model):
     twitter          = models.CharField(blank = True, max_length=15)
     socialprofile    = models.URLField(blank=True)
     socialsite       = models.CharField(blank=True, max_length=50)
-    display          = models.CharField(blank=True, max_length=75)
+    display          = models.CharField(blank=True, max_length=75, default="new_user")
     notes            = models.CharField(blank = True, max_length=250)
     user = models.ForeignKey(User, unique=True,)
 
