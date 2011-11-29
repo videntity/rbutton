@@ -26,7 +26,9 @@
 <p class="Narrative">
 Donate your health data to one of our research partners.
 </p>
-
+{% if not user.is_authenticated %}
+       <a class="janrainEngage" href="/janrain/login/?redirect_to=/donate-my-data/{{filename}}">Sign-In</a>
+{% endif %}
 <form action="/donate-my-data/{{filename}}" method="POST" enctype="multipart/form-data" class="Narrative">
   <p>
     

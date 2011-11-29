@@ -1,12 +1,13 @@
 # Create your views here.
 import os
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.template import RequestContext
-from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.conf import settings
 from forms import BlueButtonFileUploadForm, SelectFilterForm, NovartisForm, DonateForm, SubmitDataRecipientRequestForm
-from django.core.urlresolvers import reverse
 from utils import handle_uploaded_file
 from bluebutton.parse import *
 from djangomodels2xls import convert2excel
@@ -15,7 +16,6 @@ import json
 import re
 
 from apps.registry.models import Organization, Trigger
-from django_rpx_plus import *
 
 
 def upload(request):
@@ -115,13 +115,17 @@ def download_reformat(request, filename, sec_level=1):
     excelfilename = convert2excel(meds, filename)
     print "excel is", excelfilename
 
+    next = '/donate-my-data/' + filename
+
     return render_to_response('select-Donation.html',
 				{
 				'filename': filename,
 				 'sanitizedfile': sanitized_file,
-				 'excelfilename': excelfilename},
+				 'excelfilename': excelfilename,
+                 'next': next,},
                               RequestContext(request))
     
+
 def donate_my_data(request, filename):
     
     object_list = Organization.objects.filter(status='approved')

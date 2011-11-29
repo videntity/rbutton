@@ -49,9 +49,11 @@ TEMPLATE_CONTEXT_PROCESSORS = ( 'django.core.context_processors.auth',
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 #django_rpx_plus static/default values
-LOGIN_URL = '/accounts/login/'
-LOGOUT_URL = '/accounts/logout/'
-# LOGIN_REDIRECT_URL = '/accounts/profile/'
+LOGIN_URL = '/janrain/login/'
+LOGOUT_URL = '/janrain/logout/'
+LOGIN_REDIRECT_URL = '/accounts/profile/'
+
+REDIRECT_DONATE = '/'
 LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = (
