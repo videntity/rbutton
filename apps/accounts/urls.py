@@ -3,7 +3,7 @@
 
 from django.conf.urls.defaults import patterns, include, url
 from rbutton.apps.accounts.views import *
-from django_rpx_plus.views import *
+# from django_rpx_plus.views import *
 
 #    sms_code, sms_login, mylogout, password_reset_request, reset_password, simple_login, signup, account_settings
 
@@ -21,8 +21,8 @@ urlpatterns = patterns('',
     url(r'reset-password/(?P<reset_password_key>[^/]+)/$', reset_password,
         name='password_reset_request'),
     url(r'social/', socialprofile, name='socialprofile'),
-    url(r'rpx_register', 'django_rpx_plus.views.register'),
-    url(r'rpx_associate', 'django_rpx_plus.views.associate'),
+#    url(r'rpx_register', 'django_rpx_plus.views.register'),
+#    url(r'rpx_associate', 'django_rpx_plus.views.associate'),
 
 #    url(r'^accounts/', include('django_rpx_plus.urls')),
 

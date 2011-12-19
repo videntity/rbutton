@@ -8,9 +8,9 @@ from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.template import RequestContext
 from forms import BlueButtonFileUploadForm, SelectFilterForm, NovartisForm, DonateForm, SubmitDataRecipientRequestForm
-from utils import handle_uploaded_file
+from utils import handle_uploaded_file, de_duplicate_list
 from bluebutton.parse import *
-from djangomodels2xls import convert2excel
+from djangomodels2xls import convert2excel, simpler_parse
 import urllib2
 import json
 import re
@@ -19,9 +19,11 @@ from apps.registry.models import Organization, Trigger
 
 
 def upload(request):
+    print "STATIC_URL / STATIC_ROOT / STATICFILES_DIRS"
     print settings.STATIC_URL
     print settings.STATIC_ROOT
     print settings.STATICFILES_DIRS
+    print settings.SITE_URL
     
     if request.method == 'POST':
         form = BlueButtonFileUploadForm(request.POST, request.FILES)
@@ -108,11 +110,66 @@ def download_reformat(request, filename, sec_level=1):
     sanitized_path =  os.path.join(settings.MEDIA_ROOT, sanitized_file)
     green_parse(filepath, sanitized_path, sec_level)
     medsfilefilepath = "%s.meds" % (filepath)
+
     """ generate meds information as json in media"""
     items = simple_parse(filepath, medsfilefilepath)
-    meds = build_mds_readings(items)
+    print "items: (from simple parse)"
+    print items
+
+    med_items = simpler_parse(filepath, medsfilefilepath)
+    print "items: (from simpler parse):"
+    print med_items
     """ generate the information as excel in media"""
-    excelfilename = convert2excel(meds, filename)
+    # Basic info
+    my_info = build_simple_demographics_readings(items)
+    print my_info
+    me_data = [my_info,]
+    excel_wb_object = convert2excel(me_data,
+                                    filename,
+                                    'MyInfo',
+                                    'open',
+                                    '')
+    # open and update modes returns Excel_workbook_object
+    #add to Excel Sheet
+
+    # Weight Info
+    my_weight = build_wt_readings(items)
+    print "Weight information:"
+    print my_weight
+    excel_wb_object = convert2excel(my_weight,
+                            filename,
+                            'Weight',
+                            'update',
+                            excel_wb_object)
+
+    # Blood Pressure Info
+    my_bp = build_bp_readings(items)
+    print "Blood pressure:"
+    print my_bp
+    excel_wb_object = convert2excel(my_bp,
+                                    filename,
+                                    'BloodPressure',
+                                    'update',
+                                    excel_wb_object)
+
+    # Meds info
+    meds = build_mds_readings(items)
+    print "Meds for Excel File:"
+    print meds
+    # for some reason the meds routine seems to work
+    # dedup meds entries
+    de_meds = de_duplicate_list(meds)
+    # print "DEDUP THE MEDS..........."
+    # print de_meds
+    excelfilename = convert2excel(de_meds,
+                                  filename,
+                                  'Medications',
+                                  'save',
+                                  excel_wb_object)
+    # save mode returns Excel filename
+    # modified function to allow customization of worksheet tab name
+
+
     print "excel is", excelfilename
 
     next = '/donate-my-data/' + filename
@@ -125,7 +182,7 @@ def download_reformat(request, filename, sec_level=1):
                  'next': next,},
                               RequestContext(request))
     
-
+@login_required()
 def donate_my_data(request, filename):
     
     object_list = Organization.objects.filter(status='approved')

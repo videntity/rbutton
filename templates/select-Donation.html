@@ -27,15 +27,18 @@
 Donate your health data to one of our research partners.
 </p>
 {% if not user.is_authenticated %}
-       <a class="janrainEngage" href="/janrain/login/?redirect_to=/donate-my-data/{{filename}}">Sign-In</a>
+       <a class="janrainEngage" href="./?next={% firstof request.path '/' %}">Sign-In</a>
+        to donate your data to one or more of our partners
+{% else %}
+
+    <form action="/donate-my-data/{{filename}}" method="POST" enctype="multipart/form-data" class="Narrative">
+
+    <p>
+        {% csrf_token %}
+        <input type="image" name="Donate" src="{{STATIC_URL}}img/DonateGreenFile.gif" border="0" height="60" />
+    </p>
+    </form>
 {% endif %}
-<form action="/donate-my-data/{{filename}}" method="POST" enctype="multipart/form-data" class="Narrative">
-  <p>
-    
-  {% csrf_token %}
-    <input type="image" name="Donate" src="{{STATIC_URL}}img/DonateGreenFile.gif" border="0" height="60" />
-  </p>
-</form>
 
 {% endblock %}
 

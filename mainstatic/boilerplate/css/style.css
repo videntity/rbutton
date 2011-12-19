@@ -268,7 +268,7 @@ a:hover { color: #036; }
 	font-weight: normal;
 	font-variant: normal;
 	text-transform: none;
-	background-image:'{{ STATIC_URL }}img/RainbowChameleon.jpg';
+	background-image:'{{STATIC_URL}}img/RainbowChameleon.jpg';
 	background-repeat:no-repeat;
 	
 }
@@ -353,3 +353,30 @@ label {
 
 
 }
+
+.add_this {
+
+}
+
+/*  Used in back.html to format back button */
+.Go_Back_1_Page {
+    font-style: italic;
+    font-weight: bolder;
+    font-family: Arial;
+    font-weight: lighter;
+    font-size: 0.60em;
+    border: 1px solid #000000;
+    text-shadow: #ffff99;
+    text-decoration: none;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-transform: uppercase;
+    background-color: #009900;
+    color: #ffffff;
+    border-radius: 5px;
+
+}
+
+
