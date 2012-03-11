@@ -52,7 +52,7 @@ def convert2excel(l, outfile, tab_name, mode, wb_object):
     l=json.dumps(l)
     l=json.loads(l)
     print "convert to excel received:"
-    print l
+    # print l
 
     cdcsheet= wb.add_sheet(tab_name)
     keys= l[0].keys()

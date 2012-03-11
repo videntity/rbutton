@@ -4,7 +4,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 
-SITE_URL = 'http://localhost:8000/'
+SITE_URL = 'http://192.168.1.60:8001/'
 
 ADMINS = (
     ('Mark Scrimshire', 'mark@healthca.mp'),

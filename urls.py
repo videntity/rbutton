@@ -19,13 +19,15 @@ urlpatterns = patterns('',
     
     url(r'^upload-success/(?P<filename>\S+)$',
         'rbutton.apps.uploadblue.views.upload_success', name='upload_success'),
-    
-    url(r'^accounts/', include('rbutton.apps.accounts.urls')),    
-    
+
+    url(r'^browser_test$', 'rbutton.apps.uploadblue.views.browser_test', name='browser_test'),
+
+    url(r'^accounts/', include('rbutton.apps.accounts.urls')),
+
     url(r'^download-reformat/(?P<filename>\S+)$',
         'rbutton.apps.uploadblue.views.download_reformat', name='download_reformat'),
-   
-   url(r'^donate-my-data/(?P<filename>\S+)$',
+
+    url(r'^donate-my-data/(?P<filename>\S+)$',
         'rbutton.apps.uploadblue.views.donate_my_data', name='donate_my_data'),
    
    url(r'^novartis-question/(?P<filename>\S+)$',
@@ -51,7 +53,9 @@ urlpatterns = patterns('',
     url(r'rpx_xdcomm.html$', direct_to_template, {'template': 'rpx_xdcomm.html'}),
 
     url(r'^janrain/', include('rbutton.apps.janrain.urls')),
-                       
+
+    url(r'^experiment/', include('rbutton.apps.experimental.urls')),
+
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
