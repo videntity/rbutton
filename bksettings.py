@@ -154,9 +154,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'mediasync',
     #'south',
-    'rbutton.uploadblue',
-    'rbutton.apps.experimental',
-    'rbutton.apps.experimental.iPhoneUpload',
+   'rbutton.uploadblue',
 
 
 )
