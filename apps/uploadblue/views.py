@@ -11,7 +11,7 @@ from bluebutton.parse import *
 from djangomodels2xls import convert2excel
 import urllib2
 import json
-from apps.registry.models import Organization
+from ..registry.models import Organization
 
 
 def upload(request):

@@ -4,7 +4,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Mark Scrimshire', 'mark@healthca.mp'),
+    ('Alan Viars', 'your_email@domain.com'),
 )
 
 MANAGERS = ADMINS
@@ -34,9 +34,9 @@ MEDIASYNC['SERVE_REMOTE'] = True
 
 
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
-LOGIN_URL='/accounts/login'
-AUTHENTICATION_BACKENDS = ('rbutton.apps.accounts.auth.HTTPAuthBackend',
-                           'rbutton.apps.accounts.auth.EmailBackend',
+
+AUTHENTICATION_BACKENDS = ('hive.accounts.auth.HTTPAuthBackend',
+                           'hive.accounts.auth.EmailBackend',
                            'django.contrib.auth.backends.ModelBackend',
                            )
 #logout after 10 minutes of inactivity
@@ -72,6 +72,7 @@ USE_L10N = True
 # Example: "/home/media/media.lawrence.com/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, 'media')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
@@ -86,12 +87,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 #STATIC_URL = '/static/'
-STATIC_URL="https://rbuttonstatic.s3.amazonaws.com/static/"
+STATIC_URL="http://rbuttonstatic.s3.amazonaws.com/static/"
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
 #ADMIN_MEDIA_PREFIX = '/static/admin'
-ADMIN_MEDIA_PREFIX = 'https://rbuttonstatic.s3.amazonaws.com/static/'
+ADMIN_MEDIA_PREFIX = 'https://cegdjadmin.s3.amazonaws.com/'
 MAIN_STATIC_ROOT = os.path.join(BASE_DIR, 'mainstatic')
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -146,12 +147,10 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-     'django.contrib.admindocs',
+    # 'django.contrib.admindocs',
     'mediasync',
     #'south',
-   'rbutton.apps.uploadblue',
-   'rbutton.apps.accounts',
-   'rbutton.apps.registry',
+   'rbutton.uploadblue',
 
 
 )
@@ -179,23 +178,16 @@ LOGGING = {
     }
 }
 
-# Twilio SMS Login Settings ---------------------------------------------------
-TWILIO_DEFAULT_FROM="+12024992459"
-TWILIO_API_BASE="https://api.twilio.com/2010-04-01"
-TWILIO_SID= "AC4d3f4dcee199445c45faa797c5c97898"
-TWILIO_AUTH_TOKEN="d623565a60e77bb5902e1971948c6f17"
-TWILIO_API_VERSION='2010-04-01'
-SMS_LOGIN_TIMEOUT_MIN=10
 
 
-EMAIL_HOST = 'smtp.google.com'
+EMAIL_HOST = 'smtp.bizmail.yahoo.com'
 EMAIL_PORT = 587 #25 by default
-EMAIL_HOST_USER = 'no-reply@healthca.mp'
+EMAIL_HOST_USER = 'no-reply@videntity.com'
 EMAIL_HOST_PASSWORD = 'mypassword'
 
 
 ACCOUNT_ACTIVATION_DAYS = 2
 RESTRICT_REG_DOMAIN_TO = None
-MIN_PASSWORD_LEN=8
+MIN_PASSWORD_LEN=10
 
 
