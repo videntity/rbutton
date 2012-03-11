@@ -3,6 +3,11 @@ __author__ = 'mark'
 
 from string import find
 
+def utils_available(check=True):
+    """
+    Dummy function to test that utils.py is available
+    """
+    return check
 
 
 def is_iOS(request):
