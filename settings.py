@@ -5,10 +5,10 @@ TEMPLATE_DEBUG = DEBUG
 
 
 
-SITE_URL = 'http://127.0.0.1:8000/'
-
+#SITE_URL = 'http://127.0.0.1:8000/'
+SITE_URL = 'http://www.rainbowbutton.com/'
 ADMINS = (
-    ('Alan Viars', 'your_email@domain.com'),
+    ('Mark S', 'mark+hc@healthca.mp'),
 )
 
 MANAGERS = ADMINS
@@ -91,7 +91,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 #STATIC_URL = '/static/'
-STATIC_URL="http://rbuttonstatic.s3.amazonaws.com/static/"
+
+# STATIC_URL="http://rbuttonstatic.s3.amazonaws.com/static/"
+STATIC_URL="http://www.ekive.com/static/rbutton/mainstatic/"
+
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
@@ -104,6 +107,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     MAIN_STATIC_ROOT,
+    STATIC_URL,
     )
 
 # List of finder classes that know how to find static files in
