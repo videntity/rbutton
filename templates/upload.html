@@ -1,18 +1,20 @@
-
-<p>{% extends "base.html" %}
+{% extends "base.html" %}
   {% block extra_head %}
  
   
   {% endblock %}
   
   {% block featureBox %}</p>
-<p class="Narrative">The Medical Record Converter makes it simple to remove personal information from your Blue Button file so that you can anonymously donate your data for research purposes. We hope you choose to pay it forward and share your information. Doing so can help make the world a better place.</p>
+<p class="Narrative">The Medical Record Converter makes it simple to remove personal information
+    from your Blue Button file so that you can anonymously donate your data for research purposes.
+    We hope you choose to pay it forward and share your information.
+    Doing so can help make the world a better place.</p>
 <br />
 <form enctype="multipart/form-data" action="/upload" method="POST">
 <div class="Body_Text">{{ form.as_p }}
 {% csrf_token %}</div>
 <br>
-<div class="Body_Text"><input type="image" name="upload" src="{{STATIC_URL}}img/UploadBlueFile60.gif" border="0"  /></div>        
+<div class="Body_Text"><input type="image" name="upload" src="{{ STATIC_URL }}img/UploadBlueFile60.gif" border="0"  /></div>
 </form>
 
 {% endblock %}

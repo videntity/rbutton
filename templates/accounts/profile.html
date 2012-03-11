@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block bodyid %}profile{% endblock %}
+{% block title %}Account Profile - Example App{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<div id="messages">
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<p class="helper">This is what people will see on your public profile page. You
+can also <a href="{% url auth_associate %}">manage your logins &raquo</a></p>
+
+<form action="" method="post" name="profile_form" id="profile_form">
+    {{ form.as_p }}
+    <div class="actions">
+        <button type="submit" name="submit" value="Save">Update Profile &raquo;</button>
+    </div>
+</form>
+
+{% endblock %}

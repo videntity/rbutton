@@ -2837,7 +2837,7 @@ if ( !jQuery.support.submitBubbles ) {
 					var elem = e.target,
 						type = elem.type;
 
-					if ( (type === "submit" || type === "image") && jQuery( elem ).closest("form").length ) {
+					if ( (type === "submit" || type === "img") && jQuery( elem ).closest("form").length ) {
 						trigger( "submit", this, arguments );
 					}
 				});
@@ -3942,7 +3942,7 @@ var Expr = Sizzle.selectors = {
 		},
 
 		image: function( elem ) {
-			return "image" === elem.type;
+			return "img" === elem.type;
 		},
 
 		reset: function( elem ) {

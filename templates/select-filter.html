@@ -5,15 +5,17 @@
 <script type="text/javascript">
 function changeimage(ImageName)
 {
-    var current_id_level = document.getElementById('id_level').value;
-    var new_id_level = ImageName.substring(ImageName.length-1,ImageName.length);
+    var current_sec_level = document.getElementById('sec_level')
+            .value;
+    var new_sec_level = ImageName.substring(ImageName.length-1,
+            ImageName.length);
     var ImageNameBase = ImageName.substring(0,ImageName.length-1);
 
     for(var i = 0; i < 4; i++){
         cc = 0;
-        if(i == new_id_level){
+        if(i == new_sec_level){
             cc = 1;
-            document.getElementById('id_level').value = i;
+            document.getElementById('sec_level').value = i;
 
         }
         ImageNameAggregated = ImageNameBase + i + '_' + cc + '.gif' ;
@@ -36,16 +38,17 @@ function changeimage(ImageName)
 
 </p>
 <form action="/download-reformat/{{filename}}" method="POST" enctype="multipart/form-data" class="Narrative">
-<input type="hidden" id="id_level" name="id_level" value="0" />
+
 
 <p>How much of your information do you want to keep private?</p>
 <table><tr><td style="vertical-align:middle">0.</td><td width="100" align="center">   <img id="RedButton100" onclick="changeimage('RedButton100')" border="0" src="{{STATIC_URL}}img/RedButton100_0.gif"  /></td><td style="vertical-align:middle">Send All information (not recommended)</td></tr>
 		<tr><td style="vertical-align:middle">1.</td><td width="100" align="center"><img id="RedButton101" onclick="changeimage('RedButton101')" border="0" src="{{STATIC_URL}}img/RedButton101_0.gif"  /></td><td style="vertical-align:middle">Remove name and contact information</td></tr>
 		<tr><td style="vertical-align:middle">2.</td><td width="100" align="center"><img id="RedButton102" onclick="changeimage('RedButton102')" border="0" src="{{STATIC_URL}}img/RedButton102_0.gif" /></td><td style="vertical-align:middle">Also remove family history and military service</td></tr>
  		<tr><td style="vertical-align:middle">3.</td><td width="100" align="center"><img id="RedButton103" onclick="changeimage('RedButton103')" border="0" src="{{STATIC_URL}}img/RedButton103_0.gif"/></td><td style="vertical-align:middle">Also remove medications</td></tr>
+        <tr><td></td><td><input type="hidden" id="sec_level"
+                                       name="sec_level"
+                                       value="0" <br /></td></tr>
 </table>
-<br />
-
   {% csrf_token %}
   <br>
 <input type="image" name="CreateGreen" src="{{STATIC_URL}}img/PrepareGreenFile.gif" border="0" height="60" />

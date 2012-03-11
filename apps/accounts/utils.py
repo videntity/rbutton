@@ -5,9 +5,10 @@ from django.conf import settings
 from registration.models import RegistrationProfile, SHA1_RE
 import json
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 from httpauth import HttpBasicAuthentication
 from django.http import HttpResponse
-from models import Permission
+
 
 
 def user_permissions(request):
@@ -56,5 +57,4 @@ def verify(verification_key):
             profile.save()
             return user
     return False
-
 

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ page_heading }}{% endblock %}
+{% block featureBox %}
+<div class="login-box">
+
+  <h1>
+        Please Complete Your Registration
+    </h1>
+
+    {% if message %}
+        <p class="message">{{message}}</p>
+    {% endif %}
+
+    {% if form.errors %}
+        <p class="error">Sorry, that's not a valid username or password</p>
+    {% endif %}
+
+
+<table>   
+   <form action='.' method='POST' class="user-form">       
+	
+          
+       {{ form.as_table }}  
+           
+                
+        <tr><td><input type="submit" value="Complete my registration" class="button"/>
+        <input type="hidden" name="next" value="{{ next|escape }}" /> </td></tr>
+        {% csrf_token %} 
+    </form>
+  </table> 
+</div>
+{% endblock %}

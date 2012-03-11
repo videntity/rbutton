@@ -1,11 +1,24 @@
 {% extends "base.html" %}
 
+{% block javascript %}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.delete').click(function() {
+                var answer = confirm("Are you sure?")
+                if (answer) { return true; }
+                else { return false; };
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block featureBox %}
 <div id="featureBox">
   {% if updated %}
   <p class="warning">Account settings updated successfully! </p>
   {% endif %}
-  <p><label>User name:</label> <span>{{ user.username }}</span></p>
+  <p><label>Account id:</label> <span>{{ user.username }} [{{ form.display.value }}]</span></p>
   <p><label>Email:</label> <span>{{ user.email }}</span></p>
     <form action="." method="POST">
 
@@ -31,9 +44,23 @@
             {% endif %}
         </div>
     {% endfor %}
+    {% if messages %}
+    <div id="messages">
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
 
-        <div class="warning">
+
+<div class="warning">
    Warning: This system is in Beta and by signing up you
     are agreeing to the <a HREF="/tos.html">terms of service</a>.
 </div>
+{% endblock %}
+
+{% block bodyend %}
 {% endblock %}

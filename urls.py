@@ -14,19 +14,20 @@ urlpatterns = patterns('',
                 {'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
                 {'document_root': settings.STATIC_ROOT}),
-    url(r'^$', direct_to_template, {'template': 'index.html'},  name="home"),
-    
+
     url(r'^upload$', 'rbutton.apps.uploadblue.views.upload', name='upload'),
     
     url(r'^upload-success/(?P<filename>\S+)$',
         'rbutton.apps.uploadblue.views.upload_success', name='upload_success'),
-    
-    url(r'^accounts/', include('rbutton.apps.accounts.urls')),    
-    
+
+    url(r'^browser_test$', 'rbutton.apps.uploadblue.views.browser_test', name='browser_test'),
+
+    url(r'^accounts/', include('rbutton.apps.accounts.urls')),
+
     url(r'^download-reformat/(?P<filename>\S+)$',
         'rbutton.apps.uploadblue.views.download_reformat', name='download_reformat'),
-   
-   url(r'^donate-my-data/(?P<filename>\S+)$',
+
+    url(r'^donate-my-data/(?P<filename>\S+)$',
         'rbutton.apps.uploadblue.views.donate_my_data', name='donate_my_data'),
    
    url(r'^novartis-question/(?P<filename>\S+)$',
@@ -39,17 +40,27 @@ urlpatterns = patterns('',
    		
 	url(r'^Privacy.html$', direct_to_template, {'template' : 'Privacy.html'}),	
    
-   url(r'^SupportUs.html$', direct_to_template, {'template' : 'SupportUs.html'}),
+    url(r'^SupportUs.html$', direct_to_template, {'template' : 'SupportUs.html'}),
    
-   url(r'^JoinRegistry.html$', direct_to_template, {'template' : 'JoinRegistry.html'}),
+    url(r'^JoinRegistry.html$', direct_to_template, {'template' : 'JoinRegistry.html'}),
                                                     
-   url(r'^registry/', include('rbutton.apps.registry.urls')),                                                     
+    url(r'^registry/', include('rbutton.apps.registry.urls')),
    
-   url(r'^tos.html$', direct_to_template, {'template' : 'tos.html'}),
-   
-   
-                       
+    url(r'^tos.html$', direct_to_template, {'template' : 'tos.html'}),
+
+    url(r'^background.html$', direct_to_template, {'template': 'background.html'}),
+
+    url(r'rpx_xdcomm.html$', direct_to_template, {'template': 'rpx_xdcomm.html'}),
+
+    url(r'^janrain/', include('rbutton.apps.janrain.urls')),
+
+    url(r'^experiment/', include('rbutton.apps.experimental.urls')),
+
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-)
+
+    url(r'^$', direct_to_template, {'template': 'index.html'},  name="home"),
+
+
+    )
 

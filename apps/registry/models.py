@@ -41,3 +41,19 @@ class Organization(models.Model):
 
     def __unicode__(self):
             return '%s is a %s entity' % (self.name, self.type)
+
+ACTIVE_TRIGGER = ( ('active', 'Active'), ('closed', 'Closed'), )
+
+class Trigger(models.Model):
+    trigger         = models.CharField(blank=True, max_length=100)
+    organization    = models.ForeignKey(Organization, null=True)
+    Question        = models.CharField(blank=True, max_length=250)
+    active          = models.CharField(max_length=10, choices=ACTIVE_TRIGGER,
+                                       default='active')
+
+    class Meta:
+        ordering = ('organization', 'trigger')
+        unique_together = (("trigger", "organization","active" ),)
+
+    def __unicode__(self):
+        return u"%s asked about %s [%s]" % (self.organization, self.trigger, self.active)

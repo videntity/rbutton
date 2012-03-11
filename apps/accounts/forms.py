@@ -4,16 +4,53 @@ from  models import *
 #from django.contrib.admin import widgets
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import ModelForm
 from django.forms.util import ErrorList
 from django.contrib.localflavor.us.forms import *
 from registration.forms import RegistrationFormUniqueEmail
 from registration.models import RegistrationProfile
 from django.conf import settings
 
+from django import forms
+
+class SocialProfileForm(forms.Form):
+    username = forms.CharField(max_length=30, label= 'Username')
+    first_name = forms.CharField(max_length = 30, label = 'First Name')
+    last_name = forms.CharField(max_length = 30, label = 'Last Name')
+    #(Optional) Make email unique.
+    email = forms.EmailField(label = 'Email Address')
+
+    def clean_username(self):
+        username = self.cleaned_data["username"]
+        try:
+            u = User.objects.get(username=username)
+            raise forms.ValidationError("This username already exists. Choose another.")
+        except(User.DoesNotExist):
+            return username
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        try:
+            u = User.objects.get(email=email)
+            raise forms.ValidationError("This email is already connected to an account. Use another.")
+        except(User.DoesNotExist):
+            return email
+        
+    def save(self):
+        #create a user and a blank profile.
+        #redirect to profile.
+        mypassword = str(uuid.uuid4())
+        newuser = User.objects.create_user(self.username,
+                                           self.email,
+                                           mypassword)
+        newuser.first_name=self.first_name
+        newuser.last_name=self.last_name
+        newuser.save()
+        return newuser
+
 
 # ==================
 class UserCreationFormExtended(UserCreationForm):
+
     def __init__(self, *args, **kwargs):
         super(UserCreationFormExtended, self).__init__(*args, **kwargs)
         self.fields['first_name'].required = False
@@ -26,10 +63,11 @@ class UserCreationFormExtended(UserCreationForm):
 # ==================
 
 
-class UserProfileDisplay(ModelForm):
+class UserProfileDisplay(forms.ModelForm):
     first_name              = forms.CharField(required=False, max_length=30)
     last_name               = forms.CharField(required=False, max_length=40)
     email                   = forms.CharField(required=False, max_length=75)
+    display                 = forms.CharField(required=False, max_length=30)
 
     class Meta:
         model = UserProfile
@@ -39,8 +77,10 @@ class UserProfileDisplay(ModelForm):
         def save(self, ):
             nup = UserProfile.objects.create(
                 username=User,
-                first_name=self.cleaned_data['first_name'],last_name=self.cleaned_data['last_name'],
+                first_name=self.cleaned_data['first_name'],
+                last_name=self.cleaned_data['last_name'],
                 email=self.cleaned_data['email_address'],
+                display=self.cleaned_data['display'],
             )
 
             return username
@@ -127,5 +167,14 @@ class AccountSettingsForm(forms.Form):
     phone_number    = forms.CharField(max_length=15, required=False, label="Phone Number")
     email           = forms.EmailField(max_length=75, required=True, label="Email*")
     twitter         = forms.CharField(max_length=15, required=False, label="Twitter")
-     
+    socialprofile   = forms.URLField(max_length=200, label="Social Profile")
+    socialsite      = forms.CharField(max_length=50, label="Social Login Provider")
+    display         = forms.CharField(max_length=75, label="Display Name")
+
+class ProfileForm(forms.Form):
+    first_name = forms.CharField(max_length = 30, label = 'First Name')
+    last_name = forms.CharField(max_length = 30, label = 'Last Name')
+    #(Optional) Make email unique.
+    email = forms.EmailField(label = 'Email Address')
     
+

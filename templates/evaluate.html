@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block extra_head %}
+
+    <script src="{{ STATIC_URL }}js/picup.js"></script>
+    <script src="{{ STATIC_URL }}js/prototype.js"></script>
+
+
+
+{% endblock %}
+
+{% block high_breadcrumbs %}
+    <h1>Browser Test</h1>
+    {% include "back.html" %}
+{% endblock %}
+
+{% block featureBox %}
+
+
+<h2>Browser Result: {{ result }}</h2>
+<p class>Browser elements found:{{ found }}</p>
+
+{% if result %}
+    <input type="file" name="{{ file_upload }}" id="file_upload_input" />
+    <input type="button" id="file_view_input" style="display:none;" onclick="viewScratchURL();return false;" value="Get Photo" />
+
+    <p><a href="http://itunes.apple.com/us/app/picup/id354101378?mt=8" id="available_in_appstore">
+    <img src="{{ STATIC_URL }}img/AppsStore.jpeg" width="150">
+    </a></p>
+{% endif %}
+
+
+{% endblock %}
