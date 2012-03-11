@@ -11,9 +11,9 @@ urlpatterns = patterns('',
     # url(r'^$', 'experimental.views.home', name='home'),
     # url(r'^experimental/', include('experimental.foo.urls')),
 
-    url(r'^upload$/', 'rbutton.apps.experimental.iPhoneUpload.views.browser_test', name='upload'),
+    url(r'^upload/$', 'rbutton.apps.experimental.iPhoneUpload.views.browser_test', name='iosupload'),
 
-    url(r'^$', direct_to_template, {'template': 'experimental/index.html'},  name="testhome"),
+    url(r'^index.html$', direct_to_template, {'template': 'experimental/index.html'},  name="testhome"),
 
 
 )
