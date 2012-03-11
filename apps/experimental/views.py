@@ -1,7 +1,7 @@
 """
     Testing picup
 """
-from apps.experimental.utils import is_iOS, is_iOS_browser, utils_available
+from rbutton.apps.experimental.utils import is_iOS, is_iOS_browser, utils_available
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
