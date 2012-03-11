@@ -19,7 +19,7 @@ def is_iOS(request):
     ua = request.META['HTTP_USER_AGENT']
 
     # testing
-    ua = 'Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3'
+    # ua = 'Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3'
 
 
     browser_agent = ""
@@ -64,7 +64,7 @@ def is_iOS_browser(request):
     ua = request.META['HTTP_USER_AGENT']
 
     # testing
-    ua = 'Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3'
+    # ua = 'Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3'
 
     print "testing with:"
     print ua
