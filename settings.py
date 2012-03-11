@@ -180,6 +180,8 @@ INSTALLED_APPS = (
     'rbutton.apps.accounts',
     'rbutton.apps.registry',
     'rbutton.apps.janrain',
+    'rbutton.apps.experimental',
+    'rbutton.apps.experimental.iPhoneUpload',
 
 #    'django_rpx_plus',
 
