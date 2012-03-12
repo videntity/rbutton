@@ -21,7 +21,7 @@
             hash = hashes[i].split('=');
             vars.push(hash[0]);
             vars[hash[0]] = hash[1];
-            alert(hash[0]+' == '+hash[1]);
+            // alert(hash[0]+' == '+hash[1]);
         }
         return vars;
     }
@@ -30,10 +30,13 @@
     var allVars = getHashUrlVars();
 
     // Getting URL var by its name
-    // var image = getHashUrlVars()["image"];
-    // var status = getHashUrlVars()["status"];
+    var picID = getHashUrlVars()["picID"];
+    var remoteImageURL = getHashUrlVars()["remoteImageURL"];
+    var debug = getHashUrlVars()["debug"];
+    var thumbnailDataURL = getHashUrlVars()["thumbnailDataURL"];
 
-    var data = "/experiment/upload_save?image="+ image +"&status="+status;
+
+    var data = "/experiment/upload_save?debug="+ debug +"&remoteImageURL="+ remoteImageURL +"&picID="+ picID + "&thumbnailDataURL=" +thumbnailDataURL;
 
     // alert('imgURL: '+unescape(image));
     // alert('status: '+unescape(status));
