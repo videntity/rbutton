@@ -41,7 +41,7 @@
 
             };
 
-            Picup.convertFileInput($('file'), currentParams);
+            Picup.convertFileInput($('photo'), currentParams);
 
         });
 
@@ -62,12 +62,11 @@
 
     <h2>Browser Result: {{ result }}</h2>
     <p class>Browser elements found:{{ found }}</p>
-
-        <input type="text" name="scratch_url" id="scratch_url" value="{{ scratch_url|escapejs }}" {% ifequal picup_debug False %}style="display:none;"{% endifequal %} /><br/>
+        <div class="insert_element"></div>
 
         {%  if result %}
-            <label for="image">Upload Image:</label>
-            <input type="file" name="file" id="file"/>
+            <label for="image">Upload Image from your iOS device:</label>
+            <input type="file" name="photo" id="photo"/>
         {%  else %}
             <label for="image">Upload Image of form:</label> 
             <input type="file" name="file" id="file"/>
