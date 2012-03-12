@@ -8,8 +8,8 @@
 <script type="text/javascript">
     function displayResults(paramHash){
         var thumbnailData = paramHash.thumbnailDataURL;
-        if(thumbnailDataURL){
-            $('thumbnail_preview').innerHTML = '<img src="'+unescape(thumbnailDataURL)+'"/>';
+        if(thumbnailData){
+            $('thumbnail_preview').innerHTML = '<img src="'+unescape(thumbnailData)+'"/>';
         }
         $('output').innerHTML = $H(paramHash).toJSON().replace(/\"\,/gmi, '",\n');
         //window.location.href = '#results';
