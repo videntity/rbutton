@@ -21,6 +21,7 @@
             hash = hashes[i].split('=');
             vars.push(hash[0]);
             vars[hash[0]] = hash[1];
+            alert(hash[0]+' == '+hash[1]);
         }
         return vars;
     }
@@ -29,13 +30,13 @@
     var allVars = getHashUrlVars();
 
     // Getting URL var by its name
-    var image = getHashUrlVars()["image"];
-    var status = getHashUrlVars()["status"];
+    // var image = getHashUrlVars()["image"];
+    // var status = getHashUrlVars()["status"];
 
     var data = "/experiment/upload_save?image="+ image +"&status="+status;
 
-    alert('imgURL: '+unescape(image));
-    alert('status: '+unescape(status));
+    // alert('imgURL: '+unescape(image));
+    // alert('status: '+unescape(status));
 
     //redirect the page to php script to be accessed using $_REQUEST
 
