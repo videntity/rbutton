@@ -45,6 +45,7 @@
     var debug = getHashUrlVars()["debug"];
     var thumbnailDataURL = getHashUrlVars()["thumbnailDataURL"];
 
+    alert('picID:'+picID);
     $('thumbnail_preview').innerHTML = '<img src="'+unescape(thumbnailDataURL)+'"/>';
 
     // document.getElementById('thumbnail_preview').innerHTML = thumbnailDataURL;
