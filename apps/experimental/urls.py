@@ -13,6 +13,8 @@ urlpatterns = patterns('',
 
     url(r'^iosload/', 'rbutton.apps.experimental.views.browser_test', name='iosupload'),
 
+    url(r'^upload-done/', 'rbutton.apps.experimental.views.photo_upload_done', name='iosdone'),
+
     url(r'^$', direct_to_template, {'template': 'experimental/index.html'},  name="testhome"),
 
     url(r'^index.html$', direct_to_template, {'template': 'experimental/index.html'},  name="testhome"),
