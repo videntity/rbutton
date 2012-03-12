@@ -21,7 +21,7 @@ def browser_test(request):
     fu = ""
 
     picup_debug  = "True"
-    favicon_url  = escape("http://www.ekive.com/static/rbutton/mainstatic/img/favicon.ico")
+    favicon_url  = "http%3A//www.ekive.com/static/rbutton/mainstatic/img/favicon.ico"
     purpose_text = "Upload%20a%20DC%20Medicaid%20Form%20Page"
     callback_url = "http://www.rainbowbutton.com/experiment/upload-done/"
     callback_parameters = "referrername=Picup%20Scratchpad&referrerfavicon="+favicon_url+"&purpose="+purpose_text+"&debug="+picup_debug+"&returnstatus=true&returnserverresponse=true&returnthumbnaildataurl=true&thumbnailsize=50"
