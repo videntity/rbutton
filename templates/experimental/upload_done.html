@@ -6,12 +6,16 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/prototype.js"></script>
 
 <script type="text/javascript">
-
-    Picup.callbackHandler = function(params){
-        for(var key in params){
-            alert(key+' == '+params[key]);
+    function displayResults(paramHash){
+        var thumbnailData = paramHash.thumbnailDataURL;
+        if(thumbnailData){
+            $('thumbnail_preview').innerHTML = '<img src="'+unescape(thumbnailData)+'"/>';
         }
-    }
+        $('output').innerHTML = $H(paramHash).toJSON().replace(/\"\,/gmi, '",\n');
+        //window.location.href = '#results';
+        window.scrollTo(0,10000);
+
+
 
     function getHashUrlVars(){
         var vars = [], hash;
@@ -26,6 +30,12 @@
         return vars;
     }
 
+    // Define the callback handler
+    Picup.callbackHandler = displayResults;
+    // We'll check the hash when the page loads in-case it was opened in a new page
+    // due to memory constraints
+    Picup.checkHash();
+
     // Get all URL parameters
     var allVars = getHashUrlVars();
 
@@ -38,7 +48,7 @@
   
     document.getElementById('thumbnail_preview').innerHTML = thumbnailDataURL;
 
-    var data = "/experiment/upload_save?debug="+ debug +"&remoteImageURL="+ remoteImageURL +"&picID="+ picID + "&thumbnailDataURL=" +thumbnailDataURL;
+    var data = "/experiment/upload_save?debug="+ debug +"&remoteImageURL="+ remoteImageURL +"&picID="+ picID ;
 
     // alert('imgURL: '+unescape(image));
     // alert('status: '+unescape(status));
