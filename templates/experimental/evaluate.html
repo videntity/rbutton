@@ -4,7 +4,7 @@
     <script src="{{ STATIC_URL }}js/picup.js"></script>
     <script src="{{ STATIC_URL }}js/prototype.js"></script>
 
-    <script type="text/css">
+    <script type="text/javascript">
     var currentParams = {}
 
 
@@ -24,8 +24,8 @@
         // Set some starter params
         currentParams = {
             'callbackURL' 		    : '{{ callback_url }}',
-            'referrername' 		    : 'RainbowButton%20Photo%20Upload',
-            'referrerfavicon' 	    : escape('http://www.ekive.com/static/rbutton/mainstatic/img/favicon.ico'),
+            'referrerName' 		    : 'RainbowButton%20Photo%20Upload',
+            'referrerFavicon' 	    : escape('http://www.ekive.com/static/rbutton/mainstatic/img/favicon.ico'),
             'purpose'               : escape('Capture%20the%20DC%20Medicaid%20Form'),
             'debug' 			    : 'true',
             'imageFormat'           : 'jpg',
@@ -48,6 +48,8 @@
         });
 
     </script>
+
+
 
 
 {% endblock %}
