@@ -22,7 +22,7 @@ def browser_test(request):
 
     picup_debug  = "True"
     favicon_url  = escape("http://picupapp.com/favicon.ico")
-    purpose_text = escape("Upload a DC Medicaid Form Page")
+    purpose_text = "Upload%20a%20DC%20Medicaid%20Form%20Page"
     callback_url = "http://www.rainbowbutton.com/experiment/upload-done/"
     callback_parameters = "referrername=Picup%20Scratchpad&referrerfavicon="+favicon_url+"&purpose="+purpose_text+"&debug="+picup_debug+"&returnstatus=true&returnserverresponse=true&returnthumbnaildataurl=true&thumbnailsize=50"
     scratch_url  = "fileupload://new?callbackURL="+callback_url+"&"+callback_parameters

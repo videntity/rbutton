@@ -89,11 +89,21 @@
 
         // Set some starter params
         currentParams = {
-            'callbackURL' 		: '{{ callback_url }}',
-            'referrername' 		: escape('RainbowButton Photo Upload'),
-            'referrerfavicon' 	: escape('http://picupapp.com/favicon.ico'),
-            'purpose'           : escape('Capture the DC Medicaid Form'),
-            'debug' 			: 'true'
+            'callbackURL' 		    : '{{ callback_url }}',
+            'referrername' 		    : 'RainbowButton%20Photo%20Upload',
+            'referrerfavicon' 	    : escape('http://picupapp.com/favicon.ico'),
+            'purpose'               : escape('Capture%20the%20DC%20Medicaid%20Form'),
+            'debug' 			    : 'true',
+            'imageFormat'           : 'jpg',
+       //   'postImageFilename'     : '',
+       //   'postImageParam'        : '',
+       //   'postURL'               : 'http%3A//imgur.com/api/upload.json',
+       //   'postValues'            : '',
+            'returnStatus'          : 'true',
+            'returnServerResponse'  : 'false',
+            'returnThumbnailDataURL': 'false',
+            'thumbnailSize'         : '50'
+
         };
 
         updateScratchWithCurrentParams();
