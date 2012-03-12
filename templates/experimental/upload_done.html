@@ -8,8 +8,8 @@
 <script type="text/javascript">
     function displayResults(paramHash){
         var thumbnailData = paramHash.thumbnailDataURL;
-        if(thumbnailData){
-            $('thumbnail_preview').innerHTML = '<img src="'+unescape(thumbnailData)+'"/>';
+        if(thumbnailDataURL){
+            $('thumbnail_preview').innerHTML = '<img src="'+unescape(thumbnailDataURL)+'"/>';
         }
         $('output').innerHTML = $H(paramHash).toJSON().replace(/\"\,/gmi, '",\n');
         //window.location.href = '#results';
@@ -31,10 +31,10 @@
     }
 
     // Define the callback handler
-    Picup.callbackHandler = displayResults;
+    // Picup.callbackHandler = displayResults;
     // We'll check the hash when the page loads in-case it was opened in a new page
     // due to memory constraints
-    Picup.checkHash();
+    // Picup.checkHash();
 
     // Get all URL parameters
     var allVars = getHashUrlVars();
@@ -45,8 +45,9 @@
     var debug = getHashUrlVars()["debug"];
     var thumbnailDataURL = getHashUrlVars()["thumbnailDataURL"];
 
-  
-    document.getElementById('thumbnail_preview').innerHTML = thumbnailDataURL;
+    $('thumbnail_preview').innerHTML = '<img src="'+unescape(thumbnailDataURL)+'"/>';
+
+    // document.getElementById('thumbnail_preview').innerHTML = thumbnailDataURL;
 
     var data = "/experiment/upload_save?debug="+ debug +"&remoteImageURL="+ remoteImageURL +"&picID="+ picID ;
 
