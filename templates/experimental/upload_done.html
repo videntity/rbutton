@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {% block extra_head %}
 <title>Uploaded Photo...</title>
-<script type="text/css">
 
-</script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/picup.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/prototype.js"></script>
+
+<script type="text/javascript">
+
     function getHashUrlVars(){
         var vars = [], hash;
         var hashes = window.location.href.slice(window.location.href.indexOf('#') + 1).split('&');
@@ -31,6 +34,7 @@
     //redirect the page to php script to be accessed using $_REQUEST
 
     window.location = data;
+</script>
 
 
 {% endblock %}
