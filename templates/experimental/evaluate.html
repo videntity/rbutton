@@ -86,14 +86,19 @@
 {% block featureBox %}
 
 
-    <h2>Browser Result: {{ result }}</h2>
+    <h2>Browser Result: {{ result }}:{{ post_processing }}</h2>
     <p class>Browser elements found:{{ found }}</p>
         <div class="iphone"></div>
 
         {%  if result %}
-            <label for="image">Upload Image from your iOS device:</label>
-            <input type="button" value="choose an image" name="photo" id="photo" onclick="viewScratchURL();return false;" />
-        {%  else %}
+            {% ifequal post_processing "True" %}
+                <label for="image">{{ post_processing }}:Image from your iOS device:</label>
+                <input type="file" value="{{ file_upload }}" name="file" id="file"  />
+            {% else %}
+                <label for="image">Upload Image from your iOS device:</label>
+                <input type="button" value="choose an image" name="photo" id="photo" onclick="viewScratchURL();return false;" />
+            {% endifequal %}
+            {%  else %}
             <label for="image">Upload Image of form:</label> 
             <input type="file" name="file" id="file"/>
         {% endif %}

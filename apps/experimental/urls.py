@@ -15,6 +15,8 @@ urlpatterns = patterns('',
 
     url(r'^upload-done/', 'rbutton.apps.experimental.views.photo_upload_done', name='iosdone'),
 
+    url(r'^upload-save', 'rbutton.apps.experimental.views.photo_upload_save', name='iossave'),
+
     url(r'^$', direct_to_template, {'template': 'experimental/index.html'},  name="testhome"),
 
     url(r'^index.html$', direct_to_template, {'template': 'experimental/index.html'},  name="testhome"),

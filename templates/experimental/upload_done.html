@@ -6,18 +6,22 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/prototype.js"></script>
 
 <script type="text/javascript">
-    function displayResults(paramHash){
-        var thumbnailData = paramHash.thumbnailDataURL;
-        if(thumbnailData){
-            $('thumbnail_preview').innerHTML = '<img src="'+unescape(thumbnailData)+'"/>';
-        }
-        $('output').innerHTML = $H(paramHash).toJSON().replace(/\"\,/gmi, '",\n');
-        //window.location.href = '#results';
-        window.scrollTo(0,10000);
+ var currentParams = {}
+ // Sample callback function
+function displayResults(paramHash){
+     var thumbnailData = paramHash.thumbnailDataURL;
+     if(thumbnailData){
+         var thumb_image = document.getElementById("thumbnail_preview");
+         thumb_image.innerHTML = '<img src="'+unescape(thumbnailData)+'"/>';
+     }
+     //var output_data = document.getElementById("output");
+     //output_data.innerHTML = $H(paramHash).toJSON().replace(/\"\,/gmi, '",\n');
+     //window.location.href = '#results';
+     window.scrollTo(0,10000);
+}
 
 
-
-    function getHashUrlVars(){
+function getHashUrlVars(){
         var vars = [], hash;
         var hashes = window.location.href.slice(window.location.href.indexOf('#') + 1).split('&');
         for(var i = 0; i < hashes.length; i++)
@@ -28,13 +32,24 @@
             // alert(hash[0]+' == '+hash[1]);
         }
         return vars;
-    }
+}
 
+
+
+window.onload = function(){
+     var txt=document.getElementById("testing_output");
+     txt.innerHTML="Functions Loading...";
+
+    // document.write('can we write anything from javascript');
     // Define the callback handler
-    // Picup.callbackHandler = displayResults;
+    Picup.callbackHandler = displayResults;
+    txt.innerHTML="Completed results analysis...";
+
     // We'll check the hash when the page loads in-case it was opened in a new page
     // due to memory constraints
-    // Picup.checkHash();
+    Picup.checkHash();
+    txt.innerHTML="Checked the Hash...";
+
 
     // Get all URL parameters
     var allVars = getHashUrlVars();
@@ -43,21 +58,28 @@
     var picID = getHashUrlVars()["picID"];
     var remoteImageURL = getHashUrlVars()["remoteImageURL"];
     var debug = getHashUrlVars()["debug"];
-    var thumbnailDataURL = getHashUrlVars()["thumbnailDataURL"];
+    var thumbnailData = getHashUrlVars()["thumbnailDataURL"];
 
-    alert('picID:'+picID);
-    $('thumbnail_preview').innerHTML = '<img src="'+unescape(thumbnailDataURL)+'"/>';
+    // alert('picID:'+picID);
+    txt.innerHTML="Display the Thumbnail...";
+    //var thumb_image = document.getElementById("thumbnail_preview");
+    //thumb_image.innerHTML = '<img src="'+unescape(thumbnailData)+'"/>';
+
+    // $('thumbnail_preview').innerHTML = '<img src="'+ unescape(thumbnailData)+'"/>';
 
     // document.getElementById('thumbnail_preview').innerHTML = thumbnailDataURL;
 
-    var data = "/experiment/upload_save?debug="+ debug +"&remoteImageURL="+ remoteImageURL +"&picID="+ picID ;
+    var data = "/experiment/upload-save?debug="+ debug +"&remoteImageURL="+ remoteImageURL +"&picID="+ picID ;
+    txt.innerHTML="<a href='"+data+"' >Success! - Click to continue</a>";
+
 
     // alert('imgURL: '+unescape(image));
     // alert('status: '+unescape(status));
 
-    //redirect the page to php script to be accessed using $_REQUEST
+    //redirect the page to receiving page to be accessed using parameters
 
-    window.location = data;
+    // window.location = data;
+};
 </script>
 
 
@@ -75,10 +97,13 @@
     <p class>Browser elements found:{{ found }}</p>
 
     <a name="results"></a>
-    <div id="thumbnail_preview"></div>
-    <pre id="output">
+    <div >
+        <div id="testing_output">Waiting for functions to work</div>
+        <div id="thumbnail_preview"></div>
+        <pre id="output">
 
 		</pre>
+    </div>
     <script type="text/javascript">
         if(isIphone) document.body.className = "iphone";
     </script>

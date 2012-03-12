@@ -52,3 +52,35 @@ def photo_upload_done(request):
 
             },
         RequestContext(request))
+
+
+def photo_upload_save(request):
+    """
+    Return with hash parameters
+    """
+    received = request
+    print received
+    bt = is_iOS(received)
+
+    print utils_available()
+
+    print "Testing for Safari Mobile Browser:"
+    print bt
+
+    ba = is_iOS_browser(received)
+
+    remoteImageURL = request.GET['remoteImageURL']
+
+    fu = ""
+    fu = fu + remoteImageURL
+
+    return render_to_response('experimental/evaluate.html',
+            {
+
+            'result':bt,
+            'found':ba,
+            'file_upload': fu,
+            'post_processing':"True",
+
+            },
+            RequestContext(request))
