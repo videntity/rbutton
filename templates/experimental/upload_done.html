@@ -7,6 +7,12 @@
 
 <script type="text/javascript">
 
+    Picup.callbackHandler = function(params){
+        for(var key in params){
+            alert(key+' == '+params[key]);
+        }
+    }
+
     function getHashUrlVars(){
         var vars = [], hash;
         var hashes = window.location.href.slice(window.location.href.indexOf('#') + 1).split('&');
