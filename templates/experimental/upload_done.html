@@ -35,6 +35,8 @@
     var debug = getHashUrlVars()["debug"];
     var thumbnailDataURL = getHashUrlVars()["thumbnailDataURL"];
 
+  
+    document.getElementById('thumbnail_preview').innerHTML = thumbnailDataURL;
 
     var data = "/experiment/upload_save?debug="+ debug +"&remoteImageURL="+ remoteImageURL +"&picID="+ picID + "&thumbnailDataURL=" +thumbnailDataURL;
 
