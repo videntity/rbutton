@@ -20,15 +20,17 @@ def browser_test(request):
 
     fu = ""
 
+    picup_debug  = "True"
     favicon_url  = escape("http://picupapp.com/favicon.ico")
     purpose_text = escape("Upload a DC Medicaid Form Page")
     callback_url = "http://www.rainbowbutton.com/experiment/upload-done/"
-    callback_parameters = "referrername=Picup%20Scratchpad&referrerfavicon="+favicon_url+"&purpose="+purpose_text+"&debug=true&returnstatus=true&returnserverresponse=true&returnthumbnaildataurl=true&thumbnailsize=50"
+    callback_parameters = "referrername=Picup%20Scratchpad&referrerfavicon="+favicon_url+"&purpose="+purpose_text+"&debug="+picup_debug+"&returnstatus=true&returnserverresponse=true&returnthumbnaildataurl=true&thumbnailsize=50"
     scratch_url  = "fileupload://new?callbackURL="+callback_url+"&"+callback_parameters
 
 
     return render_to_response('experimental/evaluate.html',
             {
+            'picup_debug': picup_debug,
             'result':bt,
             'found':ba,
             'file_upload': fu,

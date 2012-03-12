@@ -116,7 +116,7 @@
     <h2>Browser Result: {{ result }}</h2>
     <p class>Browser elements found:{{ found }}</p>
 
-
+        <input type="text" name="scratch_url" id="scratch_url" value="{{ scratch_url }}" {% ifequal picup_debug False %}style="display:none;"{% endifequal %} /><br/>
         <input type="file" name="filedata" id="file_upload_input" />
         <input type="button" id="file_view_input" style="display:none;" onclick="viewScratchURL();return false;" value="View Photo" />
 
