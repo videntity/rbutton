@@ -42,7 +42,7 @@
 
         Picup.urlForOptions('new', currentParams);
 
-        Picup.convertFileInput('photo', currentParams);
+        Picup.convertFileInput($('photo'), currentParams);
 
 
         });
@@ -76,9 +76,11 @@
         <script type="text/javascript">
             if(isIphone) document.body.className = "iphone";
         </script>
+        {% if result %}
         <p><a href="http://itunes.apple.com/us/app/picup/id354101378?mt=8" id="available_in_appstore">
             <img src="http://www.ekive.com/images/AppsStore.jpg" width="150">
         </a></p>
+        {%  endif %}
 
 
 
