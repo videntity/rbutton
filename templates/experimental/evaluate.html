@@ -7,55 +7,6 @@
     <script type="text/css">
     var currentParams = {}
 
-    // Sample callback function
-    function displayResults(paramHash){
-        var thumbnailData = paramHash.thumbnailDataURL;
-        if(thumbnailData){
-            $('thumbnail_preview').innerHTML = '<img src="'+unescape(thumbnailData)+'"/>';
-        }
-            $('output').innerHTML = $H(paramHash).toJSON().replace(/\"\,/gmi, '",\n');
-            //window.location.href = '#results';
-            window.scrollTo(0,10000);
-    }
-
-    function updateParamsForAction(){
-
-        scratch_action = 'new';
-        if(Prototype.Browser.MobileSafari){
-                $('file_upload_input').hide();
-                $('file_view_input').show();
-        }else{
-                $('file_upload_input').show();
-                $('file_view_input').hide();
-        }
-
-        currentParams = {};
-
-        updateScratchWithCurrentParams();
-
-    }
-
-
-    function updateScratchWithCurrentParams(){
-        // Update the variable inputs
-        for(var paramName in currentParams){
-            $(paramName+'_value').value = currentParams[paramName];
-        }
-
-        // Update the URL
-        $('scratch_url').innerHTML = Picup.urlForOptions($('scratch_action').value, currentParams);
-
-
-        // Each time the params change, we'll convert the input field.
-        // In practice, this will probably be called once, on page load
-        if(Prototype.Browser.MobileSafari){
-            Picup.convertFileInput($('file_upload_input'), currentParams);
-        }
-    }
-
-    function viewScratchURL(){
-        window.open(Picup.urlForOptions('view', currentParams), Picup.windowname);
-    }
 
     document.observe('dom:loaded', function(){
 
@@ -70,28 +21,11 @@
         Picup.checkHash();
 
 
-        // Observe text inputs
-        $$('#params_selector input[type="text"]').each(function(input, i){
-            input.observe('change', function(e){
-                var input = e.element();
-                var paramName = input.id.replace('_value', '');
-                var paramValue = input.value.strip();
-                if(!paramValue){
-                    delete currentParams[paramName];
-                }else{
-                    currentParams[paramName] = paramValue;
-                }
-                updateScratchWithCurrentParams();
-            });
-        });
-
-        updateParamsForAction();
-
         // Set some starter params
         currentParams = {
             'callbackURL' 		    : '{{ callback_url }}',
             'referrername' 		    : 'RainbowButton%20Photo%20Upload',
-            'referrerfavicon' 	    : escape('http://picupapp.com/favicon.ico'),
+            'referrerfavicon' 	    : escape('http://www.ekive.com/static/rbutton/mainstatic/img/favicon.ico'),
             'purpose'               : escape('Capture%20the%20DC%20Medicaid%20Form'),
             'debug' 			    : 'true',
             'imageFormat'           : 'jpg',
@@ -101,12 +35,13 @@
        //   'postValues'            : '',
             'returnStatus'          : 'true',
             'returnServerResponse'  : 'false',
-            'returnThumbnailDataURL': 'false',
-            'thumbnailSize'         : '50'
+            'returnThumbnailDataURL': 'true',
+            'thumbnailSize'         : '80'
 
         };
 
-        updateScratchWithCurrentParams();
+        Picup.convertFileInput($('photo'), currentParams);
+
 
         });
 
@@ -127,9 +62,9 @@
     <p class>Browser elements found:{{ found }}</p>
 
         <input type="text" name="scratch_url" id="scratch_url" value="{{ scratch_url }}" {% ifequal picup_debug False %}style="display:none;"{% endifequal %} /><br/>
-        <input type="file" name="filedata" id="file_upload_input" onclick="viewScratchURL();return false;" value="Upload Photo" />
 
-        <input type="button" id="file_view_input" style="display:none;" onclick="viewScratchURL();return false;" value="View Photo" />
+        <label for="image">Upload Image:</label>
+        <input type="file" name="photo" id="photo"/>
 
         <a name="results"></a>
         <div id="thumbnail_preview"></div>

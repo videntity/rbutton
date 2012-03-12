@@ -21,7 +21,7 @@ def browser_test(request):
     fu = ""
 
     picup_debug  = "True"
-    favicon_url  = escape("http://picupapp.com/favicon.ico")
+    favicon_url  = escape("http://www.ekive.com/static/rbutton/mainstatic/img/favicon.ico")
     purpose_text = "Upload%20a%20DC%20Medicaid%20Form%20Page"
     callback_url = "http://www.rainbowbutton.com/experiment/upload-done/"
     callback_parameters = "referrername=Picup%20Scratchpad&referrerfavicon="+favicon_url+"&purpose="+purpose_text+"&debug="+picup_debug+"&returnstatus=true&returnserverresponse=true&returnthumbnaildataurl=true&thumbnailsize=50"
@@ -44,3 +44,11 @@ def photo_upload_done(request):
     """
     Return control from iPhone Photo upload to this routine
     """
+
+
+
+    return render_to_response('experimental/upload_done.html',
+            {
+
+            },
+        RequestContext(request))

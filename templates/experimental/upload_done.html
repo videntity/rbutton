@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block extra_head %}
+<title>Uploaded Photo...</title>
+<script type="text/css">
+
+</script>
+    function getHashUrlVars(){
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('#') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    // Get all URL parameters
+    var allVars = getHashUrlVars();
+
+    // Getting URL var by its name
+    var image = getHashUrlVars()["image"];
+    var status = getHashUrlVars()["status"];
+
+    var data = "/experiment/upload_save?image="+ image +"&status="+status;
+
+    alert('imgURL: '+unescape(image));
+    alert('status: '+unescape(status));
+
+    //redirect the page to php script to be accessed using $_REQUEST
+
+    window.location = data;
+
+
+{% endblock %}
+
+{% block high_breadcrumbs %}
+    <h1>Browser Test</h1>
+    {% include "back.html" %}
+{% endblock %}
+
+{% block featureBox %}
+
+
+    <h2>Photo Result: {{ result }}</h2>
+    <p class>Browser elements found:{{ found }}</p>
+
+    <a name="results"></a>
+    <div id="thumbnail_preview"></div>
+    <pre id="output">
+
+		</pre>
+    <script type="text/javascript">
+        if(isIphone) document.body.className = "iphone";
+    </script>
+    <p><a href="http://itunes.apple.com/us/app/picup/id354101378?mt=8" id="available_in_appstore">
+        <img src="http://www.ekive.com/images/AppsStore.jpg" width="150">
+    </a></p>
+
+
+
+{% endblock %}
