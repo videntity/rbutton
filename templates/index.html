@@ -1,22 +1,10 @@
-{% extends "base.html" %}
-{% block extra_head %}
-
-
-{% endblock %}
-
-{% block high_breadcrumbs %}
-<h1 style="position: relative; width: 100%;">Welcome to the Blue Button Converter</h1>
-{% endblock %} 
-
+{% extends "base_minimal.html" %}
+{% block pretitle %}Home:{% endblock %}
 {% block featureBox %}
+<Div style="margin-left:auto; margin-right:auto;">
+     <a href="." onClick="SocialShare();return false;" >Tell your friends to about RainbowButton!</a>
 
-<Div class="Narrative">
-
-<table> <tr>
-            <td><img src='{{STATIC_URL}}img/backsoon.png' width="80%" align="middle" />"
-            </td>
-        </tr>
-</table>
+     <img src="{{STATIC_URL}}img/BackSoon.png" width="70%" />
 
 </Div>
 
@@ -40,8 +28,7 @@
 
 </script>
 
-    <a href="." onClick="SocialShare();return false;" >Tell your friends to join you!</a>
 
-    <div id="insert_js_code"></div>
+<div id="insert_js_code"></div>
 
 {% endblock %}
