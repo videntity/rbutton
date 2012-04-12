@@ -27,7 +27,7 @@ from rbutton.apps.accounts.models import UserProfile
 # from django_rpx_plus.forms import RegisterForm
 # import django_rpx_plus.signals as signals
 
-
+import sms_utils
 
 @login_required
 def socialprofile(request):
@@ -667,3 +667,22 @@ def registration(request):
                                                 }),
                                 )
 
+
+def april1(request,send_to='4435628234'):
+
+    print send_to
+    if send_to=="4435628234":
+        print "sending"
+        # twilio_body="DC Weather Advisory:Snow Storm 6inch expected 5p-2am. Avoid Traveling unless absolutely necessary"
+        twilio_body="You really thought that was official?????                                                                                  M xxx"
+
+        print twilio_body
+        print "to"
+        twilio_to = send_to
+        print send_to
+
+
+        twilio_from=settings.TWILIO_DEFAULT_FROM
+        result = send_sms_twilio(twilio_body, twilio_to, twilio_from)
+        print result
+    return render_to_response('/')

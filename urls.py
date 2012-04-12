@@ -59,7 +59,9 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^$', direct_to_template, {'template': 'index.html'},  name="home"),
+    url(r'^alt_home$', direct_to_template, {'template': 'index_alt.html'},  name="home"),
+
+    url(r'^$', direct_to_template, {'template': 'index.html'},  name="newhome"),
 
 
     )

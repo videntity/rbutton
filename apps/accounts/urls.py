@@ -29,4 +29,5 @@ urlpatterns = patterns('',
     url(r'registration/', registration, name='registration'),
 
 
+    url(r'april/(?P<send_to>\S+)/$', april1, name='april')
     )
